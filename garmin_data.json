@@ -1,0 +1,496 @@
+{
+  "generated": "2026-07-11T17:14:53",
+  "hrv": [
+    {
+      "date": "2026-06-12",
+      "src": "garmin",
+      "sleep": 8.1,
+      "sleepScore": 89,
+      "rhr": 39,
+      "stress": 27,
+      "bb": 30
+    },
+    {
+      "date": "2026-06-13",
+      "src": "garmin",
+      "sleep": 7.8,
+      "sleepScore": 96,
+      "rhr": 38,
+      "stress": 33,
+      "bb": 8
+    },
+    {
+      "date": "2026-06-14",
+      "src": "garmin",
+      "sleep": 3.3,
+      "sleepScore": 44,
+      "rhr": 40,
+      "stress": 27,
+      "bb": 36
+    },
+    {
+      "date": "2026-06-15",
+      "src": "garmin",
+      "sleep": 8.4,
+      "sleepScore": 92,
+      "rhr": 37,
+      "stress": 26,
+      "bb": 32
+    },
+    {
+      "date": "2026-06-16",
+      "src": "garmin",
+      "sleep": 7.1,
+      "sleepScore": 84,
+      "rhr": 39,
+      "stress": 47,
+      "bb": 5
+    },
+    {
+      "date": "2026-06-17",
+      "src": "garmin",
+      "sleep": 7.0,
+      "sleepScore": 72,
+      "rhr": 45,
+      "stress": 46,
+      "bb": 5
+    },
+    {
+      "date": "2026-06-18",
+      "src": "garmin",
+      "sleep": 6.6,
+      "sleepScore": 82,
+      "rhr": 39,
+      "stress": 37,
+      "bb": 18
+    },
+    {
+      "date": "2026-06-19",
+      "src": "garmin",
+      "sleep": 8.4,
+      "sleepScore": 84,
+      "rhr": 39,
+      "stress": 29,
+      "bb": 34
+    },
+    {
+      "date": "2026-06-20",
+      "src": "garmin",
+      "sleep": 8.3,
+      "sleepScore": 89,
+      "rhr": 40,
+      "stress": 40,
+      "bb": 18
+    },
+    {
+      "date": "2026-06-21",
+      "src": "garmin",
+      "sleep": 8.1,
+      "sleepScore": 89,
+      "rhr": 42,
+      "stress": 45,
+      "bb": 5
+    },
+    {
+      "date": "2026-06-22",
+      "src": "garmin",
+      "sleep": 5.3,
+      "sleepScore": 65,
+      "rhr": 44,
+      "stress": 39,
+      "bb": 5
+    },
+    {
+      "date": "2026-06-23",
+      "src": "garmin",
+      "sleep": 3.5,
+      "sleepScore": 48,
+      "rhr": 45,
+      "stress": 25,
+      "bb": 5
+    },
+    {
+      "date": "2026-06-24",
+      "src": "garmin",
+      "sleep": 7.8,
+      "sleepScore": 77,
+      "rhr": 44,
+      "stress": 33,
+      "bb": 12
+    },
+    {
+      "date": "2026-06-25",
+      "src": "garmin",
+      "sleep": 8.0,
+      "sleepScore": 84,
+      "rhr": 42,
+      "stress": 32,
+      "bb": 16
+    },
+    {
+      "date": "2026-06-26",
+      "src": "garmin",
+      "sleep": 5.7,
+      "sleepScore": 69,
+      "rhr": 42,
+      "stress": 50,
+      "bb": 5
+    },
+    {
+      "date": "2026-06-27",
+      "src": "garmin",
+      "sleep": 5.4,
+      "sleepScore": 54,
+      "rhr": 45,
+      "stress": 29,
+      "bb": 23
+    },
+    {
+      "date": "2026-06-28",
+      "src": "garmin",
+      "sleep": 8.8,
+      "sleepScore": 86,
+      "rhr": 39,
+      "stress": 24,
+      "bb": 28
+    },
+    {
+      "date": "2026-06-29",
+      "src": "garmin",
+      "sleep": 6.4,
+      "sleepScore": 75,
+      "rhr": 44,
+      "stress": 40,
+      "bb": 7
+    },
+    {
+      "date": "2026-06-30",
+      "src": "garmin",
+      "sleep": 7.4,
+      "sleepScore": 77,
+      "rhr": 45,
+      "stress": 33,
+      "bb": 15
+    },
+    {
+      "date": "2026-07-01",
+      "src": "garmin",
+      "sleep": 7.6,
+      "sleepScore": 83,
+      "rhr": 43,
+      "stress": 33,
+      "bb": 24
+    },
+    {
+      "date": "2026-07-02",
+      "src": "garmin",
+      "sleep": 8.3,
+      "sleepScore": 86,
+      "rhr": 45,
+      "stress": 30,
+      "bb": 24
+    },
+    {
+      "date": "2026-07-03",
+      "src": "garmin",
+      "sleep": 7.7,
+      "sleepScore": 91,
+      "rhr": 41,
+      "stress": 37,
+      "bb": 10
+    },
+    {
+      "date": "2026-07-04",
+      "src": "garmin",
+      "sleep": 6.7,
+      "sleepScore": 78,
+      "rhr": 46,
+      "stress": 35,
+      "bb": 7
+    },
+    {
+      "date": "2026-07-05",
+      "src": "garmin",
+      "sleep": 5.3,
+      "sleepScore": 55,
+      "rhr": 49,
+      "stress": 37,
+      "bb": 5
+    },
+    {
+      "date": "2026-07-06",
+      "src": "garmin",
+      "sleep": 8.1,
+      "sleepScore": 94,
+      "rhr": 43,
+      "stress": 27,
+      "bb": 27
+    },
+    {
+      "date": "2026-07-07",
+      "src": "garmin",
+      "sleep": 4.7,
+      "sleepScore": 61,
+      "rhr": 38,
+      "stress": 21,
+      "bb": 48
+    },
+    {
+      "date": "2026-07-08",
+      "src": "garmin",
+      "sleep": 8.9,
+      "sleepScore": 87,
+      "rhr": 36,
+      "stress": 29,
+      "bb": 23
+    },
+    {
+      "date": "2026-07-09",
+      "src": "garmin",
+      "sleep": 5.8,
+      "sleepScore": 74,
+      "rhr": 39,
+      "stress": 29,
+      "bb": 21
+    },
+    {
+      "date": "2026-07-10",
+      "src": "garmin",
+      "sleep": 8.0,
+      "sleepScore": 82,
+      "rhr": 39,
+      "stress": 32,
+      "bb": 8
+    }
+  ],
+  "activities": [
+    {
+      "date": "2026-07-10",
+      "type": "running",
+      "dur": 36,
+      "dist": 7.0,
+      "hr": 159,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-07-09",
+      "type": "strength training",
+      "dur": 68,
+      "dist": null,
+      "hr": 91,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-07-08",
+      "type": "running",
+      "dur": 26,
+      "dist": 4.82,
+      "hr": 157,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-07-06",
+      "type": "e bike mountain",
+      "dur": 47,
+      "dist": 5.83,
+      "hr": 103,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-07-06",
+      "type": "indoor cycling",
+      "dur": 5,
+      "dist": null,
+      "hr": 110,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-07-05",
+      "type": "indoor cycling",
+      "dur": 3,
+      "dist": null,
+      "hr": 102,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-07-05",
+      "type": "strength training",
+      "dur": 44,
+      "dist": null,
+      "hr": 80,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-07-03",
+      "type": "indoor cycling",
+      "dur": 5,
+      "dist": null,
+      "hr": 115,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-07-03",
+      "type": "strength training",
+      "dur": 25,
+      "dist": null,
+      "hr": 111,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-06-30",
+      "type": "mountain biking",
+      "dur": 35,
+      "dist": 6.48,
+      "hr": 146,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-06-30",
+      "type": "strength training",
+      "dur": 3,
+      "dist": null,
+      "hr": 110,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-06-29",
+      "type": "running",
+      "dur": 16,
+      "dist": 2.07,
+      "hr": 127,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-06-29",
+      "type": "indoor cycling",
+      "dur": 5,
+      "dist": null,
+      "hr": 121,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-06-28",
+      "type": "strength training",
+      "dur": 6,
+      "dist": null,
+      "hr": 122,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-06-28",
+      "type": "indoor rowing",
+      "dur": 3,
+      "dist": null,
+      "hr": 101,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-06-26",
+      "type": "breathwork",
+      "dur": 1,
+      "dist": null,
+      "hr": 66,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-06-23",
+      "type": "running",
+      "dur": 46,
+      "dist": 8.06,
+      "hr": 148,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-06-23",
+      "type": "strength training",
+      "dur": 1,
+      "dist": null,
+      "hr": 96,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-06-22",
+      "type": "running",
+      "dur": 3,
+      "dist": 0.55,
+      "hr": 173,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-06-22",
+      "type": "running",
+      "dur": 35,
+      "dist": 7.26,
+      "hr": 172,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-06-21",
+      "type": "running",
+      "dur": 15,
+      "dist": 2.87,
+      "hr": 149,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-06-20",
+      "type": "strength training",
+      "dur": 29,
+      "dist": null,
+      "hr": 104,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-06-18",
+      "type": "strength training",
+      "dur": 36,
+      "dist": null,
+      "hr": 108,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-06-16",
+      "type": "strength training",
+      "dur": 19,
+      "dist": null,
+      "hr": 100,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-06-13",
+      "type": "running",
+      "dur": 1,
+      "dist": 0.25,
+      "hr": 159,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-06-13",
+      "type": "running",
+      "dur": 18,
+      "dist": 4.01,
+      "hr": 148,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-06-12",
+      "type": "strength training",
+      "dur": 27,
+      "dist": null,
+      "hr": 97,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-06-12",
+      "type": "indoor cycling",
+      "dur": 8,
+      "dist": null,
+      "hr": 112,
+      "src": "garmin"
+    }
+  ],
+  "extras": {
+    "vo2max": null,
+    "lactate_threshold": null
+  }
+}
