@@ -134,7 +134,7 @@
     border:1px solid var(--line);background:var(--water-deep);color:var(--muted);
     font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;transition:.15s;user-select:none;
   }
-  .chip small{display:block;font-size:10px;font-weight:500;letter-spacing:.05em;margin-top:2px;opacity:.8}
+  .chip small{display:block;font-size:9.5px;font-weight:600;letter-spacing:.01em;margin-top:3px;opacity:.85;line-height:1.15}
   .chip[data-t="1"].on{border-color:var(--t1);color:#08202B;background:var(--t1)}
   .chip[data-t="2"].on{border-color:var(--t2);color:#08202B;background:var(--t2)}
   .chip[data-t="3"].on{border-color:var(--t3);color:#08202B;background:var(--t3)}
@@ -182,10 +182,6 @@
   .section-title h2{font-size:20px;margin:0;letter-spacing:-.4px}
   .section-title .count{font-size:13px;color:var(--muted)}
 
-  /* rpe */
-  .rpe{display:flex;gap:5px;flex-wrap:wrap}
-  .rpe span{width:30px;height:34px;display:flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid var(--line);background:var(--water-deep);color:var(--muted);cursor:pointer;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;transition:.12s}
-  .rpe span.on{background:var(--wake);border-color:var(--wake);color:#08202B}
 
   .import-zone{border:1.5px dashed var(--line);border-radius:12px;padding:20px;text-align:center;color:var(--muted);transition:.15s;cursor:pointer}
   .import-zone:hover{border-color:var(--wake);color:var(--foam)}
@@ -210,9 +206,47 @@
   .readout{font-size:12px;color:var(--wake);font-family:'Space Grotesk',sans-serif;font-weight:600;margin-top:4px}
   code{background:var(--water-deep);padding:1px 6px;border-radius:5px;font-size:12px;color:var(--wake)}
 
+  /* selector de pasadas por línea (esquí) */
+  .lines{display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:7px}
+  .linebox{background:var(--water-deep);border:1px solid var(--line);border-radius:10px;padding:8px 6px;text-align:center;transition:.15s}
+  .linebox.on{border-color:var(--buoy);background:rgba(255,107,53,.10)}
+  .linebox .lb-off{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;color:var(--foam)}
+  .linebox .lb-m{font-size:9.5px;color:var(--muted-2);margin-bottom:5px}
+  .linebox .lb-pct{font-size:9.5px;font-weight:700;margin-bottom:5px;font-family:'Space Grotesk',sans-serif}
+  .linebox input{width:100%;text-align:center;padding:5px 2px;font-size:14px;font-weight:700;
+    font-family:'Space Grotesk',sans-serif;background:var(--panel);border:1px solid var(--line);
+    border-radius:6px;color:var(--foam)}
+  .linebox input:focus{border-color:var(--buoy);outline:none}
+
+  /* selector RPE */
+  .rpe{display:flex;gap:4px;flex-wrap:wrap}
+  .rpe span{width:27px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:7px;
+    border:1px solid var(--line);background:var(--water-deep);color:var(--muted);cursor:pointer;
+    font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:12px;transition:.12s;user-select:none}
+  .rpe span:hover{border-color:var(--wake)}
+  .rpe span.on{background:var(--wake);border-color:var(--wake);color:#08202B}
+  .rpe-mini{display:inline-flex;gap:3px}
+  .rpe-mini span{width:19px;height:19px;font-size:10px;display:flex;align-items:center;justify-content:center;
+    border-radius:5px;border:1px solid var(--line);background:var(--water-deep);color:var(--muted-2);cursor:pointer;
+    font-family:'Space Grotesk',sans-serif;font-weight:600}
+  .rpe-mini span:hover{border-color:var(--wake);color:var(--wake)}
+  .rpe-mini span.on{background:var(--buoy);border-color:var(--buoy);color:#160a04}
+
+  h4.blk{margin:20px 0 10px;font-size:13px;color:var(--wake);text-transform:uppercase;letter-spacing:.09em;
+    font-family:'Space Grotesk',sans-serif;font-weight:700;border-bottom:1px solid var(--line);padding-bottom:6px}
+  .calc{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;color:var(--muted);
+    background:var(--water-deep);border:1px solid var(--line);border-radius:9px;padding:10px 12px;display:block}
+  .calc b{color:var(--wake)}
+  .calc .warn{color:var(--t1)} .calc .bad{color:var(--danger)} .calc .good{color:var(--ok)}
+  .res-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+  .res{background:var(--water-deep);border:1px solid var(--line);border-radius:11px;padding:14px}
+  .res .rl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;font-weight:600;line-height:1.3}
+  .res .rv{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:24px;margin:5px 0 2px}
+  .res .ru{font-size:11px;color:var(--muted-2)}
+
   /* coach / readiness */
   .ready-hero{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
-  .ready-ring{position:relative;width:130px;height:130px;flex:none}
+  .ready-ring{position:relative;width:140px;height:140px;flex:none}
   .ready-ring .rv{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
   .ready-ring .rv b{font-family:'Space Grotesk',sans-serif;font-size:38px;font-weight:700;line-height:1}
   .ready-ring .rv small{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
@@ -285,7 +319,9 @@
   @media(max-width:560px){
     .stat .num{font-size:36px}
     .ses-row,.act-row{grid-template-columns:auto 1fr auto}
-    .ses-row .note,.act-row .dur{display:none}
+    .ses-row .note{display:none}
+    .act-row .dur span:first-child{display:none}
+    .rpe-mini span{width:17px;height:17px;font-size:9px}
     .row .date small{display:none}
     nav.tabs{gap:2px;padding:4px}
     nav.tabs button{font-size:12px;padding:10px 3px}
@@ -370,11 +406,27 @@
         <div class="foot">Garmin + manuales</div>
       </div>
       <div class="card stat">
+        <div class="label">Strain de hoy</div>
+        <div class="num" id="s-strain" style="color:var(--buoy)">—</div>
+        <div class="unit" id="s-strain-lbl">/ 21</div>
+        <div class="foot" id="s-strain-foot">objetivo según recovery</div>
+      </div>
+      <div class="card stat">
         <div class="label">Racha activa</div>
         <div class="num" id="s-streak">0</div>
         <div class="unit">días seguidos</div>
         <div class="foot">Cualquier registro cuenta</div>
       </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <h3>Strain</h3>
+        <span class="hint">escala 0-21 · últimos 14 días</span>
+      </div>
+      <div id="strain-gauge" style="margin-bottom:6px"></div>
+      <div class="chart-wrap"><svg class="chart" id="chart-strain" style="height:180px"></svg></div>
+      <div class="note-sm">El strain mide cuánto esfuerzo cardiovascular acumulaste, ponderando la intensidad de forma exponencial: 20 min duros pesan más que 60 min suaves. La línea marca el strain que tu recuperación sugiere para hoy.</div>
     </div>
 
     <div class="panel">
@@ -392,9 +444,9 @@
       </div>
       <div class="chart-wrap"><svg class="chart" id="chart-passes"></svg></div>
       <div class="legend">
-        <span><b style="background:var(--t1)"></b>Tipo 1</span>
-        <span><b style="background:var(--t2)"></b>Tipo 2</span>
-        <span><b style="background:var(--t3)"></b>Tipo 3</span>
+        <span><b style="background:var(--t1)"></b>Torneo</span>
+        <span><b style="background:var(--t2)"></b>Back to backs</span>
+        <span><b style="background:var(--t3)"></b>Reps cuerda larga</span>
       </div>
     </div>
   </section>
@@ -411,22 +463,39 @@
         <div class="field">
           <label>Tipo de sesión</label>
           <div class="chips" id="ski-chips">
-            <div class="chip" data-t="1">1<small>renombrable</small></div>
-            <div class="chip" data-t="2">2<small>renombrable</small></div>
-            <div class="chip" data-t="3">3<small>renombrable</small></div>
+            <div class="chip" data-t="1">1<small>torneo</small></div>
+            <div class="chip" data-t="2">2<small>back to backs</small></div>
+            <div class="chip" data-t="3">3<small>reps cuerda larga</small></div>
           </div>
         </div>
         <div class="field">
-          <label>Pasadas</label>
-          <input type="number" id="ski-passes" min="0" step="1" placeholder="ej. 6" required>
+          <label>Velocidad de bote</label>
+          <select id="ski-speed">
+            <option value="58">58 km/h (36 mph)</option>
+            <option value="55">55 km/h (34 mph)</option>
+            <option value="52">52 km/h (32 mph)</option>
+            <option value="49">49 km/h (30 mph)</option>
+            <option value="46">46 km/h (28 mph)</option>
+          </select>
         </div>
         <div class="field">
-          <label>Sensación (RPE)</label>
-          <div class="rpe" id="ski-rpe"></div>
+          <label>Descanso entre pasadas (s)</label>
+          <input type="number" id="ski-rest" min="10" max="300" step="5" value="40">
         </div>
         <div class="field full">
+          <label>Pasadas por línea <span style="color:var(--muted-2);font-weight:500">· la carga sale de aquí</span></label>
+          <div class="lines" id="ski-lines"></div>
+        </div>
+        <div class="field full">
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+            <input type="checkbox" id="ski-comp" style="width:auto;margin:0">
+            <span>Competencia (una sola bala por línea · ×1,65)</span>
+          </label>
+        </div>
+        <div class="field full"><span class="calc" id="ski-calc">Strain de la sesión —</span></div>
+        <div class="field full">
           <label>Notas (opcional)</label>
-          <textarea id="ski-notes" placeholder="cuerda, velocidad, boyas logradas, condiciones del agua…"></textarea>
+          <textarea id="ski-notes" placeholder="condiciones del agua, sensaciones, boyas logradas…"></textarea>
         </div>
         <div class="field full" style="flex-direction:row;justify-content:flex-end">
           <button type="submit" class="btn primary">Guardar sesión</button>
@@ -499,12 +568,20 @@
           <input type="number" id="hrv-sleepscore" min="0" max="100" step="1" placeholder="0-100">
         </div>
         <div class="field">
+          <label>Sueño profundo Q-WACH</label>
+          <input type="number" id="hrv-deepq" min="0" max="100" step="1" placeholder="70-100">
+        </div>
+        <div class="field">
           <label>FC reposo</label>
           <input type="number" id="hrv-rhr" min="0" step="1" placeholder="ppm">
         </div>
         <div class="field">
-          <label>Estrés (0-100)</label>
+          <label>Estrés Garmin (0-100)</label>
           <input type="number" id="hrv-stress" min="0" max="100" step="1" placeholder="Garmin">
+        </div>
+        <div class="field">
+          <label>Estrés Q-WACH (0-100)</label>
+          <input type="number" id="hrv-stressq" min="0" max="100" step="1" placeholder="Q-WACH">
         </div>
         <div class="field">
           <label>Body Battery</label>
@@ -532,6 +609,15 @@
     <div class="panel">
       <div class="panel-head"><h3>Sueño · últimos 7 días</h3><span class="hint">vs objetivo</span></div>
       <div class="chart-wrap"><svg class="chart" id="chart-sleep" style="height:170px"></svg></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head"><h3>Deuda de sueño acumulada</h3><span class="hint">últimos 7 días · horas</span></div>
+      <div class="chart-wrap"><svg class="chart" id="chart-sleep-debt" style="height:190px"></svg></div>
+      <div class="legend">
+        <span><b style="background:var(--ok)"></b>A favor (dormiste de más)</span>
+        <span><b style="background:var(--danger)"></b>En deuda</span>
+      </div>
     </div>
 
     <div class="rows" id="hrv-rows"></div>
@@ -590,6 +676,10 @@
         <div class="field">
           <label>FC media (ppm)</label>
           <input type="number" id="act-hr" min="0" step="1" placeholder="para zonas">
+        </div>
+        <div class="field">
+          <label>RPE (1-10) <span style="color:var(--muted-2);font-weight:500">· clave en fuerza</span></label>
+          <div class="rpe" id="act-rpe"></div>
         </div>
         <div class="field full">
           <label>Músculos trabajados <span style="color:var(--muted-2);font-weight:500">· opcional · toca 1 vez primario (rojo), 2 veces secundario (amarillo). Si lo dejas vacío se usa el patrón típico del tipo de actividad.</span></label>
@@ -662,7 +752,7 @@
 
   <!-- COACH -->
   <section class="view" id="coach">
-    <div class="section-title"><h2>Coach</h2><span class="count">disponibilidad + plan de hoy</span></div>
+    <div class="section-title"><h2>Coach</h2><span class="count">readiness + plan de hoy</span></div>
 
     <div class="panel">
       <div class="ready-hero">
@@ -672,7 +762,7 @@
         </svg>
         <div class="ready-txt">
           <span class="tag" id="rec-tag">—</span>
-          <h3 id="rec-headline">Calculando disponibilidad…</h3>
+          <h3 id="rec-headline">Calculando readiness…</h3>
           <p id="rec-detail">Registra HRV, sueño y actividades para recibir una recomendación.</p>
           <div class="drivers" id="rec-drivers"></div>
         </div>
@@ -720,9 +810,9 @@
     <div class="section-title"><h2>Pruebas físicas</h2><span class="count" id="tests-count"></span></div>
 
     <div class="panel">
-      <div class="panel-head"><h3>Peso corporal</h3><span class="hint">para valores relativos</span></div>
+      <div class="panel-head"><h3>Peso corporal</h3><span class="hint">necesario para valores relativos</span></div>
       <div class="entry" style="margin-top:10px">
-        <div class="field"><label>Peso (kg)</label><input type="number" id="bw" min="30" max="200" step="0.1" placeholder="ej. 78"></div>
+        <div class="field"><label>Peso (kg)</label><input type="number" id="bw" min="30" max="200" step="0.1" placeholder="ej. 80.2"></div>
         <div class="field" style="justify-content:flex-end;flex-direction:row;align-items:center;gap:10px">
           <span class="hint" id="bw-note"></span>
           <button type="button" class="btn ghost sm" id="seed-gk">Cargar perfil GK (demo)</button>
@@ -731,60 +821,103 @@
     </div>
 
     <div class="panel">
-      <div class="panel-head"><h3>Registrar prueba</h3></div>
-      <div class="entry" style="margin-top:10px">
-        <div class="field"><label>Fecha</label><input type="date" id="t-date"></div>
-        <div class="field"><label>Prueba</label>
-          <select id="t-type">
-            <optgroup label="Fuerza">
-              <option value="imtp">IMTP · fuerza pico (N)</option>
-              <option value="imtp_rfd">IMTP · RFD 200ms (N/s)</option>
-            </optgroup>
-            <optgroup label="Potencia / salto">
-              <option value="cmj">CMJ · altura (cm)</option>
-              <option value="cmj_pot">CMJ · potencia (W/kg)</option>
-              <option value="sj">Squat Jump (cm)</option>
-              <option value="abk">Abalakov (cm)</option>
-              <option value="elastic">Índice elasticidad (%)</option>
-              <option value="arm_use">Utilización brazos (%)</option>
-              <option value="hop_bi">Salto horizontal bipodal (cm)</option>
-            </optgroup>
-            <optgroup label="Reactividad">
-              <option value="rsi">RSI (m/s)</option>
-              <option value="ttc">Ratio TV:TC</option>
-            </optgroup>
-            <optgroup label="Control postural">
-              <option value="stab_open">Estabilometría OA inestable (mm)</option>
-              <option value="stab_change">Cambio OA→OC (%)</option>
-            </optgroup>
-            <optgroup label="Simetría / equilibrio">
-              <option value="hop_asym">Asimetría unipodal (%)</option>
-              <option value="hq_ratio">Ratio H:Q 60º/s (%)</option>
-              <option value="quad_deficit">Déficit cuádriceps D-I (%)</option>
-            </optgroup>
-            <optgroup label="Rendimiento">
-              <option value="sprint">Sprint 30 m (s)</option>
-              <option value="ftp">FTP ciclismo (W)</option>
-              <option value="mas">Vel. aeróbica máx (km/h)</option>
-            </optgroup>
+      <div class="panel-head"><h3>Nueva valoración</h3><span class="hint">rellena lo que tengas</span></div>
+
+      <div class="entry" style="margin-top:12px">
+        <div class="field"><label>Fecha de valoración</label><input type="date" id="t-date"></div>
+        <div class="field"><label>Notas</label><input type="text" id="t-notes" placeholder="ej. CAR marzo 2026"></div>
+      </div>
+
+      <h4 class="blk">Fuerza · IMTP</h4>
+      <div class="entry">
+        <div class="field"><label>Peak de fuerza (N)</label><input type="number" id="t-imtp" step="1" placeholder="ej. 4127"></div>
+        <div class="field"><span class="calc" id="c-imtprel">Relativo: —</span></div>
+      </div>
+
+      <h4 class="blk">Saltos</h4>
+      <div class="entry">
+        <div class="field"><label>SJ (cm)</label><input type="number" id="t-sj" step="0.01" placeholder="ej. 36.5"></div>
+        <div class="field"><label>CMJ altura (cm)</label><input type="number" id="t-cmj" step="0.01" placeholder="ej. 43.53"></div>
+        <div class="field"><label>CMJ fuerza pico (N)</label><input type="number" id="t-cmjf" step="1" placeholder="para el DSI"></div>
+        <div class="field"><label>ABK (cm)</label><input type="number" id="t-abk" step="0.01" placeholder="ej. 44.43"></div>
+        <div class="field full"><span class="calc" id="c-saltos">Elasticidad: — · DSI: —</span></div>
+      </div>
+
+      <h4 class="blk">Despegues (horizontal)</h4>
+      <div class="entry">
+        <div class="field"><label>Bipodal (cm)</label><input type="number" id="t-hopbi" step="1" placeholder="ej. 261"></div>
+        <div class="field"><label>Unipodal derecho (cm)</label><input type="number" id="t-hopr" step="1" placeholder="ej. 233"></div>
+        <div class="field"><label>Unipodal izquierdo (cm)</label><input type="number" id="t-hopl" step="1" placeholder="ej. 226"></div>
+        <div class="field"><span class="calc" id="c-asym">Asimetría: —</span></div>
+      </div>
+
+      <h4 class="blk">Isocinético rodilla · 180°/s · concéntrico</h4>
+      <div class="entry">
+        <div class="field"><label>Extensores der. (Nm)</label><input type="number" id="t-extr" step="1" placeholder="ej. 146"></div>
+        <div class="field"><label>Extensores izq. (Nm)</label><input type="number" id="t-extl" step="1" placeholder="ej. 136"></div>
+        <div class="field"><label>Flexores der. (Nm)</label><input type="number" id="t-flexr" step="1" placeholder="ej. 98"></div>
+        <div class="field"><label>Flexores izq. (Nm)</label><input type="number" id="t-flexl" step="1" placeholder="ej. 87"></div>
+      </div>
+
+      <h4 class="blk">Isocinético rodilla · 180°/s · excéntrico</h4>
+      <div class="entry">
+        <div class="field"><label>Extensores der. (Nm)</label><input type="number" id="t-extre" step="1" placeholder="excéntrico"></div>
+        <div class="field"><label>Extensores izq. (Nm)</label><input type="number" id="t-extle" step="1" placeholder="excéntrico"></div>
+        <div class="field"><label>Flexores der. (Nm)</label><input type="number" id="t-flexre" step="1" placeholder="excéntrico"></div>
+        <div class="field"><label>Flexores izq. (Nm)</label><input type="number" id="t-flexle" step="1" placeholder="excéntrico"></div>
+        <div class="field full"><span class="calc" id="c-iso">H:Q — · Déficits —</span></div>
+        <div class="field full"><span class="calc" id="c-isof">H:Q funcional —</span></div>
+      </div>
+
+      <h4 class="blk">Récord de esquí (entrenamiento)</h4>
+      <div class="entry">
+        <div class="field"><label>Largo de cuerda</label>
+          <select id="t-skiline">
+            <option value="">—</option>
+            <option value="15">15 off (18,25 m)</option>
+            <option value="22">22 off (16,00 m)</option>
+            <option value="28">28 off (14,25 m)</option>
+            <option value="32">32 off (13,00 m)</option>
+            <option value="35">35 off (12,00 m)</option>
+            <option value="38">38 off (11,25 m)</option>
+            <option value="39.5">39,5 off (10,75 m)</option>
+            <option value="41">41 off (10,25 m)</option>
+            <option value="43">43 off (9,75 m)</option>
           </select>
         </div>
-        <div class="field"><label>Valor</label><input type="number" id="t-val" step="0.01" placeholder="valor"></div>
-        <div class="field"><label>Notas</label><input type="text" id="t-notes" placeholder="opcional"></div>
-        <div class="field full" style="flex-direction:row;justify-content:flex-end"><button type="button" class="btn primary" id="t-add">Guardar prueba</button></div>
+        <div class="field"><label>Velocidad de bote</label>
+          <select id="t-skispeed">
+            <option value="">—</option>
+            <option value="58">58 km/h (36 mph)</option>
+            <option value="55">55 km/h (34 mph)</option>
+            <option value="52">52 km/h (32 mph)</option>
+            <option value="49">49 km/h (30 mph)</option>
+            <option value="46">46 km/h (28 mph)</option>
+          </select>
+        </div>
+        <div class="field"><label>Boyas en esa línea</label>
+          <input type="number" id="t-skibuoys" min="0" max="6" step="0.5" placeholder="0-6">
+        </div>
+        <div class="field full"><span class="calc" id="c-ski">Tensión de cuerda —</span></div>
       </div>
-      <div class="note-sm" id="t-ref"></div>
+
+      <div class="entry" style="margin-top:6px">
+        <div class="field full" style="flex-direction:row;justify-content:flex-end">
+          <button type="button" class="btn primary" id="t-add">Guardar valoración</button>
+        </div>
+      </div>
     </div>
 
-    <div class="panel" id="dsi-panel" style="display:none">
-      <div class="panel-head"><h3>Dynamic Strength Index</h3><span class="hint">CMJ vs IMTP</span></div>
-      <div id="dsi-body"></div>
+    <div class="panel" id="last-panel" style="display:none">
+      <div class="panel-head"><h3>Última valoración</h3><span class="hint" id="last-date"></span></div>
+      <div id="last-body"></div>
     </div>
 
     <div class="panel">
-      <div class="panel-head"><h3>Evolución</h3><span class="hint" id="tsel-label">selecciona prueba</span></div>
+      <div class="panel-head"><h3>Evolución</h3><span class="hint" id="tsel-label">selecciona métrica</span></div>
       <div class="win-toggle" id="test-sel" style="margin-bottom:14px;flex-wrap:wrap"></div>
       <div class="chart-wrap"><svg class="chart" id="chart-test" style="height:190px"></svg></div>
+      <div class="note-sm" id="t-ref"></div>
     </div>
 
     <div class="rows" id="test-rows"></div>
@@ -845,6 +978,13 @@ const daysAgo = n => { const d=new Date(); d.setHours(0,0,0,0); d.setDate(d.getD
 const toISO   = d => d.toISOString().slice(0,10);
 function toast(msg,warn){ const t=$("#toast"); t.textContent=msg; t.className="toast show"+(warn?" warn":""); setTimeout(()=>t.className="toast",2600); }
 
+/* ---------- tipos de sesión de esquí náutico ---------- */
+const SKI_TYPES={
+  1:{short:'Torneo',      full:'Tipo torneo'},
+  2:{short:'Back to back',full:'Back to backs'},
+  3:{short:'Cuerda larga',full:'Reps cuerda larga'}
+};
+
 /* ---------- navegación ---------- */
 document.querySelectorAll('nav.tabs button').forEach(b=>{
   b.onclick=()=>{
@@ -853,11 +993,6 @@ document.querySelectorAll('nav.tabs button').forEach(b=>{
     b.classList.add('active'); $("#"+b.dataset.view).classList.add('active');
   };
 });
-
-/* ---------- RPE selector ---------- */
-let skiRpe=0;
-const rpeBox=$("#ski-rpe");
-for(let i=1;i<=10;i++){ const s=document.createElement('span'); s.textContent=i; s.onclick=()=>{skiRpe=i;[...rpeBox.children].forEach((c,idx)=>c.classList.toggle('on',idx<i));}; rpeBox.appendChild(s); }
 
 /* ---------- type chips ---------- */
 let skiType=null;
@@ -869,16 +1004,68 @@ $("#ski-chips").querySelectorAll('.chip').forEach(c=>{
 [["#ski-date"],["#hrv-date"],["#act-date"]].forEach(([sel])=>{ $(sel).value=toISO(new Date()); });
 
 /* ---------- SUBMIT: esquí ---------- */
+/* ---------- selector de pasadas por línea ---------- */
+const LINE_ORDER=['22','28','32','35','38','39.5','41','43'];
+function buildLineBoxes(){
+  const box=$("#ski-lines"); if(!box) return;
+  box.innerHTML=LINE_ORDER.map(off=>
+    `<div class="linebox" data-off="${off}">
+       <div class="lb-off">${off} off</div>
+       <div class="lb-m">${SKI_LINES[off]} m</div>
+       <div class="lb-pct" data-pct="${off}">—</div>
+       <input type="number" min="0" max="20" step="1" placeholder="0" data-line="${off}">
+     </div>`).join("");
+  box.querySelectorAll('input').forEach(i=>i.addEventListener('input',skiCalc));
+}
+function skiDraft(){
+  const lines={};
+  document.querySelectorAll('#ski-lines input').forEach(i=>{
+    const n=parseInt(i.value,10); if(!isNaN(n)&&n>0) lines[i.dataset.line]=n;
+  });
+  return {lines, speed:parseFloat($("#ski-speed").value)||58,
+    rest:parseInt($("#ski-rest").value,10)||40, comp:$("#ski-comp").checked};
+}
+function skiCalc(){
+  const s=skiDraft();
+  // pinta el % de IMTP de cada línea y resalta las usadas
+  document.querySelectorAll('#ski-lines .linebox').forEach(bx=>{
+    const off=bx.dataset.off;
+    const I=A.passIntensity(off, s.speed);
+    const el=bx.querySelector('[data-pct]');
+    bx.classList.toggle('on', (s.lines[off]||0)>0);
+    if(I==null){ el.textContent='—'; el.style.color='var(--muted-2)'; return; }
+    const pct=I*100;
+    el.textContent=Math.round(pct)+'%';
+    el.style.color = pct>=100?'var(--danger)' : pct>=90?'var(--buoy)' : pct>=75?'var(--t1)' : 'var(--ok)';
+  });
+  const box=$("#ski-calc"); if(!box) return;
+  const n=Object.values(s.lines).reduce((a,b)=>a+b,0);
+  if(!n){ box.innerHTML='Strain de la sesión: — <span class="warn">(indica las pasadas de cada línea)</span>'; return; }
+  if(!state.settings.bodyweight){ box.innerHTML='Strain: — <span class="warn">(falta tu peso corporal, en Pruebas)</span>'; return; }
+  const st=A.sessionStrain(s), lbl=A.strainLabel(st);
+  const hard=Object.keys(s.lines).filter(o=>s.lines[o]>0).sort((a,b)=>SKI_LINES[a]-SKI_LINES[b])[0];
+  const I=A.passIntensity(hard, s.speed);
+  let out=`Strain: <b style="color:${lbl.c};font-size:17px">${st.toFixed(1)}</b> / 21 <span style="color:${lbl.c}">· ${lbl.t}</span>`;
+  out+=`  ·  ${n} pasadas · línea más corta ${hard} off`;
+  if(I!=null) out+=` (<b style="color:${I>=1?'var(--danger)':'var(--buoy)'}">${Math.round(I*100)}% de tu IMTP</b>)`;
+  if(s.comp) out+=`  ·  <span style="color:var(--buoy)">competencia ×1,65</span>`;
+  if(A.imtpIsEstimated()) out+=`<br><span class="warn" style="font-weight:500">IMTP estimado por tu peso. Registra tu IMTP real en Pruebas para un strain preciso.</span>`;
+  box.innerHTML=out;
+}
+["#ski-speed","#ski-rest","#ski-comp"].forEach(id=>{ const el=$(id); if(el) el.addEventListener('input',skiCalc); });
+
 $("#ski-form").onsubmit=e=>{
   e.preventDefault();
   if(!skiType){ toast("Elige el tipo de sesión (1, 2 o 3)",true); return; }
-  const passes=parseInt($("#ski-passes").value,10);
-  if(isNaN(passes)){ toast("Indica cuántas pasadas",true); return; }
-  state.sessions.push({id:uid(),date:$("#ski-date").value,type:skiType,passes,rpe:skiRpe,notes:$("#ski-notes").value.trim()});
-  $("#ski-passes").value="";$("#ski-notes").value="";skiRpe=0;skiType=null;
-  [...rpeBox.children].forEach(c=>c.classList.remove('on'));
+  const d=skiDraft();
+  const n=Object.values(d.lines).reduce((a,b)=>a+b,0);
+  if(!n){ toast("Indica las pasadas de al menos una línea",true); return; }
+  state.sessions.push(Object.assign({id:uid(),date:$("#ski-date").value,type:skiType,
+    notes:$("#ski-notes").value.trim()}, d));
+  document.querySelectorAll('#ski-lines input').forEach(i=>i.value="");
+  $("#ski-notes").value=""; $("#ski-comp").checked=false; skiType=null;
   $("#ski-chips").querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));
-  save(); toast("Sesión guardada");
+  skiCalc(); save(); toast("Sesión guardada");
 };
 
 /* ---------- SUBMIT: día de recuperación ---------- */
@@ -896,12 +1083,13 @@ $("#hrv-form").onsubmit=e=>{
   const rec={id:uid(),date:$("#hrv-date").value,
     val,readings:readings.length?readings:null,
     recovery:numOrNull("#hrv-recovery"),sleep:numOrNull("#hrv-sleep"),sleepScore:numOrNull("#hrv-sleepscore"),
-    rhr:numOrNull("#hrv-rhr"),stress:numOrNull("#hrv-stress"),bb:numOrNull("#hrv-bb"),
+    deepQ:numOrNull("#hrv-deepq"),
+    rhr:numOrNull("#hrv-rhr"),stress:numOrNull("#hrv-stress"),stressQ:numOrNull("#hrv-stressq"),bb:numOrNull("#hrv-bb"),
     notes:$("#hrv-notes").value.trim()};
-  if([rec.val,rec.recovery,rec.sleep,rec.sleepScore,rec.rhr,rec.stress,rec.bb].every(x=>x==null)){
+  if([rec.val,rec.recovery,rec.sleep,rec.sleepScore,rec.deepQ,rec.rhr,rec.stress,rec.stressQ,rec.bb].every(x=>x==null)){
     toast("Rellena al menos un dato (HRV, recovery o sueño)",true); return; }
   state.hrv.push(rec);
-  ["#hrv-readings","#hrv-recovery","#hrv-sleep","#hrv-sleepscore","#hrv-rhr","#hrv-stress","#hrv-bb","#hrv-notes"].forEach(s=>$(s).value="");
+  ["#hrv-readings","#hrv-recovery","#hrv-sleep","#hrv-sleepscore","#hrv-deepq","#hrv-rhr","#hrv-stress","#hrv-stressq","#hrv-bb","#hrv-notes"].forEach(s=>$(s).value="");
   updateHrvReadout();
   save(); toast("Día guardado");
 };
@@ -954,6 +1142,17 @@ MGROUPS.forEach(g=>{ const c=document.createElement('span'); c.className='mus-ch
   musBox.appendChild(c); });
 function resetMuscles(){ actMuscles={}; musBox.querySelectorAll('.mus-chip').forEach(c=>c.className='mus-chip'); }
 
+/* ---------- selector de RPE para actividades ---------- */
+let actRpe=0;
+const actRpeBox=$("#act-rpe");
+if(actRpeBox){
+  for(let i=1;i<=10;i++){ const s=document.createElement('span'); s.textContent=i;
+    s.onclick=()=>{ actRpe = (actRpe===i)?0:i;
+      [...actRpeBox.children].forEach((c,idx)=>c.classList.toggle('on', actRpe>0 && idx<actRpe)); };
+    actRpeBox.appendChild(s); }
+}
+function resetActRpe(){ actRpe=0; if(actRpeBox) [...actRpeBox.children].forEach(c=>c.classList.remove('on')); }
+
 /* ---------- SUBMIT: actividad ---------- */
 $("#act-form").onsubmit=e=>{
   e.preventDefault();
@@ -964,10 +1163,20 @@ $("#act-form").onsubmit=e=>{
     dur:$("#act-dur").value?parseInt($("#act-dur").value,10):null,
     dist:$("#act-dist").value?parseFloat($("#act-dist").value):null,
     hr:$("#act-hr").value?parseInt($("#act-hr").value,10):null,
+    rpe:actRpe>0?actRpe:null,
     primary:primary.length?primary:null,secondary:secondary.length?secondary:null,src:"manual"});
-  $("#act-type").value="";$("#act-dur").value="";$("#act-dist").value="";$("#act-hr").value="";resetMuscles();
+  $("#act-type").value="";$("#act-dur").value="";$("#act-dist").value="";$("#act-hr").value="";
+  resetMuscles(); resetActRpe();
   save(); toast("Actividad añadida");
 };
+
+/* fijar el RPE de una actividad ya existente (p. ej. importada de Garmin) */
+function setRpe(id, val){
+  const a=state.activities.find(x=>x.id===id); if(!a) return;
+  a.rpe = (a.rpe===val)? null : val;
+  save();
+}
+window.setRpe=setRpe;
 
 /* ---------- borrar ---------- */
 function del(kind,id){
@@ -1207,44 +1416,53 @@ document.querySelectorAll('#win-toggle button').forEach(b=>b.onclick=()=>{ loadW
 $("#bw").onchange=()=>{ const v=parseFloat($("#bw").value); state.settings.bodyweight=isNaN(v)?null:v; save(); toast("Peso guardado"); };
 $("#seed-gk").onclick=seedGK;
 function bindTests(){ if($("#bw"))$("#bw").value=state.settings.bodyweight||""; }
-$("#t-type").onchange=()=>{ const meta=TEST_META[$("#t-type").value]; $("#t-ref").textContent=meta?meta.ref:""; };
+// --- guardado de la valoración completa ---
+["#t-imtp","#t-sj","#t-cmj","#t-cmjf","#t-abk","#t-hopbi","#t-hopr","#t-hopl",
+ "#t-extr","#t-extl","#t-flexr","#t-flexl",
+ "#t-extre","#t-extle","#t-flexre","#t-flexle","#t-skibuoys"].forEach(id=>{
+  const el=$(id); if(el) el.addEventListener('input', liveCalc);
+});
+["#t-skiline","#t-skispeed"].forEach(id=>{
+  const el=$(id); if(el) el.addEventListener('change', liveCalc);
+});
+
 $("#t-add").onclick=()=>{
-  const type=$("#t-type").value, val=parseFloat($("#t-val").value);
-  if(isNaN(val)){ toast("Indica el valor de la prueba",true); return; }
-  state.tests.push({id:uid(),date:$("#t-date").value||toISO(new Date()),type,value:val,notes:$("#t-notes").value.trim()});
-  $("#t-val").value="";$("#t-notes").value="";
-  save(); toast("Prueba guardada");
+  const d=formDraft();
+  const hasAny=Object.values(d).some(v=>v!=null);
+  if(!hasAny){ toast("Rellena al menos un dato de la valoración",true); return; }
+  state.tests.push(Object.assign({id:uid(), date:$("#t-date").value||toISO(new Date()),
+    notes:$("#t-notes").value.trim()}, d));
+  ["#t-imtp","#t-sj","#t-cmj","#t-cmjf","#t-abk","#t-hopbi","#t-hopr","#t-hopl",
+   "#t-extr","#t-extl","#t-flexr","#t-flexl",
+   "#t-extre","#t-extle","#t-flexre","#t-flexle",
+   "#t-skiline","#t-skispeed","#t-skibuoys","#t-notes"].forEach(id=>{ const el=$(id); if(el) el.value=""; });
+  save(); toast("Valoración guardada");
 };
 function delTest(id){ state.tests=state.tests.filter(t=>t.id!==id); save(); }
 window.delTest=delTest;
 
-/* ---------- SIMULACIÓN: perfil de GK (informe CAR 17-mar-2026) ---------- */
+/* ---------- SIMULACIÓN: perfil de GK (informe CAR) ---------- */
 function seedGK(){
-  state.settings.bodyweight=80.2;
-  state.settings.athleteName='GK · Gustavo Kretschmer';
-  state.settings.hrMax=state.settings.hrMax||194; state.settings.hrRest=state.settings.hrRest||48;
-  const D26='2026-03-17', D24='2024-12-19', D24b='2024-12-01';
-  const T=(date,type,value,notes)=>({id:uid(),date,type,value,notes:notes||''});
-  const seed=[
-    // IMTP (dos fechas -> tendencia)
-    T(D24,'imtp',3280,'CAR dic 2024'), T(D26,'imtp',4127,'CAR mar 2026'),
-    T(D24,'imtp_rfd',1531,''),          T(D26,'imtp_rfd',1357,''),
-    // Saltos mar 2026 + CMJ dic 2024
-    T(D24,'cmj',34.6,'CAR dic 2024'),   T(D26,'cmj',43.53,'CAR mar 2026'),
-    T(D26,'cmj_pot',49.9,''), T(D26,'sj',36.5,''), T(D26,'abk',44.43,''),
-    T(D26,'elastic',19.26,''), T(D26,'arm_use',2.07,'bajo: margen técnico'),
-    T(D26,'ttc',0.72,''),
-    // Saltos horizontales
-    T(D26,'hop_bi',261,'simétrico'), T(D26,'hop_asym',0.44,'excelente simetría'),
-    // Control postural (superficie inestable)
-    T(D26,'stab_open',365,'excursión OA inestable'), T(D26,'stab_change',54.83,'dependencia visual alta'),
-    // Isocinético rodilla 60º/s
-    T(D26,'hq_ratio',56,'H:Q derecha 60º/s'), T(D26,'quad_deficit',5,'ext D-I 60º/s'),
-  ];
-  // evita duplicar si ya se sembró
   const already=(state.tests||[]).some(t=>t.notes&&t.notes.includes('CAR'));
   if(already){ toast('El perfil de GK ya está cargado',true); return; }
-  state.tests=[...(state.tests||[]), ...seed];
+  state.settings.bodyweight=80.2;
+  state.settings.hrMax=state.settings.hrMax||194;
+  state.settings.hrRest=state.settings.hrRest||48;
+  state.tests=[...(state.tests||[]),
+    // dic 2024
+    {id:uid(), date:'2024-12-19', notes:'CAR dic 2024',
+     imtp:3280, sj:31.1, cmj:34.6, cmj_force:2180, abk:36.7,
+     hop_bi:248, hop_r:216, hop_l:214,
+     iso_ext_r:140, iso_ext_l:130, iso_flex_r:92, iso_flex_l:82,
+     iso_ext_r_ecc:168, iso_ext_l_ecc:158, iso_flex_r_ecc:126, iso_flex_l_ecc:114},
+    // mar 2026 (datos reales del informe)
+    {id:uid(), date:'2026-03-17', notes:'CAR mar 2026',
+     imtp:4127, sj:36.5, cmj:43.53, cmj_force:2560, abk:44.43,
+     hop_bi:261, hop_r:233, hop_l:226,
+     iso_ext_r:146, iso_ext_l:136, iso_flex_r:98, iso_flex_l:87,
+     iso_ext_r_ecc:178, iso_ext_l_ecc:166, iso_flex_r_ecc:142, iso_flex_l_ecc:130,
+     ski_line:'41', ski_speed:58, ski_buoys:3}
+  ];
   save(); bindTests();
   toast('Perfil de GK cargado ✓');
 }
@@ -1323,42 +1541,52 @@ const A = {
   },
 
   // --- RECOVERY combinado (0-100) para un día ---
+  // Pesos: HRV 25% · Sueño Garmin 45% · Continuidad sueño profundo Q-WACH 5%
+  //        FC reposo 15% · Estrés Garmin 5% · Estrés Q-WACH 5%
   recoveryFor(rec){
     const series=this.hrvSeries();
     const parts=[]; let hrvScore=null, sleepScore=null, rhrScore=null, stressScore=null;
 
-    // 1) HRV vs baseline personal (60d normal, 7d reciente) — núcleo del score
+    // 1) HRV vs baseline personal (60d) — 25%
     if(rec.val!=null){
       const b60=this.baseline(series, rec.date, 60) || this.baseline(series, rec.date, 30);
       if(b60){
         const z=(Math.log(rec.val+1)-b60.mean)/(b60.sd||0.05);
-        // z=0 -> 70; +1sd -> ~88; -1sd -> ~52; saturado 0-100
         hrvScore=Math.max(0,Math.min(100, 70 + z*18));
-        parts.push({k:'HRV', w:0.5, v:hrvScore});
+        parts.push({k:'HRV', w:0.25, v:hrvScore});
       } else {
-        // sin baseline aún: usa rango absoluto atlético (50-100 ms ~ 40-90)
         hrvScore=Math.max(0,Math.min(100,(rec.val-30)*1.4));
-        parts.push({k:'HRV', w:0.5, v:hrvScore});
+        parts.push({k:'HRV', w:0.25, v:hrvScore});
       }
     }
-    // 2) Sueño: score de Garmin (o curva por duración de respaldo) — modula recuperación
+    // 2) Sueño: score de Garmin (o curva por duración de respaldo) — 45%
     if(rec.sleepScore!=null || rec.sleep!=null){
       sleepScore=this.sleepNightScore(rec);
-      parts.push({k:'Sueño', w:0.25, v:sleepScore});
+      parts.push({k:'Sueño', w:0.45, v:sleepScore});
     }
-    // 3) FC reposo vs baseline (invertido: más baja, mejor)
+    // 3) Continuidad de sueño profundo Q-WACH (70-100 → 0-100) — 5%
+    if(rec.deepQ!=null){
+      const dq=Math.max(0,Math.min(100, (rec.deepQ-70)/30*100));
+      parts.push({k:'Sueño prof. Q-WACH', w:0.05, v:dq});
+    }
+    // 4) FC reposo vs baseline (invertido: más baja, mejor) — 15%
     const rhrSeries=[...state.hrv].filter(h=>h.rhr!=null).sort((a,b)=>a.date<b.date?-1:1);
     if(rec.rhr!=null && rhrSeries.length>=3){
       const to=new Date(rec.date+'T00:00:00'); const from=new Date(to-29*this.dayMs);
       const win=rhrSeries.filter(s=>this.within(s.date,from,to)).map(s=>s.rhr);
       if(win.length>=3){ const m=win.reduce((a,b)=>a+b,0)/win.length;
-        rhrScore=Math.max(0,Math.min(100, 70 - (rec.rhr-m)*4)); // +1ppm sobre media ~ -4
+        rhrScore=Math.max(0,Math.min(100, 70 - (rec.rhr-m)*4));
         parts.push({k:'FC reposo', w:0.15, v:rhrScore}); }
     }
-    // 4) Estrés Garmin (0-100, invertido)
+    // 5) Estrés Garmin (0-100, invertido) — 5%
     if(rec.stress!=null){
       stressScore=Math.max(0,Math.min(100, 100-rec.stress));
-      parts.push({k:'Estrés', w:0.10, v:stressScore});
+      parts.push({k:'Estrés Garmin', w:0.05, v:stressScore});
+    }
+    // 6) Estrés Q-WACH (0-100, invertido) — 5%
+    if(rec.stressQ!=null){
+      const sq=Math.max(0,Math.min(100, 100-rec.stressQ));
+      parts.push({k:'Estrés Q-WACH', w:0.05, v:sq});
     }
     if(!parts.length) return null;
     const wsum=parts.reduce((a,p)=>a+p.w,0);
@@ -1412,17 +1640,142 @@ const A = {
     return {t:'Deficiente', c:'var(--danger)'};
   },
 
+  // --- STRAIN (escala 0-21, estilo WHOOP) ---
+  // Prioridad: (1) sRPE si el usuario registró RPE (imprescindible en fuerza, donde la FC
+  // subestima el esfuerzo neuromuscular). (2) FC de reserva. (3) estimación por tipo.
+  activityStrain(a){
+    const dur=a.dur||0; if(!dur) return 0;
+    let intensity, src;
+
+    if(a.rpe!=null && a.rpe>0){
+      // sRPE: el RPE 1-10 se mapea a intensidad relativa. RPE 10 ≈ máximo esfuerzo.
+      intensity = Math.max(0, Math.min(1, a.rpe/10));
+      src='rpe';
+    } else {
+      const hrMax=state.settings.hrMax, hrRest=state.settings.hrRest||this.autoRest();
+      if(a.hr && hrMax && hrRest && hrMax>hrRest){
+        intensity=Math.max(0,Math.min(1,(a.hr-hrRest)/(hrMax-hrRest)));
+        src='hr';
+      } else {
+        const t=(a.type||'').toLowerCase();
+        if(/(hiit|interval|mtb|monta)/.test(t)) intensity=0.75;
+        else if(/(run|carrera|correr|trote)/.test(t)) intensity=0.70;
+        else if(/(bici|cycl|ruta|road)/.test(t)) intensity=0.65;
+        else if(/(fuerz|pesas|gym|strength|muscul)/.test(t)) intensity=0.62;
+        else if(/(camin|walk|yoga|movil)/.test(t)) intensity=0.35;
+        else intensity=0.55;
+        src='type';
+      }
+    }
+    const effort = dur * Math.pow(intensity, 3.2) * 10;
+    const strain = 21 * (1 - Math.exp(-effort/160));
+    return Math.max(0, Math.min(21, strain));
+  },
+  strainSource(a){
+    if(a.rpe!=null && a.rpe>0) return 'RPE';
+    const hrMax=state.settings.hrMax, hrRest=state.settings.hrRest||this.autoRest();
+    if(a.hr && hrMax && hrRest) return 'FC';
+    return 'est.';
+  },
+  // ¿es una actividad de fuerza sin RPE? (avisamos: el strain estará subestimado)
+  needsRpe(a){
+    const t=(a.type||'').toLowerCase();
+    return /(fuerz|pesas|gym|strength|muscul)/.test(t) && (a.rpe==null||a.rpe===0);
+  },
+  // Strain de un DÍA: combina las actividades y el esquí, sin sumar linealmente
+  dayStrain(iso){
+    let effortSum=0;
+    const toEffort=s=> -160*Math.log(1-Math.min(0.999, s/21));   // inversa: strain -> esfuerzo
+    state.activities.filter(a=>a.date===iso).forEach(a=>{ effortSum+=toEffort(this.activityStrain(a)); });
+    state.sessions.filter(s=>s.date===iso).forEach(s=>{ effortSum += this.sessionEffort(s); });
+    return Math.max(0, Math.min(21, 21*(1-Math.exp(-effortSum/160))));
+  },
+  strainLabel(v){
+    if(v>=18) return {t:'Todo o nada', c:'var(--danger)'};
+    if(v>=14) return {t:'Alto', c:'var(--buoy)'};
+    if(v>=10) return {t:'Moderado', c:'var(--t1)'};
+    if(v>=6)  return {t:'Ligero', c:'var(--wake)'};
+    if(v>0)   return {t:'Mínimo', c:'var(--z1)'};
+    return {t:'Descanso', c:'var(--muted)'};
+  },
+  // ¿el strain de hoy encaja con mi recuperación? (estilo WHOOP: strain objetivo según recovery)
+  strainTarget(){
+    const R=this.recommendation();
+    const rec=R.recovery!=null?R.recovery:R.readiness;
+    // recovery alto -> puede asumir más strain
+    return Math.round((6 + (rec/100)*12) * 10)/10;   // ~6 con recovery 0, ~18 con recovery 100
+  },
+
+  // --- STRAIN DE ESQUÍ (basado en física de la cuerda) ---
+  // Coste de cada pasada = f(tensión de cuerda ÷ IMTP del atleta).
+  // La tensión sale del modelo K·m·v²/L² y el IMTP de su última valoración.
+  // Así, la MISMA línea cuesta distinto a cada atleta según su peso y su fuerza.
+  imtpRef(){
+    const pr=this.latestTests();
+    if(pr.imtp) return pr.imtp;
+    const bw=state.settings.bodyweight;
+    return bw? bw*45 : null;      // estimación si no hay IMTP medido (45 N/kg)
+  },
+  imtpIsEstimated(){ return !this.latestTests().imtp; },
+
+  // intensidad relativa de una pasada en una línea dada (tensión / IMTP)
+  passIntensity(off, speedKph){
+    const imtp=this.imtpRef(), bw=state.settings.bodyweight;
+    if(!imtp || !bw) return null;
+    const T=ropeTension(off, speedKph||58, bw);
+    return T==null? null : T/imtp;
+  },
+  // factor de densidad: 40 s es la referencia. Menos descanso = más carga.
+  restFactor(sec){
+    const r=sec||40;
+    return Math.max(0.75, Math.min(1.25, Math.pow(40/r, 0.25)));
+  },
+  SKI_C: 58,           // constante calibrada: set de torneo de 6 pasadas -> strain 15
+  COMP_MULT: 1.65,     // presión de competencia (una sola bala por línea)
+
+  sessionEffort(s){
+    // sesión nueva: pasadas por línea
+    if(s.lines && Object.keys(s.lines).length){
+      let sum=0;
+      for(const off in s.lines){
+        const n=s.lines[off]||0; if(!n) continue;
+        const I=this.passIntensity(off, s.speed);
+        if(I==null){ sum += n*0.5; continue; }     // sin peso/IMTP: coste neutro
+        sum += n * Math.pow(Math.max(0.05,I), 3.2);
+      }
+      let E = this.SKI_C * sum * this.restFactor(s.rest);
+      if(s.comp) E *= this.COMP_MULT;
+      return E;
+    }
+    // compatibilidad con sesiones antiguas (solo nº de pasadas)
+    return (s.passes||0) * 29;
+  },
+  sessionStrain(s){
+    const E=this.sessionEffort(s);
+    return Math.max(0, Math.min(21, 21*(1-Math.exp(-E/160))));
+  },
+  sessionPasses(s){
+    if(s.lines) return Object.values(s.lines).reduce((a,b)=>a+(b||0),0);
+    return s.passes||0;
+  },
+  hardestLine(s){
+    if(!s.lines) return null;
+    const offs=Object.keys(s.lines).filter(o=>s.lines[o]>0)
+      .sort((a,b)=>SKI_LINES[a]-SKI_LINES[b]);   // cuerda más corta primero
+    return offs.length?offs[0]:null;
+  },
+
   // --- CARGA por actividad (TRIMP-like) ---
   // Si hay FC media y FCmáx/reposo -> TRIMP de Banister; si no, duración*factor intensidad
   activityLoad(a){
     const dur=a.dur||0; if(!dur) return 0;
+    // sRPE (Foster): duración × RPE. Es el estándar para cuantificar carga en fuerza.
+    if(a.rpe!=null && a.rpe>0) return Math.round(dur*a.rpe);
     const hrMax=state.settings.hrMax, hrRest=state.settings.hrRest||this.autoRest();
     if(a.hr && hrMax && hrRest && hrMax>hrRest){
       const hrr=Math.max(0,Math.min(1,(a.hr-hrRest)/(hrMax-hrRest)));
-      // TRIMP exponencial (Banister), constante masculina 1.92
       return Math.round(dur*hrr*0.64*Math.exp(1.92*hrr));
     }
-    // fallback por tipo (factor de intensidad medio)
     const t=(a.type||'').toLowerCase();
     let f=1.0;
     if(/(hiit|interval|carrera|run|mtb|monta)/.test(t)) f=1.3;
@@ -1438,7 +1791,7 @@ const A = {
     let L=0;
     state.activities.filter(a=>a.date===iso).forEach(a=>L+=this.activityLoad(a));
     state.sessions.filter(s=>s.date===iso).forEach(s=>{
-      const rpe=s.rpe||6; L+=Math.round((s.passes||0)*4*(rpe/6)); }); // esquí: pasadas*4*RPE rel
+      L += Math.round(this.sessionEffort(s)*0.55); });   // esquí: carga desde el esfuerzo real de las líneas
     return L;
   },
 
@@ -1489,7 +1842,7 @@ const A = {
     const loadByDisc={fuerza:0, esqui:0, ruta:0, mtb:0, running:0, otro:0};
     acts.forEach(a=>{ const d=this.classify(a.type); bucket[d]++; loadByDisc[d]+=this.activityLoad(a); });
     const skiLoad=state.sessions.filter(s=>new Date(s.date+'T00:00:00')>=cut)
-      .reduce((x,s)=>x+Math.round((s.passes||0)*4*((s.rpe||6)/6)),0);
+      .reduce((x,s)=>x+Math.round(this.sessionEffort(s)*0.55),0);
     loadByDisc.esqui+=skiLoad; bucket.esqui+=state.sessions.filter(s=>new Date(s.date+'T00:00:00')>=cut).length;
     const totalLoad=Object.values(loadByDisc).reduce((a,b)=>a+b,0)||1;
     const dist=Object.entries(loadByDisc).map(([k,v])=>({disc:k, load:v, pct:v/totalLoad*100})).sort((a,b)=>b.load-a.load);
@@ -1521,34 +1874,45 @@ const A = {
     const model=this.loadModel();
     caps.push({k:'Consistencia', v: Math.max(0,Math.min(100, model.ctl*1.2)), raw: model.ctl+' CTL'});
     const pr=this.latestTests();
-    // Fuerza máxima: IMTP relativo en N/kg (40 N/kg -> ~60, 55 -> ~90)
+    // Fuerza máxima: IMTP relativo (N/kg)
     if(pr.imtpRel!=null) caps.push({k:'Fuerza máxima', v:Math.max(0,Math.min(100,(pr.imtpRel-25)*3)), raw:pr.imtpRel.toFixed(1)+' N/kg'});
     else caps.push({k:'Fuerza máxima', v:null, raw:'sin test'});
     // Potencia: CMJ (cm)
     if(pr.cmj!=null) caps.push({k:'Potencia', v:Math.max(0,Math.min(100,(pr.cmj-20)*2.8)), raw:pr.cmj.toFixed(0)+' cm CMJ'});
     else caps.push({k:'Potencia', v:null, raw:'sin test'});
-    // Reactividad: RSI, o índice de elasticidad si no hay RSI
-    if(pr.rsi!=null) caps.push({k:'Reactividad', v:Math.max(0,Math.min(100,pr.rsi*40)), raw:pr.rsi.toFixed(2)+' RSI'});
-    else if(pr.elastic!=null) caps.push({k:'Reactividad', v:Math.max(0,Math.min(100,pr.elastic*4+40)), raw:pr.elastic.toFixed(0)+'% elást.'});
+    // Reactividad: índice de elasticidad
+    if(pr.elastic!=null) caps.push({k:'Reactividad', v:Math.max(0,Math.min(100,pr.elastic*4+40)), raw:pr.elastic.toFixed(0)+'% elást.'});
     else caps.push({k:'Reactividad', v:null, raw:'sin test'});
-    // Control postural: estabilometría (menor excursión = mejor). 250mm~90, 600mm~30
-    if(pr.stab!=null) caps.push({k:'Control postural', v:Math.max(0,Math.min(100,110-(pr.stab-200)/5)), raw:pr.stab+' mm'});
-    else caps.push({k:'Control postural', v:null, raw:'sin test'});
-    // Simetría: 100 - asimetría escalada (0%~100, 15%~40)
-    if(pr.asym!=null) caps.push({k:'Simetría', v:Math.max(0,Math.min(100,100-pr.asym*4)), raw:pr.asym.toFixed(1)+'% asim.'});
+    // Simetría: media de asimetría de despegue y déficits isocinéticos
+    const asyms=[pr.asym, pr.defExt, pr.defFlex].filter(x=>x!=null);
+    if(asyms.length){ const m=asyms.reduce((a,b)=>a+b,0)/asyms.length;
+      caps.push({k:'Simetría', v:Math.max(0,Math.min(100,100-m*4)), raw:m.toFixed(1)+'% asim.'}); }
     else caps.push({k:'Simetría', v:null, raw:'sin test'});
+    // Equilibrio muscular: prioriza H:Q funcional (excéntrico) si existe, si no el convencional
+    const hqf=[pr.hqfR, pr.hqfL].filter(x=>x!=null);
+    const hqs=[pr.hqR, pr.hqL].filter(x=>x!=null);
+    if(hqf.length){ const m=hqf.reduce((a,b)=>a+b,0)/hqf.length;
+      // ≥100% protector; 90-100 límite; <90 riesgo
+      const v=Math.max(0,Math.min(100, (m-60)*2.5));
+      caps.push({k:'Equilibrio H:Q', v, raw:m.toFixed(0)+'% funcional'}); }
+    else if(hqs.length){ const m=hqs.reduce((a,b)=>a+b,0)/hqs.length;
+      const v=Math.max(0,Math.min(100, 100-Math.abs(m-57)*3.5));
+      caps.push({k:'Equilibrio H:Q', v, raw:m.toFixed(0)+'% convenc.'}); }
+    else caps.push({k:'Equilibrio H:Q', v:null, raw:'sin test'});
     return caps;
   },
 
   latestTests(){
-    const byType=t=>[...(state.tests||[])].filter(x=>x.type===t).sort((a,b)=>a.date<b.date?1:-1)[0];
-    const v=t=>{ const x=byType(t); return x?x.value:null; };
-    const imtp=v('imtp'), cmj=v('cmj'); const bw=state.settings.bodyweight;
+    const last=[...(state.tests||[])].sort((a,b)=>a.date<b.date?1:-1)[0];
+    if(!last) return {imtp:null,imtpRel:null,cmj:null,sj:null,dsi:null,elastic:null,asym:null,hqR:null,hqL:null,defExt:null,defFlex:null};
+    const d=(typeof DERIVED!=='undefined')? Object.fromEntries(Object.keys(DERIVED).map(k=>[k,DERIVED[k].calc(last)])) : {};
     return {
-      imtp, imtpRel:(imtp&&bw)?imtp/bw:null,
-      cmj, sj:v('sj'), rsi:v('rsi'), elastic:v('elastic'),
-      stab:v('stab_open'), asym:v('hop_asym'), hq:v('hq_ratio'), quadDef:v('quad_deficit'),
-      sprint:v('sprint')
+      imtp:last.imtp??null, imtpRel:d.imtp_rel??null,
+      cmj:last.cmj??null, sj:last.sj??null, abk:last.abk??null,
+      dsi:d.dsi??null, elastic:d.elastic??null, asym:d.hop_asym??null,
+      hqR:d.hq_r??null, hqL:d.hq_l??null, hqfR:d.hqf_r??null, hqfL:d.hqf_l??null,
+      defExt:d.def_ext??null, defFlex:d.def_flex??null,
+      defExtEcc:d.def_ext_ecc??null, defFlexEcc:d.def_flex_ecc??null
     };
   },
 
@@ -1623,6 +1987,90 @@ const A = {
 };
 window.A=A;
 
+function sleepDebtChart(svg){
+  if(!svg) return;
+  const W=svg.clientWidth||640,H=190,pad=30; svg.setAttribute("viewBox",`0 0 ${W} ${H}`); svg.innerHTML="";
+  const goal=state.settings.sleepGoal||8;
+  // deuda acumulada día a día en los últimos 7 días
+  const days=[]; let acc=0; let any=false;
+  for(let i=6;i>=0;i--){ const iso=toISO(daysAgo(i));
+    const rec=[...state.hrv].reverse().find(h=>h.date===iso&&h.sleep!=null);
+    if(rec){ acc += (goal-rec.sleep); any=true; }   // + = deuda, − = a favor
+    days.push({iso, acc, has:!!rec, night:rec?rec.sleep:null});
+  }
+  if(!any){ svg.innerHTML=`<text x="${W/2}" y="${H/2}" fill="var(--muted)" font-size="13" text-anchor="middle" font-family="Inter">Registra tus horas de sueño</text>`; return; }
+  const vals=days.map(d=>d.acc);
+  const maxV=Math.max(1, ...vals), minV=Math.min(-1, ...vals);
+  const span=(maxV-minV)||1;
+  const x=i=>pad+i*(W-2*pad)/(days.length-1);
+  const y=v=>H-pad-((v-minV)/span)*(H-2*pad);
+  const y0=y(0);
+  // línea de cero
+  let out=`<line x1="${pad}" y1="${y0.toFixed(1)}" x2="${W-pad}" y2="${y0.toFixed(1)}" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"/>`;
+  out+=`<text x="${W-pad}" y="${(y0-5).toFixed(1)}" fill="var(--muted-2)" font-size="10" text-anchor="end" font-family="Inter">equilibrio</text>`;
+  // barras de deuda acumulada
+  const bw=(W-2*pad)/days.length*0.5;
+  days.forEach((d,i)=>{
+    const cx=x(i);
+    if(d.acc!==0){
+      const col = d.acc<=0 ? 'var(--ok)' : 'var(--danger)';
+      const top = d.acc<=0 ? y(d.acc) : y0;
+      const hgt = Math.abs(y(d.acc)-y0);
+      out+=`<rect x="${(cx-bw/2).toFixed(1)}" y="${top.toFixed(1)}" width="${bw.toFixed(1)}" height="${Math.max(1,hgt).toFixed(1)}" fill="${col}" opacity=".35" rx="2"/>`;
+    }
+  });
+  // línea de evolución
+  const path=days.map((d,i)=>`${i?'L':'M'}${x(i).toFixed(1)},${y(d.acc).toFixed(1)}`).join(" ");
+  out+=`<path d="${path}" fill="none" stroke="var(--wake)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>`;
+  // puntos + etiquetas
+  days.forEach((d,i)=>{
+    const col = d.acc<=0 ? 'var(--ok)' : 'var(--danger)';
+    out+=`<circle cx="${x(i).toFixed(1)}" cy="${y(d.acc).toFixed(1)}" r="3.6" fill="${col}"/>`;
+    out+=`<text x="${x(i).toFixed(1)}" y="${H-8}" fill="var(--muted-2)" font-size="10" text-anchor="middle" font-family="Inter">${fmtDow(d.iso)}</text>`;
+  });
+  // valor final destacado
+  const last=days[days.length-1];
+  const lcol=last.acc<=0?'var(--ok)':'var(--danger)';
+  out+=`<text x="${x(days.length-1).toFixed(1)}" y="${(y(last.acc)-11).toFixed(1)}" fill="${lcol}" font-size="12" text-anchor="middle" font-family="Space Grotesk" font-weight="700">${last.acc<=0?'+':'−'}${Math.abs(last.acc).toFixed(1)}h</text>`;
+  svg.innerHTML=out;
+}
+
+function renderStrainGauge(v, target, lbl){
+  const box=$("#strain-gauge"); if(!box) return;
+  const pct=Math.min(100, v/21*100), tpct=Math.min(100, target/21*100);
+  box.innerHTML=`
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+      <span style="font-family:'Space Grotesk';font-weight:700;font-size:26px;color:${lbl.c}">${v>0?v.toFixed(1):'0'}<span style="font-size:13px;color:var(--muted);font-weight:500"> / 21 · ${lbl.t}</span></span>
+      <span class="hint">objetivo ${target.toFixed(1)}</span>
+    </div>
+    <div style="position:relative;height:16px;background:var(--water-deep);border:1px solid var(--line);border-radius:8px;overflow:hidden">
+      <div style="height:100%;width:${pct.toFixed(0)}%;background:${lbl.c};border-radius:8px;transition:width .4s"></div>
+      <div style="position:absolute;top:-3px;left:${tpct.toFixed(0)}%;width:2px;height:22px;background:var(--foam);opacity:.8"></div>
+    </div>`;
+}
+function strainChart(svg, target){
+  if(!svg) return;
+  const W=svg.clientWidth||640,H=180,pad=28; svg.setAttribute("viewBox",`0 0 ${W} ${H}`); svg.innerHTML="";
+  const days=[]; for(let i=13;i>=0;i--){ const iso=toISO(daysAgo(i)); days.push({iso, v:A.dayStrain(iso)}); }
+  if(days.every(d=>d.v===0)){ svg.innerHTML=`<text x="${W/2}" y="${H/2}" fill="var(--muted)" font-size="13" text-anchor="middle" font-family="Inter">Sin actividades registradas</text>`; return; }
+  const max=21;
+  const gap=(W-2*pad)/days.length, bw=gap*0.55;
+  const y=v=>H-pad-(v/max)*(H-2*pad);
+  let out='';
+  // línea de objetivo
+  out+=`<line x1="${pad}" y1="${y(target).toFixed(1)}" x2="${W-pad}" y2="${y(target).toFixed(1)}" stroke="var(--foam)" stroke-width="1.2" stroke-dasharray="5 4" opacity=".55"/>`;
+  out+=`<text x="${W-pad}" y="${(y(target)-5).toFixed(1)}" fill="var(--muted)" font-size="10" text-anchor="end" font-family="Inter">objetivo ${target.toFixed(1)}</text>`;
+  days.forEach((d,i)=>{
+    const cx=pad+i*gap+gap/2;
+    if(d.v>0){ const lbl=A.strainLabel(d.v); const h=(d.v/max)*(H-2*pad);
+      out+=`<rect x="${(cx-bw/2).toFixed(1)}" y="${y(d.v).toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" fill="${lbl.c}" rx="3" opacity=".9"/>`;
+      if(i>=days.length-7) out+=`<text x="${cx.toFixed(1)}" y="${(y(d.v)-5).toFixed(1)}" fill="var(--foam)" font-size="9.5" text-anchor="middle" font-family="Space Grotesk" font-weight="600">${d.v.toFixed(1)}</text>`;
+    }
+    if(i%2===0||i===days.length-1) out+=`<text x="${cx.toFixed(1)}" y="${H-8}" fill="var(--muted-2)" font-size="9.5" text-anchor="middle" font-family="Inter">${fmtDow(d.iso).slice(0,2)}</text>`;
+  });
+  svg.innerHTML=out;
+}
+
 /* ---------- COACH ---------- */
 const DISC_COL={fuerza:'var(--buoy)',esqui:'var(--wake)',ruta:'var(--t1)',mtb:'var(--ok)',running:'var(--danger)',otro:'var(--muted)'};
 const DISC_NAME={fuerza:'Fuerza',esqui:'Esquí náut.',ruta:'Bici ruta',mtb:'Bici MTB',running:'Running',otro:'Otro'};
@@ -1638,8 +2086,8 @@ function renderCoach(){
   if(!ringLabel){ const g=document.createElementNS('http://www.w3.org/2000/svg','g'); }
   // usar overlay div
   let ov=document.getElementById('ready-ov');
-  if(!ov){ ov=document.createElement('div'); ov.id='ready-ov'; ov.className='rv'; $("#ready-ring").parentNode.style.position='relative'; $("#ready-ring").parentNode.appendChild(ov); ov.style.position='absolute'; ov.style.left='0'; ov.style.top='0'; ov.style.width='130px'; ov.style.height='130px'; ov.style.display='flex'; ov.style.flexDirection='column'; ov.style.alignItems='center'; ov.style.justifyContent='center'; ov.style.pointerEvents='none'; }
-  ov.innerHTML=`<b style="font-family:'Space Grotesk';font-size:38px;font-weight:700;color:${col};line-height:1">${R.readiness}</b><small style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em">disponib.</small>`;
+  if(!ov){ ov=document.createElement('div'); ov.id='ready-ov'; ov.className='rv'; $("#ready-ring").parentNode.style.position='relative'; $("#ready-ring").parentNode.appendChild(ov); ov.style.position='absolute'; ov.style.left='0'; ov.style.top='0'; ov.style.width='140px'; ov.style.height='140px'; ov.style.display='flex'; ov.style.flexDirection='column'; ov.style.alignItems='center'; ov.style.justifyContent='center'; ov.style.pointerEvents='none'; ov.style.textAlign='center'; }
+  ov.innerHTML=`<b style="font-family:'Space Grotesk';font-size:38px;font-weight:700;color:${col};line-height:1">${R.readiness}</b><small style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.09em;font-weight:700;margin-top:2px">Readiness</small><small style="font-size:8px;color:var(--muted-2);text-transform:uppercase;letter-spacing:.06em;line-height:1.2;margin-top:1px">(nivel de prime)</small>`;
 
   const tag=$("#rec-tag"); tag.textContent=R.rec.tag; tag.style.background=R.rec.c; tag.style.color='#08202B';
   $("#rec-headline").textContent=R.rec.headline;
@@ -1739,94 +2187,361 @@ function radarChart(svg, caps){
 }
 
 /* ---------- PRUEBAS ---------- */
+/* ---------- SLALOM: líneas y modelo de tensión de cuerda ----------
+   Cuerda base 23 m; el "off" es lo que se le quita. Boyas a 11,5 m del eje.
+   Desde 38 off la cuerda es MÁS CORTA que la boya: hay que cubrir el hueco
+   con extensión corporal y velocidad.
+   Tensión pico ≈ K · masa · v² / L²   (el swing lleva v²; la cuerda entra al cuadrado)
+   Calibrado con: 1000 lb (4448 N) a 41 off, 85 kg, 58 km/h — el pull más fuerte
+   de campeonato pro. Referencia cruzada: salida de agua profunda ≈ 2× peso corporal
+   (Keverline et al.). */
+const SKI_LINES={'15':18.25,'22':16.00,'28':14.25,'32':13.00,'35':12.00,
+                 '38':11.25,'39.5':10.75,'41':10.25,'43':9.75};
+const BUOY_DIST=11.5;
+const SKI_K=21.18;
+
+function ropeTension(off, speedKph, massKg){
+  const L=SKI_LINES[String(off)];
+  if(!L || !speedKph || !massKg) return null;
+  const v=speedKph/3.6;
+  return SKI_K * massKg * v*v / (L*L);     // Newtons
+}
+const toLbs = n => n/4.44822;
+function reachDeficit(off){                // + = la cuerda no llega a la boya
+  const L=SKI_LINES[String(off)]; return L==null?null:(BUOY_DIST-L);
+}
+
+/* ---------- BATERÍA DE PRUEBAS FÍSICAS ----------
+   Entradas del usuario (lo que mide el laboratorio) y métricas derivadas
+   que la app calcula sola. */
 const TEST_META={
-  imtp:{name:'IMTP (tirón medio muslo)',unit:'N',rel:'N/kg',cat:'Fuerza',
-    ref:'Fuerza pico isométrica. Relativa: >40 N/kg buen nivel, >50 elite. Muy fiable (ICC>0.95). Base de la fuerza máxima.'},
-  imtp_rfd:{name:'IMTP · RFD 200ms',unit:'N/s',cat:'Fuerza',
-    ref:'Ritmo de desarrollo de fuerza en 200 ms. Clave para deportes explosivos. Alta variabilidad: interpreta tendencias, no valores puntuales.'},
-  cmj:{name:'CMJ · salto contramovimiento',unit:'cm',cat:'Potencia',
-    ref:'Hombre entrenado ~35-45 cm, alto rendimiento >45 cm. Monitor de fatiga neuromuscular y potencia con ciclo estiramiento-acortamiento.'},
-  cmj_pot:{name:'CMJ · potencia relativa',unit:'W/kg',cat:'Potencia',
-    ref:'Potencia relativa en el salto. >45 W/kg buen nivel. Compara con SJ para el índice elástico.'},
-  sj:{name:'Squat Jump',unit:'cm',cat:'Potencia',
-    ref:'Potencia concéntrica pura sin pre-estiramiento. Comparado con CMJ da el índice de elasticidad.'},
-  abk:{name:'Abalakov (con brazos)',unit:'cm',cat:'Potencia',
-    ref:'Salto con impulso de brazos. Diferencia con CMJ = índice de utilización de brazos.'},
-  elastic:{name:'Índice de elasticidad',unit:'%',cat:'Potencia',
-    ref:'(CMJ−SJ)/SJ ×100. ~10% normal, >15% buen aprovechamiento del ciclo estiramiento-acortamiento. Bajo o negativo = déficit reactivo.'},
-  arm_use:{name:'Índice utilización de brazos',unit:'%',cat:'Potencia',
-    ref:'(ABK−CMJ)/CMJ. Cuánto suma la coordinación de brazos. Muy bajo = margen de mejora técnica en el salto.'},
-  rsi:{name:'RSI · índice reactivo',unit:'m/s',cat:'Reactividad',
-    ref:'Altura/tiempo de contacto. <1.5 bajo, 1.5-2.5 bueno, >2.5 elite. Capacidad elástica/pliométrica.'},
-  ttc:{name:'Ratio TV:TC (CMJ)',unit:'',cat:'Reactividad',
-    ref:'Tiempo de vuelo vs tiempo de contacto. Más alto = salto más reactivo y eficiente.'},
-  hop_bi:{name:'Salto horizontal bipodal',unit:'cm',cat:'Potencia',
-    ref:'Potencia horizontal de tren inferior. Relevante para la salida y aceleración en esquí.'},
-  hop_asym:{name:'Asimetría salto unipodal',unit:'%',lower:true,cat:'Simetría',
-    ref:'Diferencia entre pierna derecha e izquierda. <10% aceptable, >10-15% señal de desequilibrio y riesgo de lesión.'},
-  stab_open:{name:'Estabilometría OA (inestable)',unit:'mm',lower:true,cat:'Control postural',
-    ref:'Excursión del centro de presión con ojos abiertos en superficie inestable. Menor = mejor control. Clave en esquí náutico.'},
-  stab_change:{name:'Cambio OA→OC (inestable)',unit:'%',lower:true,cat:'Control postural',
-    ref:'Cuánto empeora el control al cerrar los ojos. Mayor % = más dependencia visual del equilibrio.'},
-  hq_ratio:{name:'Ratio H:Q (60º/s)',unit:'%',cat:'Equilibrio muscular',
-    ref:'Isquios/cuádriceps. ~50-60% funcional. Bajo = riesgo de lesión de isquios; desequilibrio D-I >10% también.'},
-  quad_deficit:{name:'Déficit cuádriceps D-I',unit:'%',lower:true,cat:'Simetría',
-    ref:'Asimetría de fuerza entre piernas. <10-15% aceptable. Por encima, priorizar el lado débil.'},
-  sprint:{name:'Sprint 30 m',unit:'s',lower:true,cat:'Velocidad',
-    ref:'<4.3 s muy bueno para no velocista. Menor es mejor. Velocidad y aceleración.'},
-  ftp:{name:'FTP ciclismo',unit:'W',rel:'W/kg',cat:'Aeróbico',
-    ref:'3-4 W/kg buen amateur, >4 competitivo, >5 elite. Potencia sostenible ~1h.'},
-  mas:{name:'Velocidad aeróbica máxima',unit:'km/h',cat:'Aeróbico',
-    ref:'~velocidad al VO₂máx. 16-18 km/h entrenado, >20 muy alto. Base para intervalos de carrera.'}
+  // --- FUERZA (IMTP) ---
+  imtp:      {name:'IMTP · fuerza pico',      unit:'N',    cat:'Fuerza', rel:'N/kg',
+    ref:'Fuerza isométrica máxima. Élite suele superar 3000 N o 3× el peso corporal.'},
+  // --- SALTOS ---
+  sj:        {name:'Squat Jump',              unit:'cm',   cat:'Saltos',
+    ref:'Potencia concéntrica pura, sin pre-estiramiento. Base para el índice de elasticidad.'},
+  cmj:       {name:'CMJ · altura',            unit:'cm',   cat:'Saltos',
+    ref:'Salto con contramovimiento. Aprovecha el ciclo estiramiento-acortamiento.'},
+  cmj_force: {name:'CMJ · fuerza pico',       unit:'N',    cat:'Saltos',
+    ref:'Fuerza pico del salto medida en placa. Imprescindible para el DSI real.'},
+  abk:       {name:'Abalakov (con brazos)',   unit:'cm',   cat:'Saltos',
+    ref:'Salto con impulso de brazos.'},
+  // --- DESPEGUES (saltos horizontales) ---
+  hop_bi:    {name:'Despegue bipodal',        unit:'cm',   cat:'Despegues',
+    ref:'Potencia horizontal con ambas piernas.'},
+  hop_r:     {name:'Despegue unipodal derecho',  unit:'cm', cat:'Despegues',
+    ref:'Potencia horizontal pierna derecha.'},
+  hop_l:     {name:'Despegue unipodal izquierdo',unit:'cm', cat:'Despegues',
+    ref:'Potencia horizontal pierna izquierda.'},
+  // --- ISOCINÉTICO 180°/s · CONCÉNTRICO ---
+  iso_ext_r: {name:'Extensores der. concéntrico',  unit:'Nm', cat:'Isocinético',
+    ref:'Cuádriceps derecho, peak de torque concéntrico a 180°/s.'},
+  iso_ext_l: {name:'Extensores izq. concéntrico',  unit:'Nm', cat:'Isocinético',
+    ref:'Cuádriceps izquierdo, peak de torque concéntrico a 180°/s.'},
+  iso_flex_r:{name:'Flexores der. concéntrico',    unit:'Nm', cat:'Isocinético',
+    ref:'Isquiotibiales derechos, peak de torque concéntrico a 180°/s.'},
+  iso_flex_l:{name:'Flexores izq. concéntrico',    unit:'Nm', cat:'Isocinético',
+    ref:'Isquiotibiales izquierdos, peak de torque concéntrico a 180°/s.'},
+  // --- ISOCINÉTICO 180°/s · EXCÉNTRICO ---
+  iso_ext_r_ecc: {name:'Extensores der. excéntrico', unit:'Nm', cat:'Isocinético',
+    ref:'Cuádriceps derecho, peak de torque excéntrico a 180°/s.'},
+  iso_ext_l_ecc: {name:'Extensores izq. excéntrico', unit:'Nm', cat:'Isocinético',
+    ref:'Cuádriceps izquierdo, peak de torque excéntrico a 180°/s.'},
+  iso_flex_r_ecc:{name:'Flexores der. excéntrico',   unit:'Nm', cat:'Isocinético',
+    ref:'Isquiotibiales derechos, peak de torque excéntrico. Clave para el H:Q funcional.'},
+  iso_flex_l_ecc:{name:'Flexores izq. excéntrico',   unit:'Nm', cat:'Isocinético',
+    ref:'Isquiotibiales izquierdos, peak de torque excéntrico. Clave para el H:Q funcional.'},
+  // --- RÉCORD DE ESQUÍ (entrenamiento) ---
+  ski_speed: {name:'Velocidad de bote',      unit:'km/h', cat:'Récord esquí',
+    ref:'Velocidad a la que lograste tu récord. Entra al CUADRADO en la tensión de cuerda: subir de 55 a 58 km/h aumenta la carga un 11%.'},
+  ski_buoys: {name:'Boyas en la línea',      unit:'boyas', cat:'Récord esquí',
+    ref:'Boyas completadas en tu línea más corta.'}
 };
+
+/* Métricas derivadas: se calculan solas a partir de las anteriores */
+const DERIVED={
+  imtp_rel:  {name:'IMTP relativo',        unit:'N/kg', cat:'Fuerza',
+    calc:t=>(t.imtp!=null && state.settings.bodyweight)? t.imtp/state.settings.bodyweight : null,
+    ref:'Fuerza pico ÷ peso corporal. Referencia élite: >3× peso (≈30 N/kg); futbolistas prof. ≈37 N/kg.'},
+  dsi:       {name:'DSI · Dynamic Strength Index', unit:'', cat:'Fuerza',
+    calc:t=>(t.cmj_force!=null && t.imtp!=null && t.imtp>0)? t.cmj_force/t.imtp : null,
+    ref:'Fuerza pico CMJ ÷ fuerza pico IMTP. <0,60 → prioriza potencia/balístico. >0,80 → prioriza fuerza máxima. 0,60-0,80 equilibrado.'},
+  elastic:   {name:'Índice de elasticidad', unit:'%', cat:'Saltos',
+    calc:t=>(t.cmj!=null && t.sj!=null && t.sj>0)? (t.cmj-t.sj)/t.sj*100 : null,
+    ref:'(CMJ − SJ) / SJ. ~10% normal; >15% buen aprovechamiento del ciclo estiramiento-acortamiento.'},
+  hop_asym:  {name:'Asimetría unipodal',    unit:'%', cat:'Despegues', lower:true,
+    calc:t=>{ if(t.hop_r==null||t.hop_l==null) return null;
+      const mx=Math.max(t.hop_r,t.hop_l); return mx>0? Math.abs(t.hop_r-t.hop_l)/mx*100 : null; },
+    ref:'|Der − Izq| / mayor. <10% aceptable; >10-15% desequilibrio relevante.'},
+  hq_r:      {name:'Ratio H:Q convencional derecha',   unit:'%', cat:'Isocinético',
+    calc:t=>(t.iso_flex_r!=null && t.iso_ext_r!=null && t.iso_ext_r>0)? t.iso_flex_r/t.iso_ext_r*100 : null,
+    ref:'Isquios conc. ÷ cuádriceps conc. (derecha). ~50-65% funcional. Bajo → mayor riesgo de lesión de isquios.'},
+  hq_l:      {name:'Ratio H:Q convencional izquierda', unit:'%', cat:'Isocinético',
+    calc:t=>(t.iso_flex_l!=null && t.iso_ext_l!=null && t.iso_ext_l>0)? t.iso_flex_l/t.iso_ext_l*100 : null,
+    ref:'Isquios conc. ÷ cuádriceps conc. (izquierda). ~50-65% funcional.'},
+  hqf_r:     {name:'Ratio H:Q funcional derecha',      unit:'%', cat:'Isocinético',
+    calc:t=>(t.iso_flex_r_ecc!=null && t.iso_ext_r!=null && t.iso_ext_r>0)? t.iso_flex_r_ecc/t.iso_ext_r*100 : null,
+    ref:'Isquios EXCÉNTRICO ÷ cuádriceps concéntrico (derecha). ≥100% es lo deseable; <90% se asocia a mayor riesgo de lesión de isquios.'},
+  hqf_l:     {name:'Ratio H:Q funcional izquierda',    unit:'%', cat:'Isocinético',
+    calc:t=>(t.iso_flex_l_ecc!=null && t.iso_ext_l!=null && t.iso_ext_l>0)? t.iso_flex_l_ecc/t.iso_ext_l*100 : null,
+    ref:'Isquios EXCÉNTRICO ÷ cuádriceps concéntrico (izquierda). ≥100% deseable; <90% mayor riesgo.'},
+  def_ext:   {name:'Déficit extensores conc. D-I',unit:'%', cat:'Isocinético', lower:true,
+    calc:t=>{ if(t.iso_ext_r==null||t.iso_ext_l==null) return null;
+      const mx=Math.max(t.iso_ext_r,t.iso_ext_l); return mx>0? Math.abs(t.iso_ext_r-t.iso_ext_l)/mx*100 : null; },
+    ref:'Asimetría de cuádriceps concéntrico entre piernas. <10-15% aceptable.'},
+  def_flex:  {name:'Déficit flexores conc. D-I',  unit:'%', cat:'Isocinético', lower:true,
+    calc:t=>{ if(t.iso_flex_r==null||t.iso_flex_l==null) return null;
+      const mx=Math.max(t.iso_flex_r,t.iso_flex_l); return mx>0? Math.abs(t.iso_flex_r-t.iso_flex_l)/mx*100 : null; },
+    ref:'Asimetría de isquiotibiales concéntrico entre piernas. <10-15% aceptable.'},
+  def_ext_ecc: {name:'Déficit extensores excéntrico D-I', unit:'%', cat:'Isocinético', lower:true,
+    calc:t=>{ if(t.iso_ext_r_ecc==null||t.iso_ext_l_ecc==null) return null;
+      const mx=Math.max(t.iso_ext_r_ecc,t.iso_ext_l_ecc); return mx>0? Math.abs(t.iso_ext_r_ecc-t.iso_ext_l_ecc)/mx*100 : null; },
+    ref:'Asimetría de cuádriceps excéntrico entre piernas. <10-15% aceptable.'},
+  def_flex_ecc:{name:'Déficit flexores excéntrico D-I',   unit:'%', cat:'Isocinético', lower:true,
+    calc:t=>{ if(t.iso_flex_r_ecc==null||t.iso_flex_l_ecc==null) return null;
+      const mx=Math.max(t.iso_flex_r_ecc,t.iso_flex_l_ecc); return mx>0? Math.abs(t.iso_flex_r_ecc-t.iso_flex_l_ecc)/mx*100 : null; },
+    ref:'Asimetría de isquiotibiales excéntrico entre piernas. <10-15% aceptable.'},
+  // --- DERIVADAS DEL RÉCORD DE ESQUÍ ---
+  ski_tension:{name:'Tensión de cuerda en tu récord', unit:'lb', cat:'Récord esquí',
+    calc:t=>{ const T=ropeTension(t.ski_line, t.ski_speed, state.settings.bodyweight);
+      return T==null?null:toLbs(T); },
+    ref:'Tensión pico estimada en los giros de tu línea récord, para tu peso y velocidad. Referencia: el pull más fuerte de campeonato pro ronda las 1000 lb (85 kg a 41 off, 58 km/h).'},
+  ski_pct_imtp:{name:'Tensión ÷ tu IMTP', unit:'%', cat:'Récord esquí',
+    calc:t=>{ const T=ropeTension(t.ski_line, t.ski_speed, state.settings.bodyweight);
+      if(T==null || t.imtp==null || t.imtp<=0) return null;
+      return T/t.imtp*100; },
+    ref:'Qué porcentaje de tu fuerza isométrica máxima (IMTP) te exige el pico de tensión en tu línea récord. Por encima del 100% son eventos supramaximales: la fuerza máxima pasa a ser tu limitante para acortar más.'}
+};
+/* ---------- PRUEBAS FÍSICAS (modelo de valoraciones) ---------- */
+// Cada registro en state.tests es una VALORACIÓN completa:
+// {id, date, notes, imtp, sj, cmj, cmj_force, abk, hop_bi, hop_r, hop_l,
+//  iso_ext_r, iso_ext_l, iso_flex_r, iso_flex_l}
 let testSel='imtp';
+
+// calcula todas las métricas derivadas de una valoración
+function derivedOf(t){
+  const out={};
+  for(const k in DERIVED){ out[k]=DERIVED[k].calc(t); }
+  return out;
+}
+// interpretación de una métrica (color + texto)
+function judge(key, v){
+  if(v==null) return {c:'var(--muted)', t:''};
+  if(key==='dsi'){
+    if(v<0.60) return {c:'var(--t1)', t:'prioriza potencia'};
+    if(v>0.80) return {c:'var(--t1)', t:'prioriza fuerza máx.'};
+    return {c:'var(--ok)', t:'equilibrado'};
+  }
+  if(key==='elastic'){
+    if(v>=15) return {c:'var(--ok)', t:'buen CEA'};
+    if(v>=8)  return {c:'var(--wake)', t:'normal'};
+    return {c:'var(--t1)', t:'déficit reactivo'};
+  }
+  if(key==='hop_asym'||key==='def_ext'||key==='def_flex'||key==='def_ext_ecc'||key==='def_flex_ecc'){
+    if(v<10) return {c:'var(--ok)', t:'simétrico'};
+    if(v<15) return {c:'var(--t1)', t:'vigilar'};
+    return {c:'var(--danger)', t:'desequilibrio'};
+  }
+  if(key==='hq_r'||key==='hq_l'){
+    if(v>=50 && v<=65) return {c:'var(--ok)', t:'funcional'};
+    if(v<50) return {c:'var(--danger)', t:'isquios débiles'};
+    return {c:'var(--wake)', t:'alto'};
+  }
+  if(key==='hqf_r'||key==='hqf_l'){
+    if(v>=100) return {c:'var(--ok)', t:'protector'};
+    if(v>=90)  return {c:'var(--t1)', t:'límite'};
+    return {c:'var(--danger)', t:'riesgo de isquios'};
+  }
+  if(key==='imtp_rel'){
+    if(v>=40) return {c:'var(--ok)', t:'muy alto'};
+    if(v>=30) return {c:'var(--wake)', t:'buen nivel'};
+    return {c:'var(--t1)', t:'a desarrollar'};
+  }
+  if(key==='ski_pct_imtp'){
+    if(v>=100) return {c:'var(--danger)', t:'supramaximal · la fuerza es tu limitante'};
+    if(v>=90)  return {c:'var(--buoy)', t:'al límite de tu fuerza máxima'};
+    if(v>=75)  return {c:'var(--t1)', t:'muy exigente'};
+    return {c:'var(--ok)', t:'tienes margen de fuerza'};
+  }
+  return {c:'var(--foam)', t:''};
+}
+
+// --- cálculos en vivo mientras se rellena el formulario ---
+const tv = id => { const el=$(id); if(!el) return null; const v=el.value; return v===''?null:parseFloat(v); };
+function formDraft(){
+  return {imtp:tv("#t-imtp"), sj:tv("#t-sj"), cmj:tv("#t-cmj"), cmj_force:tv("#t-cmjf"), abk:tv("#t-abk"),
+    hop_bi:tv("#t-hopbi"), hop_r:tv("#t-hopr"), hop_l:tv("#t-hopl"),
+    iso_ext_r:tv("#t-extr"), iso_ext_l:tv("#t-extl"), iso_flex_r:tv("#t-flexr"), iso_flex_l:tv("#t-flexl"),
+    iso_ext_r_ecc:tv("#t-extre"), iso_ext_l_ecc:tv("#t-extle"),
+    iso_flex_r_ecc:tv("#t-flexre"), iso_flex_l_ecc:tv("#t-flexle"),
+    ski_line:($("#t-skiline")&&$("#t-skiline").value)||null,
+    ski_speed:tv("#t-skispeed"), ski_buoys:tv("#t-skibuoys")};
+}
+function liveCalc(){
+  const t=formDraft(), d=derivedOf(t);
+  const f=(v,dec)=> v==null?'—':v.toFixed(dec==null?1:dec);
+  // IMTP relativo
+  const jr=judge('imtp_rel', d.imtp_rel);
+  $("#c-imtprel").innerHTML = d.imtp_rel!=null
+    ? `Relativo: <b style="color:${jr.c}">${f(d.imtp_rel)}</b> N/kg ${jr.t?`<span style="color:${jr.c}">· ${jr.t}</span>`:''}`
+    : (state.settings.bodyweight ? 'Relativo: —' : 'Relativo: — <span class="warn">(falta tu peso)</span>');
+  // saltos
+  const je=judge('elastic', d.elastic), jd=judge('dsi', d.dsi);
+  let s=`Elasticidad: ${d.elastic!=null?`<b style="color:${je.c}">${f(d.elastic)}%</b> <span style="color:${je.c}">· ${je.t}</span>`:'—'}`;
+  s+=`  ·  DSI: ${d.dsi!=null?`<b style="color:${jd.c}">${f(d.dsi,2)}</b> <span style="color:${jd.c}">· ${jd.t}</span>`:'— <span class="warn">(necesita CMJ fuerza pico + IMTP)</span>'}`;
+  $("#c-saltos").innerHTML=s;
+  // asimetría
+  const ja=judge('hop_asym', d.hop_asym);
+  $("#c-asym").innerHTML = d.hop_asym!=null
+    ? `Asimetría: <b style="color:${ja.c}">${f(d.hop_asym)}%</b> <span style="color:${ja.c}">· ${ja.t}</span>` : 'Asimetría: —';
+  // isocinético concéntrico
+  const jr1=judge('hq_r', d.hq_r), jl=judge('hq_l', d.hq_l);
+  const jde=judge('def_ext', d.def_ext), jdf=judge('def_flex', d.def_flex);
+  let iso=`H:Q conv. der ${d.hq_r!=null?`<b style="color:${jr1.c}">${f(d.hq_r,0)}%</b>`:'—'}  ·  izq ${d.hq_l!=null?`<b style="color:${jl.c}">${f(d.hq_l,0)}%</b>`:'—'}`;
+  iso+=`  ·  Déficit conc. ext ${d.def_ext!=null?`<b style="color:${jde.c}">${f(d.def_ext,0)}%</b>`:'—'}`;
+  iso+=` / flex ${d.def_flex!=null?`<b style="color:${jdf.c}">${f(d.def_flex,0)}%</b>`:'—'}`;
+  $("#c-iso").innerHTML=iso;
+  // isocinético funcional (excéntrico)
+  const jfr=judge('hqf_r', d.hqf_r), jfl=judge('hqf_l', d.hqf_l);
+  const jdee=judge('def_ext_ecc', d.def_ext_ecc), jdfe=judge('def_flex_ecc', d.def_flex_ecc);
+  let isof=`H:Q funcional der ${d.hqf_r!=null?`<b style="color:${jfr.c}">${f(d.hqf_r,0)}%</b> <span style="color:${jfr.c}">· ${jfr.t}</span>`:'— <span class="warn">(necesita flexor excéntrico + extensor concéntrico)</span>'}`;
+  isof+=`  ·  izq ${d.hqf_l!=null?`<b style="color:${jfl.c}">${f(d.hqf_l,0)}%</b>`:'—'}`;
+  isof+=`  ·  Déficit exc. ext ${d.def_ext_ecc!=null?`<b style="color:${jdee.c}">${f(d.def_ext_ecc,0)}%</b>`:'—'}`;
+  isof+=` / flex ${d.def_flex_ecc!=null?`<b style="color:${jdfe.c}">${f(d.def_flex_ecc,0)}%</b>`:'—'}`;
+  $("#c-isof").innerHTML=isof;
+  // récord de esquí
+  const box=$("#c-ski"); if(box){
+    if(d.ski_tension==null){
+      box.innerHTML = state.settings.bodyweight
+        ? 'Tensión de cuerda: — <span class="warn">(elige línea y velocidad)</span>'
+        : 'Tensión de cuerda: — <span class="warn">(falta tu peso corporal)</span>';
+    } else {
+      const jp=judge('ski_pct_imtp', d.ski_pct_imtp);
+      const def=reachDeficit(t.ski_line);
+      let s=`Tensión pico: <b style="color:var(--buoy)">${Math.round(d.ski_tension)} lb</b> (${Math.round(d.ski_tension*4.44822)} N)`;
+      if(d.ski_pct_imtp!=null){
+        s+=`  ·  <b style="color:${jp.c}">${f(d.ski_pct_imtp,0)}% de tu IMTP</b> <span style="color:${jp.c}">· ${jp.t}</span>`;
+      } else s+=`  ·  <span class="warn">añade tu IMTP para ver el % de tu fuerza máxima</span>`;
+      if(def!=null){
+        s+= def>0
+          ? `<br><span style="color:var(--muted-2);font-weight:500">La cuerda queda ${def.toFixed(2)} m CORTA respecto a la boya: hay que cubrir el hueco con cuerpo y velocidad.</span>`
+          : `<br><span style="color:var(--muted-2);font-weight:500">La cuerda aún llega a la boya con ${Math.abs(def).toFixed(2)} m de margen.</span>`;
+      }
+      box.innerHTML=s;
+    }
+  }
+}
+
 function renderTests(){
   $("#bw").value=state.settings.bodyweight||"";
-  $("#bw-note").textContent=state.settings.bodyweight?`valores relativos activados`:`opcional pero recomendado`;
+  $("#bw-note").textContent=state.settings.bodyweight?`valores relativos activados`:`sin peso no hay IMTP relativo`;
   if(!$("#t-date").value)$("#t-date").value=toISO(new Date());
-  const meta=TEST_META[$("#t-type").value];
-  $("#t-ref").textContent=meta?meta.ref:"";
+  liveCalc();
 
-  const tests=state.tests||[];
-  $("#tests-count").textContent=tests.length?`${tests.length} registros`:"";
+  const tests=[...(state.tests||[])].sort((a,b)=>a.date<b.date?1:-1);
+  $("#tests-count").textContent=tests.length?`${tests.length} valoraciones`:"";
 
-  // selector de prueba con datos
-  const types=[...new Set(tests.map(t=>t.type))];
+  // --- última valoración: tarjetas con todo ---
+  const lp=$("#last-panel");
+  if(tests.length){
+    const t=tests[0], d=derivedOf(t);
+    lp.style.display='block';
+    $("#last-date").textContent=`${fmtDate(t.date)}${t.notes?' · '+esc(t.notes):''}`;
+    const card=(label,val,unit,key)=>{
+      if(val==null) return '';
+      const j=key?judge(key,val):{c:'var(--foam)',t:''};
+      const dec = (key==='dsi')?2:(Number.isInteger(val)?0:1);
+      return `<div class="res"><div class="rl">${label}</div><div class="rv" style="color:${j.c}">${val.toFixed(dec)}</div><div class="ru">${unit}${j.t?' · '+j.t:''}</div></div>`;
+    };
+    let html='<div class="res-grid">';
+    html+=card('IMTP', t.imtp, 'N');
+    html+=card('IMTP relativo', d.imtp_rel, 'N/kg', 'imtp_rel');
+    html+=card('DSI', d.dsi, 'CMJ/IMTP', 'dsi');
+    html+=card('SJ', t.sj, 'cm');
+    html+=card('CMJ', t.cmj, 'cm');
+    html+=card('ABK', t.abk, 'cm');
+    html+=card('Elasticidad', d.elastic, '%', 'elastic');
+    html+=card('Despegue bipodal', t.hop_bi, 'cm');
+    html+=card('Unipodal der.', t.hop_r, 'cm');
+    html+=card('Unipodal izq.', t.hop_l, 'cm');
+    html+=card('Asimetría', d.hop_asym, '%', 'hop_asym');
+    html+=card('H:Q conv. derecha', d.hq_r, '%', 'hq_r');
+    html+=card('H:Q conv. izquierda', d.hq_l, '%', 'hq_l');
+    html+=card('H:Q funcional der.', d.hqf_r, '%', 'hqf_r');
+    html+=card('H:Q funcional izq.', d.hqf_l, '%', 'hqf_l');
+    html+=card('Déficit ext. conc.', d.def_ext, '%', 'def_ext');
+    html+=card('Déficit flex. conc.', d.def_flex, '%', 'def_flex');
+    html+=card('Déficit ext. exc.', d.def_ext_ecc, '%', 'def_ext_ecc');
+    html+=card('Déficit flex. exc.', d.def_flex_ecc, '%', 'def_flex_ecc');
+    html+='</div>';
+    // récord de esquí destacado
+    if(t.ski_line){
+      const jp=judge('ski_pct_imtp', d.ski_pct_imtp);
+      const def=reachDeficit(t.ski_line);
+      html+=`<h4 class="blk" style="margin-top:22px">Récord de esquí</h4><div class="res-grid">`;
+      html+=`<div class="res"><div class="rl">Línea récord</div><div class="rv" style="color:var(--buoy)">${t.ski_line} off</div><div class="ru">${SKI_LINES[t.ski_line]} m${t.ski_buoys!=null?' · '+t.ski_buoys+' boyas':''}</div></div>`;
+      if(t.ski_speed!=null) html+=`<div class="res"><div class="rl">Velocidad</div><div class="rv">${t.ski_speed}</div><div class="ru">km/h</div></div>`;
+      if(d.ski_tension!=null) html+=`<div class="res"><div class="rl">Tensión de cuerda</div><div class="rv" style="color:var(--buoy)">${Math.round(d.ski_tension)}</div><div class="ru">lb pico estimado</div></div>`;
+      if(d.ski_pct_imtp!=null) html+=`<div class="res"><div class="rl">Tensión ÷ tu IMTP</div><div class="rv" style="color:${jp.c}">${d.ski_pct_imtp.toFixed(0)}%</div><div class="ru">${jp.t}</div></div>`;
+      html+=`</div>`;
+      if(def!=null && def>0) html+=`<div class="note-sm">A ${t.ski_line} off la cuerda queda <b>${def.toFixed(2)} m más corta que la boya</b>: ya no llegas tirando de cuerda, tienes que cubrir el hueco con extensión corporal y velocidad. Tu estatura juega a favor aquí.</div>`;
+      if(d.ski_pct_imtp!=null && d.ski_pct_imtp>=100) html+=`<div class="note-sm" style="border-left:3px solid var(--danger);padding-left:10px">El pico de tensión en esta línea <b>supera tu fuerza isométrica máxima</b>. Son eventos supramaximales: para acortar más, la fuerza máxima es tu limitante principal, no la técnica.</div>`;
+    }
+    $("#last-body").innerHTML=html;
+  } else lp.style.display='none';
+
+  // --- selector de métrica y gráfico de evolución ---
+  const ALL={...TEST_META, ...DERIVED};
+  const avail=Object.keys(ALL).filter(k=>{
+    return tests.some(t=> (k in DERIVED) ? DERIVED[k].calc(t)!=null : t[k]!=null );
+  });
   const sel=$("#test-sel");
-  if(types.length){ if(!types.includes(testSel))testSel=types[0];
-    sel.innerHTML=types.map(t=>`<button data-t="${t}" class="${t===testSel?'on':''}">${TEST_META[t]?TEST_META[t].name.split(' ')[0]:t}</button>`).join("");
+  if(avail.length){
+    if(!avail.includes(testSel)) testSel=avail[0];
+    sel.innerHTML=avail.map(k=>`<button data-t="${k}" class="${k===testSel?'on':''}">${shortName(k)}</button>`).join("");
     sel.querySelectorAll('button').forEach(b=>b.onclick=()=>{testSel=b.dataset.t;renderTests();});
-    $("#tsel-label").textContent=TEST_META[testSel]?TEST_META[testSel].name:testSel;
+    $("#tsel-label").textContent=ALL[testSel].name;
+    $("#t-ref").textContent=ALL[testSel].ref||'';
     testChart($("#chart-test"), testSel);
-  } else { sel.innerHTML=''; $("#tsel-label").textContent='sin pruebas aún'; $("#chart-test").innerHTML=''; }
+  } else {
+    sel.innerHTML=''; $("#tsel-label").textContent='sin valoraciones aún';
+    $("#chart-test").innerHTML=''; $("#t-ref").textContent='';
+  }
 
-  // DSI
-  const pr=A.latestTests();
-  if(pr.cmj!=null && pr.imtp!=null){
-    // DSI aprox: fuerza pico CMJ estimada vs IMTP. Sin fuerzas reales, mostramos ratio informativo.
-    $("#dsi-panel").style.display='block';
-    const ratio=(pr.cmj/ (pr.imtp/ (state.settings.bodyweight||80) /9.81 )); // heurístico
-    const dsiApprox = pr.imtp? (pr.cmj*0.045) / (pr.imtp/(state.settings.bodyweight||80)/9.81) : null;
-    let interp = dsiApprox<0.6?'Déficit balístico: prioriza potencia/pliometría.':dsiApprox>0.8?'Déficit de fuerza: prioriza fuerza máxima.':'Perfil equilibrado fuerza-potencia.';
-    $("#dsi-body").innerHTML=`<div class="metric-row"><div class="ml">DSI aprox.<small>CMJ vs IMTP</small></div><div class="mt"><div class="mf" style="width:${Math.min(100,(dsiApprox||0)*100).toFixed(0)}%;background:var(--wake)"></div></div><div class="mv">${dsiApprox?dsiApprox.toFixed(2):'—'}</div></div><div class="note-sm">${interp} El DSI exacto requiere la fuerza pico del CMJ en placa; esta es una aproximación orientativa a partir de altura y fuerza isométrica.</div>`;
-  } else $("#dsi-panel").style.display='none';
-
-  // lista
-  const box=$("#test-rows"); const list=[...tests].sort((a,b)=>a.date<b.date?1:-1);
-  box.innerHTML=list.length? list.map(t=>{
-    const meta=TEST_META[t.type]; const bw=state.settings.bodyweight;
-    const rel=(meta&&meta.rel&&bw)?` · ${(t.value/bw).toFixed(2)} ${meta.rel}`:'';
-    return `<div class="row hrv-row"><div class="date">${fmtDate(t.date)}<small>${fmtDow(t.date)}</small></div>
-      <div class="mpills"><span class="mpill">${meta?meta.name.split(' ')[0]:t.type}</span>${t.notes?`<span class="mpill" style="color:var(--muted);font-weight:500">${esc(t.notes)}</span>`:''}</div>
-      <div class="big">${t.value}<small> ${meta?meta.unit:''}${rel}</small></div>
+  // --- lista de valoraciones ---
+  const box=$("#test-rows");
+  box.innerHTML=tests.length ? tests.map(t=>{
+    const d=derivedOf(t); const pills=[];
+    if(t.imtp!=null)pills.push(`<span class="mpill">IMTP <b>${t.imtp}</b>N</span>`);
+    if(d.imtp_rel!=null)pills.push(`<span class="mpill wake">Rel <b>${d.imtp_rel.toFixed(1)}</b></span>`);
+    if(t.cmj!=null)pills.push(`<span class="mpill">CMJ <b>${t.cmj}</b>cm</span>`);
+    if(d.dsi!=null)pills.push(`<span class="mpill ok">DSI <b>${d.dsi.toFixed(2)}</b></span>`);
+    if(d.elastic!=null)pills.push(`<span class="mpill">Elast <b>${d.elastic.toFixed(0)}%</b></span>`);
+    if(d.hop_asym!=null)pills.push(`<span class="mpill">Asim <b>${d.hop_asym.toFixed(1)}%</b></span>`);
+    return `<div class="row hrv-row">
+      <div class="date">${fmtDate(t.date)}<small>${(t.date||'').slice(0,4)}</small></div>
+      <div class="mpills">${pills.join('')||'<span class="note">—</span>'}${t.notes?`<span class="mpill" style="font-weight:500;color:var(--muted)">${esc(t.notes)}</span>`:''}</div>
+      <div class="big"></div>
       <button class="del" onclick="delTest('${t.id}')">✕</button></div>`;
-  }).join("") : emptyMsg("Sin pruebas registradas. Añade tu primer IMTP, CMJ, etc.");
+  }).join('') : emptyMsg("Sin valoraciones. Registra la primera arriba.");
 }
-function testChart(svg, type){
-  const W=svg.clientWidth||640,H=190,pad=32; svg.setAttribute("viewBox",`0 0 ${W} ${H}`);
-  const meta=TEST_META[type]; const bw=state.settings.bodyweight;
-  const pts=[...(state.tests||[])].filter(t=>t.type===type).sort((a,b)=>a.date<b.date?-1:1)
-    .map(t=>({v:(meta&&meta.rel&&bw)?t.value/bw:t.value, label:fmtDate(t.date)}));
+function shortName(k){
+  const m={imtp:'IMTP', imtp_rel:'IMTP rel', dsi:'DSI', sj:'SJ', cmj:'CMJ', cmj_force:'CMJ N',
+    abk:'ABK', elastic:'Elastic', hop_bi:'Bipodal', hop_r:'Uni D', hop_l:'Uni I', hop_asym:'Asimetría',
+    iso_ext_r:'Ext D con', iso_ext_l:'Ext I con', iso_flex_r:'Flex D con', iso_flex_l:'Flex I con',
+    iso_ext_r_ecc:'Ext D exc', iso_ext_l_ecc:'Ext I exc', iso_flex_r_ecc:'Flex D exc', iso_flex_l_ecc:'Flex I exc',
+    hq_r:'H:Q D', hq_l:'H:Q I', hqf_r:'H:Q fun D', hqf_l:'H:Q fun I',
+    def_ext:'Déf ext', def_flex:'Déf flex', def_ext_ecc:'Déf ext exc', def_flex_ecc:'Déf flex exc',
+    ski_speed:'Velocidad', ski_buoys:'Boyas', ski_tension:'Tensión lb', ski_pct_imtp:'Tensión/IMTP'};
+  return m[k]||k;
+}
+function testChart(svg, key){
+  const ALL={...TEST_META, ...DERIVED};
+  const meta=ALL[key];
+  const pts=[...(state.tests||[])].sort((a,b)=>a.date<b.date?-1:1)
+    .map(t=>({ v:(key in DERIVED)? DERIVED[key].calc(t) : t[key], label:fmtDate(t.date) }))
+    .filter(p=>p.v!=null);
   lineChart(svg, pts, meta&&meta.lower?'var(--buoy)':'var(--wake)');
 }
 
@@ -1846,9 +2561,11 @@ function renderDash(){
   $("#s-recovery-foot").textContent=effRecD!=null?`al ${fmtDate(effRecDDate)}`:"Sin registros aún";
 
   const sl=sleepStats();
-  $("#s-debt").innerHTML=(sl.net<=0?"0":sl.debt.toFixed(1))+'<span style="font-size:20px">h</span>';
+  const dOk=sl.net<=0, dVal=Math.abs(sl.net).toFixed(1);
+  const dCol=sl.days===0?'var(--muted)':(dOk?'var(--ok)':'var(--danger)');
+  $("#s-debt").innerHTML=`<span style="color:${dCol}">${sl.days===0?'—':(dOk?'+':'−')+dVal}<span style="font-size:20px">h</span></span>`;
   $("#s-debt-unit").textContent=`objetivo ${sl.goal} h`;
-  $("#s-debt-foot").textContent=sl.days?(sl.net<=0?`al día · ${sl.days}/7 noches`:`en ${sl.days}/7 noches`):"Sin datos de sueño";
+  $("#s-debt-foot").textContent=sl.days?(dOk?`a favor · ${sl.days}/7 noches`:`de deuda · ${sl.days}/7 noches`):"Sin datos de sueño";
   const ssD=A.sleepScore();
   if(ssD){ const lbl=A.sleepLabel(ssD.score); $("#s-sleepscore").textContent=ssD.score; $("#s-sleepscore").style.color=lbl.c; $("#s-sleepscore-lbl").textContent=lbl.t; $("#s-sleepscore-foot").textContent=`noche ${ssD.nightScore} · 7d ${ssD.weekAvg}`; }
   else { $("#s-sleepscore").textContent="—"; $("#s-sleepscore-lbl").textContent="/ 100"; $("#s-sleepscore-foot").textContent="Sin datos"; }
@@ -1867,6 +2584,18 @@ function renderDash(){
   let streak=0; for(let i=0;i<400;i++){ if(allDates.has(toISO(daysAgo(i))))streak++; else if(i>0)break; }
   $("#s-streak").textContent=streak;
 
+  // --- STRAIN ---
+  const todayIso=toISO(new Date());
+  const strainToday=A.dayStrain(todayIso);
+  const sLbl=A.strainLabel(strainToday);
+  const target=A.strainTarget();
+  $("#s-strain").textContent=strainToday>0?strainToday.toFixed(1):"—";
+  $("#s-strain").style.color=sLbl.c;
+  $("#s-strain-lbl").textContent=strainToday>0?sLbl.t:"/ 21";
+  $("#s-strain-foot").textContent=`objetivo hoy: ${target.toFixed(1)}`;
+  renderStrainGauge(strainToday, target, sLbl);
+  strainChart($("#chart-strain"), target);
+
   const cut=daysAgo(29);
   const hrvPts=withVal.filter(h=>new Date(h.date+"T00:00:00")>=cut).map(h=>({v:h.val,label:fmtDate(h.date)}));
   lineChart($("#chart-hrv"),hrvPts,"var(--wake)");
@@ -1879,15 +2608,27 @@ function renderDash(){
 }
 
 function renderSki(){
+  if(document.getElementById('ski-lines') && document.querySelectorAll('#ski-lines .linebox').length) skiCalc();
   const box=$("#ski-rows"), list=[...state.sessions].sort((a,b)=>a.date<b.date?1:-1);
   $("#ski-count").textContent=list.length?`${list.length} sesiones · ${list.reduce((a,s)=>a+(s.passes||0),0)} pasadas`:"";
   if(!list.length){ box.innerHTML=emptyMsg("Aún no hay sesiones de esquí. Registra la primera arriba."); return; }
-  box.innerHTML=list.map(s=>`<div class="row ses-row">
+  box.innerHTML=list.map(s=>{
+    const st=A.sessionStrain(s), lbl=A.strainLabel(st);
+    const n=A.sessionPasses(s), hard=A.hardestLine(s);
+    let detail='';
+    if(s.lines){
+      detail=Object.keys(s.lines).filter(o=>s.lines[o]>0)
+        .sort((a,b)=>SKI_LINES[b]-SKI_LINES[a])
+        .map(o=>`<span class="mpill">${o}<b>×${s.lines[o]}</b></span>`).join('');
+      if(s.comp) detail+=`<span class="mpill" style="background:var(--buoy);color:#160a04">COMP</span>`;
+    } else detail=`<span class="note">${s.notes?esc(s.notes):'—'}</span>`;
+    return `<div class="row ses-row">
     <div class="date">${fmtDate(s.date)}<small>${fmtDow(s.date)}</small></div>
-    <span class="badge t${s.type}">Tipo ${s.type}</span>
-    <div class="note">${s.notes?esc(s.notes):(s.rpe?`RPE ${s.rpe}/10`:'—')}</div>
-    <div class="big">${s.passes}<small> pasadas</small></div>
-    <button class="del" title="Borrar" onclick="del('ski','${s.id}')">✕</button></div>`).join("");
+    <span class="badge t${s.type}" title="${SKI_TYPES[s.type]?SKI_TYPES[s.type].full:''}">${SKI_TYPES[s.type]?SKI_TYPES[s.type].short:'Tipo '+s.type}</span>
+    <div class="mpills">${detail}</div>
+    <div class="big" style="color:${lbl.c}">${st.toFixed(1)}<small style="color:var(--muted-2)"> strain · ${n}p${hard?' · '+hard:''}</small></div>
+    <button class="del" title="Borrar" onclick="del('ski','${s.id}')">✕</button></div>`;
+  }).join("");
 }
 function renderHrv(){
   $("#sleep-goal").value=state.settings.sleepGoal||8;
@@ -1903,9 +2644,13 @@ function renderHrv(){
   $("#r-hrv").textContent=lastV?lastV.val:"—";
   $("#r-hrv-foot").textContent=lastV?`registrado ${fmtDate(lastV.date)}`:"—";
   const sl=sleepStats();
-  $("#r-debt").innerHTML=(sl.net<=0?"0":sl.debt.toFixed(1))+'<span style="font-size:20px">h</span>';
+  const debtOk = sl.net<=0;                       // net<=0 significa que vas a favor
+  const debtVal = Math.abs(sl.net).toFixed(1);
+  const debtCol = sl.days===0 ? 'var(--muted)' : (debtOk ? 'var(--ok)' : 'var(--danger)');
+  $("#r-debt").innerHTML=`<span style="color:${debtCol}">${sl.days===0?'—':(debtOk?'+':'−')+debtVal}<span style="font-size:20px">h</span></span>`;
   $("#r-debt-unit").textContent=`objetivo ${sl.goal} h/noche`;
-  $("#r-debt-foot").textContent=sl.days?(sl.net<=0?`al día · ${Math.abs(sl.net).toFixed(1)}h a favor`:`acumulada en ${sl.days} noches`):"Sin datos de sueño";
+  $("#r-debt-foot").textContent=sl.days?(debtOk?`a favor · ${sl.days} noches`:`de deuda · ${sl.days} noches`):"Sin datos de sueño";
+  sleepDebtChart($("#chart-sleep-debt"));
   const ss=A.sleepScore();
   if(ss){ const lbl=A.sleepLabel(ss.score);
     $("#r-sleepscore").textContent=ss.score; $("#r-sleepscore").style.color=lbl.c;
@@ -1928,8 +2673,10 @@ function renderHrv(){
     const pills=[];
     if(h.val!=null)pills.push(`<span class="mpill wake" title="${h.readings?h.readings.length+' tomas por hora':'valor único'}">HRV <b>${h.val}</b>${h.readings?` <span style="color:var(--muted-2);font-weight:500">media 24h·${h.readings.length}</span>`:''}</span>`);
     if(h.sleep!=null)pills.push(`<span class="mpill">Sueño <b>${h.sleep}h</b></span>`);
+    if(h.deepQ!=null)pills.push(`<span class="mpill">Prof. Q <b>${h.deepQ}</b></span>`);
     if(h.rhr!=null)pills.push(`<span class="mpill">FC rep <b>${h.rhr}</b></span>`);
-    if(h.stress!=null)pills.push(`<span class="mpill">Estrés <b>${h.stress}</b></span>`);
+    if(h.stress!=null)pills.push(`<span class="mpill">Estrés G <b>${h.stress}</b></span>`);
+    if(h.stressQ!=null)pills.push(`<span class="mpill">Estrés Q <b>${h.stressQ}</b></span>`);
     if(h.bb!=null)pills.push(`<span class="mpill">B.Battery <b>${h.bb}</b></span>`);
     if(h.notes)pills.push(`<span class="mpill" style="color:var(--muted);font-weight:500">${esc(h.notes)}</span>`);
     const bigVal=h.recovery!=null?h.recovery:(h.val!=null?h.val:'—');
@@ -1946,12 +2693,23 @@ function renderAct(){
   const box=$("#act-rows"), list=[...state.activities].sort((a,b)=>a.date<b.date?1:-1);
   $("#act-count").textContent=list.length?`${list.length} actividades`:"";
   if(!list.length){ box.innerHTML=emptyMsg("Sin actividades. Importa un CSV de Garmin o añade una a mano."); return; }
-  box.innerHTML=list.map(a=>`<div class="row act-row">
+  box.innerHTML=list.map(a=>{
+    const st=A.activityStrain(a); const sl=A.strainLabel(st);
+    const src=A.strainSource(a);
+    const needs=A.needsRpe(a);
+    // mini selector de RPE inline
+    const mini=`<span class="rpe-mini" title="Marca tu RPE (1-10)">${[1,2,3,4,5,6,7,8,9,10].map(n=>
+      `<span class="${a.rpe===n?'on':''}" onclick="event.stopPropagation();setRpe('${a.id}',${n})">${n}</span>`).join('')}</span>`;
+    return `<div class="row act-row">
     <div class="date">${fmtDate(a.date)}<small>${fmtDow(a.date)}</small></div>
     <span class="badge act">${a.src==='garmin'?'⌚ ':''}${esc(a.type)}</span>
-    <div class="note dur">${a.dur?a.dur+' min':''}${a.dur&&a.dist?' · ':''}${a.dist?a.dist+' km':''}${a.hr?` · ${a.hr} ppm`:''}</div>
-    <div class="big">${a.dist?a.dist:(a.dur||'')}<small>${a.dist?' km':(a.dur?' min':'')}</small></div>
-    <button class="del" title="Borrar" onclick="del('act','${a.id}')">✕</button></div>`).join("");
+    <div class="note dur" style="display:flex;flex-direction:column;gap:5px;align-items:flex-start">
+      <span>${a.dur?a.dur+' min':''}${a.dur&&a.dist?' · ':''}${a.dist?a.dist+' km':''}${a.hr?` · ${a.hr} ppm`:''}${a.rpe?` · RPE ${a.rpe}`:''}${needs?` <span style="color:var(--t1)">· falta RPE</span>`:''}</span>
+      ${mini}
+    </div>
+    <div class="big" style="color:${sl.c}">${st>0?st.toFixed(1):'—'}<small style="color:var(--muted-2)"> strain·${src}</small></div>
+    <button class="del" title="Borrar" onclick="del('act','${a.id}')">✕</button></div>`;
+  }).join("");
 }
 function emptyMsg(t){ return `<div class="empty"><svg width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M2 24c6 0 6-5 12-5s6 5 12 5 6-5 12-5" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"/></svg><p>${t}</p></div>`; }
 function esc(s){ return (s+"").replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
@@ -1959,6 +2717,7 @@ function esc(s){ return (s+"").replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>'
 function renderAll(){ renderDash(); renderSki(); renderHrv(); renderAct(); renderLoad(); renderCoach(); renderTests(); }
 window.del=del;
 window.addEventListener("resize",()=>{renderDash();renderHrv();renderLoad();});
+buildLineBoxes(); skiCalc();
 renderAll(); bindGarmin();
 if(state.settings.garminAuto && state.settings.garminUrl) syncGarmin(true);
 
