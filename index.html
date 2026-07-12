@@ -483,7 +483,8 @@
           <input type="number" id="ski-rest" min="10" max="300" step="5" value="40">
         </div>
         <div class="field full">
-          <label>Pasadas por línea <span style="color:var(--muted-2);font-weight:500">· la carga sale de aquí</span></label>
+          <label>Pasadas por línea <span style="color:var(--muted-2);font-weight:500">· se rellena solo al elegir el tipo</span></label>
+          <div class="note-sm" id="ski-auto" style="margin:0 0 8px">Elige el tipo de sesión y se prellenará desde tu récord.</div>
           <div class="lines" id="ski-lines"></div>
         </div>
         <div class="field full">
@@ -997,7 +998,7 @@ document.querySelectorAll('nav.tabs button').forEach(b=>{
 /* ---------- type chips ---------- */
 let skiType=null;
 $("#ski-chips").querySelectorAll('.chip').forEach(c=>{
-  c.onclick=()=>{ skiType=c.dataset.t; $("#ski-chips").querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x===c)); };
+  c.onclick=()=>{ skiType=c.dataset.t; $("#ski-chips").querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x===c)); applyDefaults(skiType); };
 });
 
 /* fechas por defecto = hoy */
@@ -1005,10 +1006,68 @@ $("#ski-chips").querySelectorAll('.chip').forEach(c=>{
 
 /* ---------- SUBMIT: esquí ---------- */
 /* ---------- selector de pasadas por línea ---------- */
-const LINE_ORDER=['22','28','32','35','38','39.5','41','43'];
+const LINE_ORDER=['15','22','28','32','35','38','39.5','41','43'];
+
+/* Secuencias por defecto, DERIVADAS DEL RÉCORD (línea + boyas).
+   REGLA DEL TECHO:
+     · récord con >= 3,25 boyas -> la línea está consolidada: el set TOPA EN ELLA.
+     · récord con <= 3 boyas    -> aún no es suya: el set topa UNA LÍNEA MÁS LARGA.
+   Estructura (siempre 6 pasadas), con la entrada 3 escalones bajo el techo:
+     · Torneo        : entrada x1, intermedia x1, intermedia x1, TECHO x3
+     · Back to backs : entrada x1, intermedia x2, intermedia x2, TECHO x1
+     · Reps c. larga : 6 pasadas en una línea cómoda (4 escalones bajo el techo)
+   Verificado contra: 3@41 -> techo 39.5 | 4@39.5 -> techo 39.5 | <=3@38 -> techo 35 */
+const BUOY_CONSOLIDATED=3.25;
+
+function lastSkiRecord(){
+  return [...(state.tests||[])].filter(x=>x.ski_line).sort((a,b)=>a.date<b.date?1:-1)[0]||null;
+}
+function topLineIdx(){
+  const r=lastSkiRecord(); if(!r) return null;
+  const ri=LINE_ORDER.indexOf(String(r.ski_line));
+  if(ri<0) return null;
+  const buoys=(r.ski_buoys!=null)?r.ski_buoys:0;
+  const idx = (buoys>=BUOY_CONSOLIDATED) ? ri : ri-1;   // consolidada -> topa ahí; si no, una más larga
+  return Math.max(3, Math.min(LINE_ORDER.length-1, idx));  // deja sitio para la rampa
+}
+function defaultLines(type){
+  const top=topLineIdx(); if(top==null) return null;
+  const lines={};
+  const add=(i,n)=>{ const o=LINE_ORDER[Math.max(0,i)]; if(o) lines[o]=(lines[o]||0)+n; };
+  if(type==='1'){                     // TORNEO: rampa + repetir el techo
+    add(top-3,1); add(top-2,1); add(top-1,1); add(top,3);
+  } else if(type==='2'){              // BACK TO BACKS: entrada 1, intermedias x2, techo 1
+    add(top-3,1); add(top-2,2); add(top-1,2); add(top,1);
+  } else if(type==='3'){              // REPS CUERDA LARGA: volumen por debajo del techo
+    add(top-3,2); add(top-2,3); add(top-1,1);
+  }
+  return lines;
+}
+const DEFAULT_REST={'1':40,'2':60,'3':60};
+
+function applyDefaults(type){
+  const lines=defaultLines(type);
+  const note=$("#ski-auto");
+  document.querySelectorAll('#ski-lines input').forEach(i=>i.value="");
+  if(!lines){
+    if(note) note.innerHTML='<span class="warn">Registra tu récord de esquí (línea + boyas) en Pruebas para que las pasadas se rellenen solas.</span>';
+    skiCalc(); return;
+  }
+  for(const off in lines){
+    const el=document.querySelector(`#ski-lines input[data-line="${off}"]`);
+    if(el) el.value=lines[off];
+  }
+  if($("#ski-rest")) $("#ski-rest").value=DEFAULT_REST[type]||40;
+  const r=lastSkiRecord(), top=LINE_ORDER[topLineIdx()];
+  const n=Object.values(lines).reduce((a,b)=>a+b,0);
+  const cons=(r.ski_buoys!=null && r.ski_buoys>=BUOY_CONSOLIDATED);
+  if(note) note.innerHTML=`Récord <b>${r.ski_buoys!=null?r.ski_buoys+' boyas a ':''}${r.ski_line} off</b> → techo del set <b style="color:var(--buoy)">${top} off</b> ${cons?'(línea consolidada)':'(aún no consolidada: baja una)'} · ${n} pasadas. <span style="color:var(--muted-2)">Edítalo si tu esquiada fue distinta.</span>`;
+  skiCalc();
+}
+
 function buildLineBoxes(){
   const box=$("#ski-lines"); if(!box) return;
-  box.innerHTML=LINE_ORDER.map(off=>
+  box.innerHTML=LINE_ORDER.filter(o=>o!=='15').map(off=>
     `<div class="linebox" data-off="${off}">
        <div class="lb-off">${off} off</div>
        <div class="lb-m">${SKI_LINES[off]} m</div>
@@ -1484,7 +1543,7 @@ function mergeGarmin(data){
   (data.activities||[]).forEach(a=>{ if(!a.date)return;
     const dup=state.activities.some(x=>x.src==='garmin'&&x.date===a.date&&x.type===a.type&&(x.dur??null)===(a.dur??null));
     if(dup)return;
-    state.activities.push({id:uid(),date:a.date,type:a.type||'Actividad',dur:a.dur??null,dist:a.dist??null,hr:a.hr??null,src:'garmin'}); addA++; });
+    state.activities.push({id:uid(),date:a.date,type:a.type||'Actividad',dur:a.dur??null,dist:a.dist??null,hr:a.hr??null,gload:a.gload??null,te_aer:a.te_aer??null,te_ana:a.te_ana??null,src:'garmin'}); addA++; });
   (data.hrv||[]).forEach(h=>{ if(!h.date)return;
     const ex=state.hrv.find(x=>x.date===h.date);
     const fields={val:h.val??null,recovery:h.recovery??null,sleep:h.sleep??null,sleepScore:h.sleepScore??null,rhr:h.rhr??null,stress:h.stress??null,bb:h.bb??null};
@@ -1641,22 +1700,37 @@ const A = {
   },
 
   // --- STRAIN (escala 0-21, estilo WHOOP) ---
-  // Prioridad: (1) sRPE si el usuario registró RPE (imprescindible en fuerza, donde la FC
-  // subestima el esfuerzo neuromuscular). (2) FC de reserva. (3) estimación por tipo.
+  // Prioridad según el tipo de trabajo:
+  //   AERÓBICO (trote, bici, MTB...): carga de entreno de Garmin (EPOC). La FC
+  //     representa bien el esfuerzo aquí, y Garmin ya integra intensidad × tiempo.
+  //   FUERZA (gimnasio): sRPE. La FC subestima gravemente el trabajo neuromuscular,
+  //     y la carga de Garmin arrastra el mismo defecto porque también es cardíaca.
+  //   Sin ninguno de los dos: FC de reserva, y en último caso estimación por tipo.
+  isStrength(a){
+    const t=(a.type||'').toLowerCase();
+    return /(fuerz|pesas|gym|strength|muscul|weight)/.test(t);
+  },
+  GLOAD_K: 182,   // calibrado: carga Garmin 200 -> strain 14
   activityStrain(a){
-    const dur=a.dur||0; if(!dur) return 0;
-    let intensity, src;
+    const dur=a.dur||0;
 
+    // 1) AERÓBICO con carga de Garmin -> es la mejor señal
+    if(!this.isStrength(a) && a.gload!=null && a.gload>0){
+      return Math.max(0, Math.min(21, 21*(1-Math.exp(-a.gload/this.GLOAD_K))));
+    }
+    if(!dur) return 0;
+
+    // 2) FUERZA con RPE -> sRPE
+    let intensity;
     if(a.rpe!=null && a.rpe>0){
-      // sRPE: el RPE 1-10 se mapea a intensidad relativa. RPE 10 ≈ máximo esfuerzo.
-      intensity = Math.max(0, Math.min(1, a.rpe/10));
-      src='rpe';
+      intensity=Math.max(0, Math.min(1, a.rpe/10));
     } else {
+      // 3) FC de reserva
       const hrMax=state.settings.hrMax, hrRest=state.settings.hrRest||this.autoRest();
       if(a.hr && hrMax && hrRest && hrMax>hrRest){
         intensity=Math.max(0,Math.min(1,(a.hr-hrRest)/(hrMax-hrRest)));
-        src='hr';
       } else {
+        // 4) estimación por tipo
         const t=(a.type||'').toLowerCase();
         if(/(hiit|interval|mtb|monta)/.test(t)) intensity=0.75;
         else if(/(run|carrera|correr|trote)/.test(t)) intensity=0.70;
@@ -1664,23 +1738,21 @@ const A = {
         else if(/(fuerz|pesas|gym|strength|muscul)/.test(t)) intensity=0.62;
         else if(/(camin|walk|yoga|movil)/.test(t)) intensity=0.35;
         else intensity=0.55;
-        src='type';
       }
     }
     const effort = dur * Math.pow(intensity, 3.2) * 10;
-    const strain = 21 * (1 - Math.exp(-effort/160));
-    return Math.max(0, Math.min(21, strain));
+    return Math.max(0, Math.min(21, 21*(1-Math.exp(-effort/160))));
   },
   strainSource(a){
+    if(!this.isStrength(a) && a.gload!=null && a.gload>0) return 'Garmin';
     if(a.rpe!=null && a.rpe>0) return 'RPE';
     const hrMax=state.settings.hrMax, hrRest=state.settings.hrRest||this.autoRest();
     if(a.hr && hrMax && hrRest) return 'FC';
     return 'est.';
   },
-  // ¿es una actividad de fuerza sin RPE? (avisamos: el strain estará subestimado)
+  // ¿es fuerza sin RPE? (el strain estará subestimado)
   needsRpe(a){
-    const t=(a.type||'').toLowerCase();
-    return /(fuerz|pesas|gym|strength|muscul)/.test(t) && (a.rpe==null||a.rpe===0);
+    return this.isStrength(a) && (a.rpe==null||a.rpe===0);
   },
   // Strain de un DÍA: combina las actividades y el esquí, sin sumar linealmente
   dayStrain(iso){
@@ -1768,8 +1840,10 @@ const A = {
   // --- CARGA por actividad (TRIMP-like) ---
   // Si hay FC media y FCmáx/reposo -> TRIMP de Banister; si no, duración*factor intensidad
   activityLoad(a){
+    // Aeróbico: la carga de entreno de Garmin (EPOC) es la mejor señal.
+    if(!this.isStrength(a) && a.gload!=null && a.gload>0) return Math.round(a.gload);
     const dur=a.dur||0; if(!dur) return 0;
-    // sRPE (Foster): duración × RPE. Es el estándar para cuantificar carga en fuerza.
+    // Fuerza: sRPE (Foster). La FC y la carga de Garmin subestiman el trabajo neuromuscular.
     if(a.rpe!=null && a.rpe>0) return Math.round(dur*a.rpe);
     const hrMax=state.settings.hrMax, hrRest=state.settings.hrRest||this.autoRest();
     if(a.hr && hrMax && hrRest && hrMax>hrRest){
@@ -2704,8 +2778,8 @@ function renderAct(){
     <div class="date">${fmtDate(a.date)}<small>${fmtDow(a.date)}</small></div>
     <span class="badge act">${a.src==='garmin'?'⌚ ':''}${esc(a.type)}</span>
     <div class="note dur" style="display:flex;flex-direction:column;gap:5px;align-items:flex-start">
-      <span>${a.dur?a.dur+' min':''}${a.dur&&a.dist?' · ':''}${a.dist?a.dist+' km':''}${a.hr?` · ${a.hr} ppm`:''}${a.rpe?` · RPE ${a.rpe}`:''}${needs?` <span style="color:var(--t1)">· falta RPE</span>`:''}</span>
-      ${mini}
+      <span>${a.dur?a.dur+' min':''}${a.dur&&a.dist?' · ':''}${a.dist?a.dist+' km':''}${a.hr?` · ${a.hr} ppm`:''}${a.gload?` · carga ${a.gload}`:''}${a.rpe?` · RPE ${a.rpe}`:''}${needs?` <span style="color:var(--t1)">· falta RPE</span>`:''}</span>
+      ${needs||A.isStrength(a)?mini:''}
     </div>
     <div class="big" style="color:${sl.c}">${st>0?st.toFixed(1):'—'}<small style="color:var(--muted-2)"> strain·${src}</small></div>
     <button class="del" title="Borrar" onclick="del('act','${a.id}')">✕</button></div>`;
