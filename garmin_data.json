@@ -1,24 +1,6 @@
 {
-  "generated": "2026-07-12T15:37:30",
+  "generated": "2026-07-14T16:21:28",
   "hrv": [
-    {
-      "date": "2026-06-13",
-      "src": "garmin",
-      "sleep": 7.8,
-      "sleepScore": 96,
-      "rhr": 38,
-      "stress": 33,
-      "bb": 8
-    },
-    {
-      "date": "2026-06-14",
-      "src": "garmin",
-      "sleep": 3.3,
-      "sleepScore": 44,
-      "rhr": 40,
-      "stress": 27,
-      "bb": 36
-    },
     {
       "date": "2026-06-15",
       "src": "garmin",
@@ -268,11 +250,56 @@
       "sleep": 8.1,
       "sleepScore": 92,
       "rhr": 37,
-      "stress": 11,
-      "bb": 77
+      "stress": 22,
+      "bb": 32
+    },
+    {
+      "date": "2026-07-13",
+      "src": "garmin",
+      "sleep": 6.7,
+      "sleepScore": 79,
+      "rhr": 39,
+      "stress": 26,
+      "bb": 23
+    },
+    {
+      "date": "2026-07-14",
+      "src": "garmin",
+      "sleep": 7.5,
+      "sleepScore": 91,
+      "rhr": 41,
+      "stress": 24,
+      "bb": 42
     }
   ],
   "activities": [
+    {
+      "date": "2026-07-13",
+      "type": "road biking",
+      "dur": 73,
+      "dist": 33.35,
+      "hr": 137,
+      "gload": 52,
+      "te_aer": 2.7,
+      "te_ana": 0.1,
+      "sets": null,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-07-12",
+      "type": "strength training",
+      "dur": 54,
+      "dist": null,
+      "hr": 81,
+      "gload": null,
+      "te_aer": 0.2,
+      "te_ana": null,
+      "sets": {
+        "SQUAT": 91,
+        "BENCH_PRESS": 66
+      },
+      "src": "garmin"
+    },
     {
       "date": "2026-07-10",
       "type": "running",
@@ -282,6 +309,7 @@
       "gload": 121,
       "te_aer": 3.5,
       "te_ana": 1.7,
+      "sets": null,
       "src": "garmin"
     },
     {
@@ -293,6 +321,11 @@
       "gload": null,
       "te_aer": 0.3,
       "te_ana": null,
+      "sets": {
+        "SIT_UP": 330,
+        "SQUAT": 75,
+        "ROW": 119
+      },
       "src": "garmin"
     },
     {
@@ -304,6 +337,7 @@
       "gload": 65,
       "te_aer": 3.0,
       "te_ana": null,
+      "sets": null,
       "src": "garmin"
     },
     {
@@ -315,6 +349,7 @@
       "gload": 11,
       "te_aer": 1.0,
       "te_ana": null,
+      "sets": null,
       "src": "garmin"
     },
     {
@@ -326,6 +361,7 @@
       "gload": null,
       "te_aer": 0.3,
       "te_ana": null,
+      "sets": null,
       "src": "garmin"
     },
     {
@@ -337,6 +373,7 @@
       "gload": null,
       "te_aer": 0.1,
       "te_ana": null,
+      "sets": null,
       "src": "garmin"
     },
     {
@@ -348,6 +385,13 @@
       "gload": null,
       "te_aer": 0.2,
       "te_ana": null,
+      "sets": {
+        "SIT_UP": 51,
+        "SQUAT": 80,
+        "ROW": 170,
+        "CARDIO": 17,
+        "TRICEPS_EXTENSION": 38
+      },
       "src": "garmin"
     },
     {
@@ -359,6 +403,7 @@
       "gload": null,
       "te_aer": 0.3,
       "te_ana": null,
+      "sets": null,
       "src": "garmin"
     },
     {
@@ -370,6 +415,11 @@
       "gload": 8,
       "te_aer": 0.7,
       "te_ana": null,
+      "sets": {
+        "SQUAT": 339,
+        "ROW": 49,
+        "PUSH_UP": 35
+      },
       "src": "garmin"
     },
     {
@@ -381,6 +431,7 @@
       "gload": 94,
       "te_aer": 3.3,
       "te_ana": 0.7,
+      "sets": null,
       "src": "garmin"
     },
     {
@@ -392,6 +443,9 @@
       "gload": null,
       "te_aer": 0.2,
       "te_ana": null,
+      "sets": {
+        "ROW": 61
+      },
       "src": "garmin"
     },
     {
@@ -403,6 +457,7 @@
       "gload": 25,
       "te_aer": 2.1,
       "te_ana": null,
+      "sets": null,
       "src": "garmin"
     },
     {
@@ -414,6 +469,7 @@
       "gload": 5,
       "te_aer": 0.5,
       "te_ana": null,
+      "sets": null,
       "src": "garmin"
     },
     {
@@ -425,6 +481,10 @@
       "gload": 6,
       "te_aer": 0.6,
       "te_ana": null,
+      "sets": {
+        "PULL_UP": 22,
+        "SIT_UP": 25
+      },
       "src": "garmin"
     },
     {
@@ -436,6 +496,7 @@
       "gload": null,
       "te_aer": 0.1,
       "te_ana": null,
+      "sets": null,
       "src": "garmin"
     },
     {
@@ -447,6 +508,7 @@
       "gload": null,
       "te_aer": null,
       "te_ana": null,
+      "sets": null,
       "src": "garmin"
     },
     {
@@ -458,6 +520,7 @@
       "gload": 79,
       "te_aer": 3.2,
       "te_ana": null,
+      "sets": null,
       "src": "garmin"
     },
     {
@@ -469,6 +532,9 @@
       "gload": null,
       "te_aer": null,
       "te_ana": null,
+      "sets": {
+        "PULL_UP": 55
+      },
       "src": "garmin"
     },
     {
@@ -480,6 +546,7 @@
       "gload": 17,
       "te_aer": 1.4,
       "te_ana": 0.2,
+      "sets": null,
       "src": "garmin"
     },
     {
@@ -491,6 +558,7 @@
       "gload": 163,
       "te_aer": 4.1,
       "te_ana": 1.3,
+      "sets": null,
       "src": "garmin"
     },
     {
@@ -502,6 +570,7 @@
       "gload": 57,
       "te_aer": 2.7,
       "te_ana": 0.6,
+      "sets": null,
       "src": "garmin"
     },
     {
@@ -513,6 +582,9 @@
       "gload": 7,
       "te_aer": 0.7,
       "te_ana": null,
+      "sets": {
+        "PULL_UP": 52
+      },
       "src": "garmin"
     },
     {
@@ -524,6 +596,13 @@
       "gload": 8,
       "te_aer": 0.8,
       "te_ana": null,
+      "sets": {
+        "SIT_UP": 64,
+        "ROW": 111,
+        "SQUAT": 18,
+        "PUSH_UP": 31,
+        "PULL_UP": 92
+      },
       "src": "garmin"
     },
     {
@@ -535,28 +614,9 @@
       "gload": null,
       "te_aer": 0.4,
       "te_ana": null,
-      "src": "garmin"
-    },
-    {
-      "date": "2026-06-13",
-      "type": "running",
-      "dur": 1,
-      "dist": 0.25,
-      "hr": 159,
-      "gload": 8,
-      "te_aer": 0.8,
-      "te_ana": null,
-      "src": "garmin"
-    },
-    {
-      "date": "2026-06-13",
-      "type": "running",
-      "dur": 18,
-      "dist": 4.01,
-      "hr": 148,
-      "gload": 76,
-      "te_aer": 3.2,
-      "te_ana": null,
+      "sets": {
+        "SIT_UP": 80
+      },
       "src": "garmin"
     }
   ],
