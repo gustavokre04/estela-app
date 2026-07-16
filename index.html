@@ -1940,7 +1940,7 @@ const A = {
     const r=sec||40;
     return Math.max(0.75, Math.min(1.25, Math.pow(40/r, 0.25)));
   },
-  SKI_C: 154.03,       // reajustada para SKI_K=19.26 (jul 2026): mantiene set de torneo -> strain 15.1
+  SKI_C: 113.7,        // constante de escala original (no se re-tunea). El strain refleja la tensión: con SKI_K=19.26 (jul 2026) baja un poco -> torneo 12.8, b2b 10.6, reps 8.6
   COMP_MULT: 1.65,     // presión de competencia (una sola bala por línea)
 
   sessionEffort(s){

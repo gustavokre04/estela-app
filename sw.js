@@ -1,6 +1,6 @@
 /* Service worker de Estela — cachea la app para uso offline.
    Los datos de Garmin (fetch a tu backend) NUNCA se cachean: siempre van a la red. */
-const CACHE = 'estela-v35';
+const CACHE = 'estela-v36';
 const ASSETS = [
   './',
   './index.html',
