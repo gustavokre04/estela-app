@@ -1,6 +1,8 @@
 /* Service worker de Estela — cachea la app para uso offline.
-   Los datos de Garmin (fetch a tu backend) NUNCA se cachean: siempre van a la red. */
-const CACHE = 'estela-v37';
+   Los datos de Garmin (fetch a tu backend) NUNCA se cachean: siempre van a la red.
+   La app (HTML/navegación) es NETWORK-FIRST: siempre trae lo último si hay internet,
+   y solo cae a la caché cuando estás sin conexión. Así no ves versiones viejas. */
+const CACHE = 'estela-v38';
 const ASSETS = [
   './',
   './index.html',
@@ -28,17 +30,31 @@ self.addEventListener('fetch', e => {
   if (url.origin !== location.origin) return;       // fuentes/backend externo: red directa
   if (url.pathname.endsWith('garmin_data.json')) return;  // datos de Garmin: siempre frescos, sin caché
 
-  // App propia: cache-first, con actualización en segundo plano
-  e.respondWith(
-    caches.match(req).then(cached => {
-      const network = fetch(req).then(res => {
+  // App shell (HTML / navegación): NETWORK-FIRST -> siempre lo último con internet, caché solo offline
+  const isShell = req.mode === 'navigate'
+    || url.pathname.endsWith('/')
+    || url.pathname.endsWith('index.html');
+  if (isShell) {
+    e.respondWith(
+      fetch(req).then(res => {
         if (res && res.status === 200) {
           const copy = res.clone();
-          caches.open(CACHE).then(c => c.put(req, copy));
+          caches.open(CACHE).then(c => c.put('./index.html', copy));
         }
         return res;
-      }).catch(() => cached || caches.match('./index.html'));
-      return cached || network;
-    })
+      }).catch(() => caches.match('./index.html').then(r => r || caches.match('./')))
+    );
+    return;
+  }
+
+  // Resto (iconos, manifest): cache-first, con actualización en segundo plano
+  e.respondWith(
+    caches.match(req).then(cached => cached || fetch(req).then(res => {
+      if (res && res.status === 200) {
+        const copy = res.clone();
+        caches.open(CACHE).then(c => c.put(req, copy));
+      }
+      return res;
+    }))
   );
 });
