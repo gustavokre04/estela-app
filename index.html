@@ -1005,12 +1005,26 @@
    Si el entorno lo bloquea (p. ej. la vista previa), cae a memoria sin romperse. */
 const KEY = "estela_v1";
 let mem = null;
+// Un solo registro de HRV/sueño por fecha. Une lo manual con lo de Garmin en vez de duplicar.
+function consolidateHrv(list){
+  if(!Array.isArray(list)) return [];
+  const byDate={}, order=[];
+  for(const h of list){
+    if(!h || !h.date) continue;
+    if(!byDate[h.date]){ byDate[h.date]=Object.assign({}, h); order.push(h.date); }
+    else { const t=byDate[h.date];
+      Object.keys(h).forEach(k=>{ if(k==='id'||k==='date') return;
+        if((t[k]==null||t[k]==='') && h[k]!=null && h[k]!=='') t[k]=h[k]; }); }
+  }
+  return order.map(d=>byDate[d]);
+}
 const store = {
   read(){
     if(mem) return mem;
     try{ const raw = localStorage.getItem(KEY); mem = raw?JSON.parse(raw):{sessions:[],hrv:[],activities:[],settings:{sleepGoal:8,hrMax:null,hrRest:null}}; }
     catch(e){ mem = {sessions:[],hrv:[],activities:[],settings:{sleepGoal:8,hrMax:null,hrRest:null}}; }
     if(!mem.sessions)mem.sessions=[]; if(!mem.hrv)mem.hrv=[]; if(!mem.activities)mem.activities=[];
+    mem.hrv=consolidateHrv(mem.hrv);   // une días que hayan quedado partidos (manual + Garmin)
     if(!mem.tests)mem.tests=[];
     if(!mem.settings)mem.settings={sleepGoal:8}; if(mem.settings.sleepGoal==null)mem.settings.sleepGoal=8;
     if(mem.settings.bodyweight===undefined)mem.settings.bodyweight=null;
@@ -1194,18 +1208,29 @@ $("#hrv-form").onsubmit=e=>{
   e.preventDefault();
   const readings=parseReadings($("#hrv-readings").value);
   const val=readings.length?parseFloat(mean(readings).toFixed(1)):null;
-  const rec={id:uid(),date:$("#hrv-date").value,
+  const date=$("#hrv-date").value;
+  const input={
     val,readings:readings.length?readings:null,
     recovery:numOrNull("#hrv-recovery"),sleep:numOrNull("#hrv-sleep"),sleepScore:numOrNull("#hrv-sleepscore"),
     deepQ:numOrNull("#hrv-deepq"),
     rhr:numOrNull("#hrv-rhr"),stress:numOrNull("#hrv-stress"),stressQ:numOrNull("#hrv-stressq"),bb:numOrNull("#hrv-bb"),
     notes:$("#hrv-notes").value.trim()};
-  if([rec.val,rec.recovery,rec.sleep,rec.sleepScore,rec.deepQ,rec.rhr,rec.stress,rec.stressQ,rec.bb].every(x=>x==null)){
+  if([input.val,input.recovery,input.sleep,input.sleepScore,input.deepQ,input.rhr,input.stress,input.stressQ,input.bb].every(x=>x==null)){
     toast("Rellena al menos un dato (HRV, recovery o sueño)",true); return; }
-  state.hrv.push(rec);
+  // Un solo registro por fecha: fusiona con lo que ya haya (Garmin o manual previo) en vez de duplicar.
+  const sameDay=state.hrv.filter(h=>h.date===date);
+  let rec;
+  if(sameDay.length){
+    rec=sameDay[0];
+    for(let i=1;i<sameDay.length;i++){ const o=sameDay[i];
+      Object.keys(o).forEach(k=>{ if(k!=='id'&&k!=='date'&&(rec[k]==null||rec[k]==='')&&o[k]!=null&&o[k]!=='') rec[k]=o[k]; }); }
+    state.hrv=state.hrv.filter(h=>h.date!==date || h===rec);   // quita duplicados del día
+  } else { rec={id:uid(),date}; state.hrv.push(rec); }
+  // lo que escribiste manda sobre lo que hubiera, pero solo en los campos que rellenaste (no pisa el sueño de Garmin con vacíos)
+  Object.keys(input).forEach(k=>{ if(input[k]!=null && !(k==='notes'&&input[k]==='')) rec[k]=input[k]; });
   ["#hrv-readings","#hrv-recovery","#hrv-sleep","#hrv-sleepscore","#hrv-deepq","#hrv-rhr","#hrv-stress","#hrv-stressq","#hrv-bb","#hrv-notes"].forEach(s=>$(s).value="");
   updateHrvReadout();
-  save(); toast("Día guardado");
+  save(); toast("Día actualizado");
 };
 
 /* objetivo de sueño */
