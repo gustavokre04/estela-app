@@ -1839,13 +1839,14 @@ const A = {
     const t=(a.type||'').toLowerCase();
     return /(fuerz|pesas|gym|strength|muscul|weight)/.test(t);
   },
-  GLOAD_K: 182,   // calibrado: carga Garmin 200 -> strain 14
+  STRAIN_K: 316,        // saturación de la escala 0-21 (recalibrada jul 2026)
+  GLOAD_F: 1.43,        // carga de Garmin -> unidades de esfuerzo
   activityStrain(a){
     const dur=a.dur||0;
 
     // 1) AERÓBICO con carga de Garmin -> es la mejor señal
     if(!this.isStrength(a) && a.gload!=null && a.gload>0){
-      return Math.max(0, Math.min(21, 21*(1-Math.exp(-a.gload/this.GLOAD_K))));
+      return Math.max(0, Math.min(21, 21*(1-Math.exp(-a.gload*this.GLOAD_F/this.STRAIN_K))));
     }
     if(!dur) return 0;
 
@@ -1870,7 +1871,13 @@ const A = {
       }
     }
     const effort = dur * Math.pow(intensity, 3.2) * 10;
-    return Math.max(0, Math.min(21, 21*(1-Math.exp(-effort/160))));
+    return Math.max(0, Math.min(21, 21*(1-Math.exp(-effort/this.STRAIN_K))));
+  },
+  // esfuerzo (unidades internas) de una actividad, para combinar el día
+  activityEffort(a){
+    if(!this.isStrength(a) && a.gload!=null && a.gload>0) return a.gload*this.GLOAD_F;
+    const s=this.activityStrain(a);
+    return s>0 ? -this.STRAIN_K*Math.log(1-Math.min(0.999, s/21)) : 0;
   },
   strainSource(a){
     if(!this.isStrength(a) && a.gload!=null && a.gload>0) return 'Garmin';
@@ -1900,11 +1907,13 @@ const A = {
     return {t:'Descanso', c:'var(--muted)'};
   },
   // ¿el strain de hoy encaja con mi recuperación? (estilo WHOOP: strain objetivo según recovery)
+  strainTargetFor(readiness){
+    const r=Math.max(0,Math.min(100, readiness==null?60:readiness));
+    return Math.round((6 + (r/100)*11) * 10)/10;     // ~6 con readiness 0, ~17 con 100
+  },
   strainTarget(){
     const R=this.recommendation();
-    const rec=R.recovery!=null?R.recovery:R.readiness;
-    // recovery alto -> puede asumir más strain
-    return Math.round((6 + (rec/100)*12) * 10)/10;   // ~6 con recovery 0, ~18 con recovery 100
+    return this.strainTargetFor(R.readiness);
   },
 
   // --- STRAIN DE ESQUÍ (basado en física de la cuerda) ---
@@ -1931,7 +1940,7 @@ const A = {
     const r=sec||40;
     return Math.max(0.75, Math.min(1.25, Math.pow(40/r, 0.25)));
   },
-  SKI_C: 58,           // constante calibrada: set de torneo de 6 pasadas -> strain 15
+  SKI_C: 154.03,       // reajustada para SKI_K=19.26 (jul 2026): mantiene set de torneo -> strain 15.1
   COMP_MULT: 1.65,     // presión de competencia (una sola bala por línea)
 
   sessionEffort(s){
@@ -1948,12 +1957,12 @@ const A = {
       if(s.comp) E *= this.COMP_MULT;
       return E;
     }
-    // compatibilidad con sesiones antiguas (solo nº de pasadas)
-    return (s.passes||0) * 29;
+    // compatibilidad con sesiones antiguas (solo nº de pasadas): mismo orden de magnitud
+    return (s.passes||0) * 66;
   },
   sessionStrain(s){
     const E=this.sessionEffort(s);
-    return Math.max(0, Math.min(21, 21*(1-Math.exp(-E/160))));
+    return Math.max(0, Math.min(21, 21*(1-Math.exp(-E/this.STRAIN_K))));
   },
   sessionPasses(s){
     if(s.lines) return Object.values(s.lines).reduce((a,b)=>a+(b||0),0);
@@ -2034,11 +2043,11 @@ const A = {
   // --- CARGA por actividad (TRIMP-like) ---
   // Si hay FC media y FCmáx/reposo -> TRIMP de Banister; si no, duración*factor intensidad
   activityLoad(a){
-    // Aeróbico: la carga de entreno de Garmin (EPOC) es la mejor señal.
+    // Todas las cargas en la MISMA escala (la de Garmin como referencia),
+    // para que el ACWR compare peras con peras.
     if(!this.isStrength(a) && a.gload!=null && a.gload>0) return Math.round(a.gload);
     const dur=a.dur||0; if(!dur) return 0;
-    // Fuerza: sRPE (Foster). La FC y la carga de Garmin subestiman el trabajo neuromuscular.
-    if(a.rpe!=null && a.rpe>0) return Math.round(dur*a.rpe);
+    if(a.rpe!=null && a.rpe>0) return Math.round(dur*a.rpe*0.6);   // sRPE escalado a la escala Garmin
     const hrMax=state.settings.hrMax, hrRest=state.settings.hrRest||this.autoRest();
     if(a.hr && hrMax && hrRest && hrMax>hrRest){
       const hrr=Math.max(0,Math.min(1,(a.hr-hrRest)/(hrMax-hrRest)));
@@ -2059,7 +2068,7 @@ const A = {
     let L=0;
     state.activities.filter(a=>a.date===iso).forEach(a=>L+=this.activityLoad(a));
     state.sessions.filter(s=>s.date===iso).forEach(s=>{
-      L += Math.round(this.sessionEffort(s)*0.55); });   // esquí: carga desde el esfuerzo real de las líneas
+      L += Math.round(this.sessionEffort(s)*0.55); });   // esquí: misma escala
     return L;
   },
 
@@ -2215,17 +2224,18 @@ const A = {
     const rec=[...state.hrv].filter(h=>h.date===iso)
       .map(h=>this.effectiveRecovery(h)).filter(Boolean)[0];
     if(!rec) return null;
-    let readiness=rec.score;
+    let adj=0;
     const model=this.loadModelAt(iso);
     const hrvSt=this.hrvStatusAt(iso);
-    if(hrvSt){ if(hrvSt.state==='suprimido')readiness-=18;
-      else if(hrvSt.state==='a la baja')readiness-=8;
-      else if(hrvSt.state==='adaptación positiva')readiness+=6; }
+    if(hrvSt){ if(hrvSt.state==='suprimido')adj-=14;
+      else if(hrvSt.state==='a la baja')adj-=6;
+      else if(hrvSt.state==='adaptación positiva')adj+=6; }
     if(model && model.acwr!=null){
-      if(model.acwr>1.5)readiness-=15; else if(model.acwr<0.8)readiness+=4;
-      if(model.tsb<-15)readiness-=10; else if(model.tsb>10)readiness+=5;
+      if(model.acwr>1.5)adj-=10; else if(model.acwr<0.8)adj+=4;
+      if(model.tsb<-15)adj-=6; else if(model.tsb>10)adj+=5;
     }
-    return Math.max(0,Math.min(100,Math.round(readiness)));
+    adj=Math.max(-18, Math.min(12, adj));     // el contexto matiza, no destruye
+    return Math.max(0,Math.min(100,Math.round(rec.score+adj)));
   },
   readinessLabel(v){
     if(v>=75) return {t:'Día de calidad', c:'var(--ok)'};
@@ -2235,26 +2245,31 @@ const A = {
   },
 
   // --- READINESS EN VIVO ---
-  // Arrancas el día con tu readiness (HRV, sueño, FC reposo, estrés) y el strain
-  // acumulado lo va drenando. El drenaje no es lineal: las primeras horas de
-  // esfuerzo cuestan poco, y acercarse al máximo vacía el tanque.
-  drainFraction(strain){
+  // El drenaje es RELATIVO a tu objetivo de strain del día, no al máximo absoluto.
+  // Si haces lo que tocaba, acabas "gastado pero normal" (~50%), no en cero.
+  // Solo si te pasas mucho del objetivo bajas de verdad. Y hay un suelo:
+  // entrenar nunca te deja a 0, porque el readiness mide capacidad, no vacío.
+  READY_FLOOR: 12,     // suelo: por duro que sea el día, no bajas de aquí
+  MAX_DRAIN: 0.72,     // drenaje máximo posible
+  drainFraction(strain, target){
     if(!strain||strain<=0) return 0;
-    return Math.min(0.92, Math.pow(Math.min(21,strain)/21, 1.3)*0.9);
+    const t=Math.max(4, target||12);
+    const ratio=strain/t;                       // 1 = hiciste justo tu objetivo
+    return this.MAX_DRAIN*(1-Math.exp(-ratio));  // ratio 1 -> ~46% ; ratio 2 -> ~62%
   },
   readinessLive(iso){
     const morning=this.readinessOn(iso);
     if(morning==null) return null;
     const strain=this.dayStrain(iso);
-    const live=Math.round(morning*(1-this.drainFraction(strain)));
-    return {morning, live:Math.max(0,live), strain, drained:morning-live};
+    const target=this.strainTargetFor(morning);
+    const drop=morning*this.drainFraction(strain, target);
+    const live=Math.max(strain>0?this.READY_FLOOR:morning, Math.round(morning-drop));
+    return {morning, live:Math.min(morning,live), strain, target, drained:morning-Math.min(morning,live)};
   },
-  // resumen de hoy
   readinessToday(){
     const iso=toISO(new Date());
     const r=this.readinessLive(iso);
     if(r) return r;
-    // sin datos de hoy: cae al último día con datos
     const last=[...state.hrv].sort((a,b)=>a.date<b.date?1:-1)[0];
     return last? this.readinessLive(last.date) : null;
   },
@@ -2735,13 +2750,15 @@ const MUSCLE_BOOST=1.7;   // el músculo marcado a mano recibe un 70% extra
    Desde 38 off la cuerda es MÁS CORTA que la boya: hay que cubrir el hueco
    con extensión corporal y velocidad.
    Tensión pico ≈ K · masa · v² / L²   (el swing lleva v²; la cuerda entra al cuadrado)
-   Calibrado con: 1000 lb (4448 N) a 41 off, 85 kg, 58 km/h — el pull más fuerte
-   de campeonato pro. Referencia cruzada: salida de agua profunda ≈ 2× peso corporal
-   (Keverline et al.). */
+   Calibrado (jul 2026) con el leaderboard TWBC "Men Strongest Pull" (12 atletas pro
+   con celda de carga): K = T·L²/(m·v²) da 19.26 ±1.24 de media — la banda es estrecha
+   (±6%) a pesar de pesos y líneas distintas, lo que valida el modelo. Ej.: Asher 436kgf
+   a 41 off → K 20.6; Freddie 405kgf (893lb) → 19.1; Nate Smith 362kgf → 17.1. SKI_K=19.26.
+   Referencia cruzada: salida de agua profunda ≈ 2× peso corporal (Keverline et al.). */
 const SKI_LINES={'15':18.25,'22':16.00,'28':14.25,'32':13.00,'35':12.00,
                  '38':11.25,'39.5':10.75,'41':10.25,'43':9.75};
 const BUOY_DIST=11.5;
-const SKI_K=21.18;
+const SKI_K=19.26;   // calibrado jul 2026 con leaderboard TWBC Strongest Pull (12 atletas pro): K medio 19.26 ±1.24
 
 function ropeTension(off, speedKph, massKg){
   const L=SKI_LINES[String(off)];
@@ -2849,7 +2866,7 @@ const DERIVED={
   ski_tension:{name:'Tensión de cuerda en tu récord', unit:'lb', cat:'Récord esquí',
     calc:t=>{ const T=ropeTension(t.ski_line, t.ski_speed, state.settings.bodyweight);
       return T==null?null:toLbs(T); },
-    ref:'Tensión pico estimada en los giros de tu línea récord, para tu peso y velocidad. Referencia: el pull más fuerte de campeonato pro ronda las 1000 lb (85 kg a 41 off, 58 km/h).'},
+    ref:'Tensión pico estimada en los giros de tu línea récord, para tu peso y velocidad. Referencia medida (leaderboard TWBC): los pull más fuertes pro rondan 850-960 lb a 41 off (p.ej. Asher 961, Freddie 893).'},
   ski_pct_imtp:{name:'Tensión ÷ tu IMTP', unit:'%', cat:'Récord esquí',
     calc:t=>{ const T=ropeTension(t.ski_line, t.ski_speed, state.settings.bodyweight);
       if(T==null || t.imtp==null || t.imtp<=0) return null;
