@@ -1,33 +1,6 @@
 {
-  "generated": "2026-07-14T16:21:28",
+  "generated": "2026-07-17T08:55:50",
   "hrv": [
-    {
-      "date": "2026-06-15",
-      "src": "garmin",
-      "sleep": 8.4,
-      "sleepScore": 92,
-      "rhr": 37,
-      "stress": 26,
-      "bb": 32
-    },
-    {
-      "date": "2026-06-16",
-      "src": "garmin",
-      "sleep": 7.1,
-      "sleepScore": 84,
-      "rhr": 39,
-      "stress": 47,
-      "bb": 5
-    },
-    {
-      "date": "2026-06-17",
-      "src": "garmin",
-      "sleep": 7.0,
-      "sleepScore": 72,
-      "rhr": 45,
-      "stress": 46,
-      "bb": 5
-    },
     {
       "date": "2026-06-18",
       "src": "garmin",
@@ -268,11 +241,67 @@
       "sleep": 7.5,
       "sleepScore": 91,
       "rhr": 41,
+      "stress": 25,
+      "bb": 44
+    },
+    {
+      "date": "2026-07-15",
+      "src": "garmin",
+      "sleep": 6.8,
+      "sleepScore": 78,
+      "rhr": 38,
+      "stress": 26,
+      "bb": 28
+    },
+    {
+      "date": "2026-07-16",
+      "src": "garmin",
+      "sleep": 7.8,
+      "sleepScore": 88,
+      "rhr": 37,
       "stress": 24,
-      "bb": 42
+      "bb": 44
+    },
+    {
+      "date": "2026-07-17",
+      "src": "garmin",
+      "sleep": 9.0,
+      "sleepScore": 85,
+      "rhr": 38,
+      "stress": 7,
+      "bb": 91
     }
   ],
   "activities": [
+    {
+      "date": "2026-07-15",
+      "type": "strength training",
+      "dur": 82,
+      "dist": null,
+      "hr": 94,
+      "gload": 6,
+      "te_aer": 0.5,
+      "te_ana": null,
+      "sets": {
+        "SIT_UP": 168,
+        "PUSH_UP": 79,
+        "PULL_UP": 114,
+        "DEADLIFT": 45
+      },
+      "src": "garmin"
+    },
+    {
+      "date": "2026-07-15",
+      "type": "indoor cycling",
+      "dur": 8,
+      "dist": null,
+      "hr": 118,
+      "gload": 8,
+      "te_aer": 0.8,
+      "te_ana": null,
+      "sets": null,
+      "src": "garmin"
+    },
     {
       "date": "2026-07-13",
       "type": "road biking",
@@ -602,20 +631,6 @@
         "SQUAT": 18,
         "PUSH_UP": 31,
         "PULL_UP": 92
-      },
-      "src": "garmin"
-    },
-    {
-      "date": "2026-06-16",
-      "type": "strength training",
-      "dur": 19,
-      "dist": null,
-      "hr": 100,
-      "gload": null,
-      "te_aer": 0.4,
-      "te_ana": null,
-      "sets": {
-        "SIT_UP": 80
       },
       "src": "garmin"
     }
