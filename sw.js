@@ -2,7 +2,7 @@
    Los datos de Garmin (fetch a tu backend) NUNCA se cachean: siempre van a la red.
    La app (HTML/navegación) es NETWORK-FIRST: siempre trae lo último si hay internet,
    y solo cae a la caché cuando estás sin conexión. Así no ves versiones viejas. */
-const CACHE = 'estela-v38';
+const CACHE = 'estela-v39';
 const ASSETS = [
   './',
   './index.html',
