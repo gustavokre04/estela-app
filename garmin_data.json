@@ -1,15 +1,6 @@
 {
-  "generated": "2026-07-20T19:26:53",
+  "generated": "2026-07-21T11:31:52",
   "hrv": [
-    {
-      "date": "2026-06-21",
-      "src": "garmin",
-      "sleep": 8.1,
-      "sleepScore": 89,
-      "rhr": 42,
-      "stress": 45,
-      "bb": 5
-    },
     {
       "date": "2026-06-22",
       "src": "garmin",
@@ -268,8 +259,17 @@
       "sleep": 6.0,
       "sleepScore": 75,
       "rhr": 38,
-      "stress": 23,
-      "bb": 24
+      "stress": 27,
+      "bb": 11
+    },
+    {
+      "date": "2026-07-21",
+      "src": "garmin",
+      "sleep": 4.2,
+      "sleepScore": 53,
+      "rhr": 42,
+      "stress": 22,
+      "bb": 41
     }
   ],
   "activities": [
@@ -601,22 +601,10 @@
       "te_ana": 1.3,
       "sets": null,
       "src": "garmin"
-    },
-    {
-      "date": "2026-06-21",
-      "type": "running",
-      "dur": 15,
-      "dist": 2.87,
-      "hr": 149,
-      "gload": 57,
-      "te_aer": 2.7,
-      "te_ana": 0.6,
-      "sets": null,
-      "src": "garmin"
     }
   ],
   "extras": {
-    "vo2max": 56.0,
+    "vo2max": null,
     "lactate_threshold": null
   }
 }
