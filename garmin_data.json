@@ -1,15 +1,6 @@
 {
-  "generated": "2026-07-23T20:34:55",
+  "generated": "2026-07-24T07:46:38",
   "hrv": [
-    {
-      "date": "2026-06-24",
-      "src": "garmin",
-      "sleep": 7.8,
-      "sleepScore": 77,
-      "rhr": 44,
-      "stress": 33,
-      "bb": 12
-    },
     {
       "date": "2026-06-25",
       "src": "garmin",
@@ -594,7 +585,7 @@
     }
   ],
   "extras": {
-    "vo2max": 56.0,
+    "vo2max": null,
     "lactate_threshold": null
   }
 }
