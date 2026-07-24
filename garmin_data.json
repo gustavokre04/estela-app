@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-23T15:33:51",
+  "generated": "2026-07-23T20:34:55",
   "hrv": [
     {
       "date": "2026-06-24",
@@ -268,11 +268,35 @@
       "sleep": 7.5,
       "sleepScore": 82,
       "rhr": 39,
-      "stress": 18,
-      "bb": 59
+      "stress": 23,
+      "bb": 26
     }
   ],
   "activities": [
+    {
+      "date": "2026-07-23",
+      "type": "mountain biking",
+      "dur": 13,
+      "dist": 2.66,
+      "hr": 115,
+      "gload": 6,
+      "te_aer": 0.6,
+      "te_ana": null,
+      "sets": null,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-07-23",
+      "type": "running",
+      "dur": 25,
+      "dist": 4.76,
+      "hr": 147,
+      "gload": 93,
+      "te_aer": 3.0,
+      "te_ana": 2.1,
+      "sets": null,
+      "src": "garmin"
+    },
     {
       "date": "2026-07-21",
       "type": "strength training",
@@ -570,7 +594,7 @@
     }
   ],
   "extras": {
-    "vo2max": null,
+    "vo2max": 56.0,
     "lactate_threshold": null
   }
 }
