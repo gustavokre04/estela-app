@@ -1,15 +1,6 @@
 {
-  "generated": "2026-07-25T19:56:02",
+  "generated": "2026-07-26T07:55:24",
   "hrv": [
-    {
-      "date": "2026-06-26",
-      "src": "garmin",
-      "sleep": 5.7,
-      "sleepScore": 69,
-      "rhr": 42,
-      "stress": 50,
-      "bb": 5
-    },
     {
       "date": "2026-06-27",
       "src": "garmin",
@@ -567,18 +558,6 @@
       "hr": 101,
       "gload": null,
       "te_aer": 0.1,
-      "te_ana": null,
-      "sets": null,
-      "src": "garmin"
-    },
-    {
-      "date": "2026-06-26",
-      "type": "breathwork",
-      "dur": 1,
-      "dist": null,
-      "hr": 66,
-      "gload": null,
-      "te_aer": null,
       "te_ana": null,
       "sets": null,
       "src": "garmin"
