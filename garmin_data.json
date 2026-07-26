@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-26T07:55:24",
+  "generated": "2026-07-26T16:48:35",
   "hrv": [
     {
       "date": "2026-06-27",
@@ -250,11 +250,41 @@
       "sleep": 7.9,
       "sleepScore": 83,
       "rhr": 39,
-      "stress": 23,
-      "bb": 38
+      "stress": 24,
+      "bb": 26
+    },
+    {
+      "date": "2026-07-25",
+      "src": "garmin",
+      "sleep": null,
+      "rhr": 43,
+      "stress": 38,
+      "bb": 34
+    },
+    {
+      "date": "2026-07-26",
+      "src": "garmin",
+      "sleep": null,
+      "rhr": null,
+      "stress": null,
+      "bb": 84
     }
   ],
   "activities": [
+    {
+      "date": "2026-07-24",
+      "type": "strength training",
+      "dur": 15,
+      "dist": null,
+      "hr": 82,
+      "gload": null,
+      "te_aer": 0.1,
+      "te_ana": null,
+      "sets": {
+        "PULL_UP": 36
+      },
+      "src": "garmin"
+    },
     {
       "date": "2026-07-23",
       "type": "mountain biking",
