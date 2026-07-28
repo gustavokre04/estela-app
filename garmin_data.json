@@ -1,15 +1,6 @@
 {
-  "generated": "2026-07-27T12:21:57",
+  "generated": "2026-07-28T08:46:13",
   "hrv": [
-    {
-      "date": "2026-06-28",
-      "src": "garmin",
-      "sleep": 8.8,
-      "sleepScore": 86,
-      "rhr": 39,
-      "stress": 24,
-      "bb": 28
-    },
     {
       "date": "2026-06-29",
       "src": "garmin",
@@ -198,15 +189,6 @@
       "rhr": 38,
       "stress": 23,
       "bb": 31
-    },
-    {
-      "date": "2026-07-20",
-      "src": "garmin",
-      "sleep": 6.0,
-      "sleepScore": 75,
-      "rhr": 38,
-      "stress": 27,
-      "bb": 11
     },
     {
       "date": "2026-07-21",
@@ -552,33 +534,6 @@
       "hr": 121,
       "gload": 5,
       "te_aer": 0.5,
-      "te_ana": null,
-      "sets": null,
-      "src": "garmin"
-    },
-    {
-      "date": "2026-06-28",
-      "type": "strength training",
-      "dur": 6,
-      "dist": null,
-      "hr": 122,
-      "gload": 6,
-      "te_aer": 0.6,
-      "te_ana": null,
-      "sets": {
-        "PULL_UP": 22,
-        "SIT_UP": 25
-      },
-      "src": "garmin"
-    },
-    {
-      "date": "2026-06-28",
-      "type": "indoor rowing",
-      "dur": 3,
-      "dist": null,
-      "hr": 101,
-      "gload": null,
-      "te_aer": 0.1,
       "te_ana": null,
       "sets": null,
       "src": "garmin"
