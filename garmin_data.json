@@ -1,15 +1,6 @@
 {
-  "generated": "2026-07-28T20:25:30",
+  "generated": "2026-07-29T08:16:38",
   "hrv": [
-    {
-      "date": "2026-06-29",
-      "src": "garmin",
-      "sleep": 6.4,
-      "sleepScore": 75,
-      "rhr": 44,
-      "stress": 40,
-      "bb": 7
-    },
     {
       "date": "2026-06-30",
       "src": "garmin",
@@ -521,30 +512,6 @@
       "sets": {
         "ROW": 61
       },
-      "src": "garmin"
-    },
-    {
-      "date": "2026-06-29",
-      "type": "running",
-      "dur": 16,
-      "dist": 2.07,
-      "hr": 127,
-      "gload": 25,
-      "te_aer": 2.1,
-      "te_ana": null,
-      "sets": null,
-      "src": "garmin"
-    },
-    {
-      "date": "2026-06-29",
-      "type": "indoor cycling",
-      "dur": 5,
-      "dist": null,
-      "hr": 121,
-      "gload": 5,
-      "te_aer": 0.5,
-      "te_ana": null,
-      "sets": null,
       "src": "garmin"
     }
   ],
