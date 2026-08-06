@@ -3462,6 +3462,8 @@ const Cloud = {
 };
 window.Cloud=Cloud;
 Cloud.init();
+document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible' && window.Cloud && Cloud.session && !Cloud.viewingAthlete){ Cloud.pull(); } });
+window.addEventListener('focus',()=>{ if(window.Cloud && Cloud.session && !Cloud.viewingAthlete){ Cloud.pull(); } });
 </script>
 <script>
 /* Service worker: instala la app y la hace funcionar sin conexión */
