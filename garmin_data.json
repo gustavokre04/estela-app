@@ -1,15 +1,6 @@
 {
-  "generated": "2026-08-11T18:12:35",
+  "generated": "2026-08-12T08:41:39",
   "hrv": [
-    {
-      "date": "2026-07-13",
-      "src": "garmin",
-      "sleep": 6.7,
-      "sleepScore": 79,
-      "rhr": 39,
-      "stress": 26,
-      "bb": 23
-    },
     {
       "date": "2026-07-14",
       "src": "garmin",
@@ -219,18 +210,6 @@
       "gload": 8,
       "te_aer": 0.8,
       "te_ana": null,
-      "sets": null,
-      "src": "garmin"
-    },
-    {
-      "date": "2026-07-13",
-      "type": "road biking",
-      "dur": 73,
-      "dist": 33.35,
-      "hr": 137,
-      "gload": 52,
-      "te_aer": 2.7,
-      "te_ana": 0.1,
       "sets": null,
       "src": "garmin"
     }
