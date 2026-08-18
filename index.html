@@ -1016,7 +1016,13 @@ function consolidateHrv(list){
       Object.keys(h).forEach(k=>{ if(k==='id'||k==='date') return;
         if((t[k]==null||t[k]==='') && h[k]!=null && h[k]!=='') t[k]=h[k]; }); }
   }
-  return order.map(d=>byDate[d]);
+  const out=order.map(d=>byDate[d]);
+  // Migración: el HRV del reloj Garmin que se importó por error en 'val' se mueve a 'valG'.
+  // Los registros manuales del Q-WACH traen 'readings' (aunque sea un número) → se protegen.
+  out.forEach(h=>{
+    if(h.src==='garmin' && (h.readings==null||!h.readings.length) && h.val!=null && h.valG==null){ h.valG=h.val; h.val=null; }
+  });
+  return out;
 }
 const store = {
   read(){
@@ -1071,7 +1077,9 @@ $("#ski-chips").querySelectorAll('.chip').forEach(c=>{
 });
 
 /* fechas por defecto = hoy */
-[["#ski-date"],["#hrv-date"],["#act-date"]].forEach(([sel])=>{ $(sel).value=toISO(new Date()); });
+[["#ski-date"],["#act-date"]].forEach(([sel])=>{ if($(sel)) $(sel).value=toISO(new Date()); });
+// El log del Q-WACH va por defecto a AYER, para que calce con la fecha del sueño de Garmin (que lo fecha al día que te acostaste) sin cambiarla cada vez.
+if($("#hrv-date")){ const _y=new Date(); _y.setDate(_y.getDate()-1); $("#hrv-date").value=toISO(_y); }
 
 /* ---------- SUBMIT: esquí ---------- */
 /* ---------- selector de pasadas por línea ---------- */
@@ -1657,9 +1665,10 @@ function mergeGarmin(data){
     state.activities.push({id:uid(),date:a.date,type:a.type||'Actividad',dur:a.dur??null,dist:a.dist??null,hr:a.hr??null,gload:a.gload??null,te_aer:a.te_aer??null,te_ana:a.te_ana??null,sets:a.sets??null,src:'garmin'}); addA++; });
   (data.hrv||[]).forEach(h=>{ if(!h.date)return;
     const ex=state.hrv.find(x=>x.date===h.date);
-    const fields={val:h.val??null,recovery:h.recovery??null,sleep:h.sleep??null,sleepScore:h.sleepScore??null,rhr:h.rhr??null,stress:h.stress??null,bb:h.bb??null};
+    // El HRV del reloj Garmin va a 'valG' (referencia), NO a 'val' (que es el Q-WACH manual, el que usa el recovery). Escalas distintas, no se mezclan.
+    const fields={valG:h.val??null,recovery:h.recovery??null,sleep:h.sleep??null,sleepScore:h.sleepScore??null,rhr:h.rhr??null,stress:h.stress??null,bb:h.bb??null};
     if(ex){ let ch=false;
-      ['val','recovery','sleep','sleepScore','rhr','stress','bb'].forEach(k=>{ if(ex[k]==null&&fields[k]!=null){ex[k]=fields[k];ch=true;} });
+      ['valG','recovery','sleep','sleepScore','rhr','stress','bb'].forEach(k=>{ if(ex[k]==null&&fields[k]!=null){ex[k]=fields[k];ch=true;} });
       if(ex.readings==null&&h.readings){ex.readings=h.readings;ch=true;}
       if(ch)updH++;
     } else { state.hrv.push({id:uid(),date:h.date,readings:h.readings||null,...fields,notes:'',src:'garmin'}); addH++; }
@@ -1742,6 +1751,29 @@ const A = {
       .sort((a,b)=>a.date<b.date?-1:1)
       .map(h=>({date:h.date, v:h.val, ln:Math.log(h.val+1)}));
   },
+  // Serie del HRV del reloj Garmin (valG), para su propia línea base.
+  hrvSeriesG(){
+    return [...state.hrv].filter(h=>h.valG!=null)
+      .sort((a,b)=>a.date<b.date?-1:1)
+      .map(h=>({date:h.date, v:h.valG, ln:Math.log(h.valG+1)}));
+  },
+  // Puntúa el HRV mezclando ambas fuentes: cada una se normaliza vs SU propia línea base
+  // (z-score), así el Q-WACH (~40) y el Garmin (~120) se vuelven comparables. Ponderado:
+  // Q-WACH manda (más preciso) y el Garmin aporta. Renormaliza si falta alguna.
+  hrvScoreFor(rec){
+    const one=(value, series, w)=>{
+      if(value==null) return null;
+      const b=this.baseline(series, rec.date, 60) || this.baseline(series, rec.date, 30);
+      let sc;
+      if(b){ const z=(Math.log(value+1)-b.mean)/(b.sd||0.05); sc=Math.max(0,Math.min(100, 70 + z*18)); }
+      else { sc=Math.max(0,Math.min(100,(value-30)*1.4)); }
+      return {sc, w};
+    };
+    const ps=[ one(rec.val, this.hrvSeries(), 0.5), one(rec.valG, this.hrvSeriesG(), 0.5) ].filter(Boolean);
+    if(!ps.length) return null;
+    const wsum=ps.reduce((a,p)=>a+p.w,0);
+    return Math.round(ps.reduce((a,p)=>a+p.sc*p.w,0)/wsum);
+  },
 
   // Baseline: media/desv de ln rMSSD en ventana de N días hasta 'ref'
   baseline(series, refDate, days){
@@ -1754,53 +1786,52 @@ const A = {
   },
 
   // --- RECOVERY combinado (0-100) para un día ---
-  // Pesos: HRV 25% · Sueño Garmin 45% · Continuidad sueño profundo Q-WACH 5%
-  //        FC reposo 15% · Estrés Garmin 5% · Estrés Q-WACH 5%
+  // Pesos: HRV 25% (Q-WACH+Garmin 50/50) · Sueño 35% (Garmin 70% + prof.Q-WACH 30% + bonus siesta)
+  //        FC reposo 10% · Estrés 15% (Garmin+Q-WACH 50/50) · Body Battery 15%
+  // Renormaliza sobre las señales presentes (nunca castiga por dato ausente).
   recoveryFor(rec){
-    const series=this.hrvSeries();
     const parts=[]; let hrvScore=null, sleepScore=null, rhrScore=null, stressScore=null;
 
-    // 1) HRV vs baseline personal (60d) — 25%
-    if(rec.val!=null){
-      const b60=this.baseline(series, rec.date, 60) || this.baseline(series, rec.date, 30);
-      if(b60){
-        const z=(Math.log(rec.val+1)-b60.mean)/(b60.sd||0.05);
-        hrvScore=Math.max(0,Math.min(100, 70 + z*18));
-        parts.push({k:'HRV', w:0.25, v:hrvScore});
-      } else {
-        hrvScore=Math.max(0,Math.min(100,(rec.val-30)*1.4));
-        parts.push({k:'HRV', w:0.25, v:hrvScore});
+    // 1) HRV — 25% — mezcla Q-WACH (val) + Garmin (valG) 50/50, cada uno vs su base
+    hrvScore=this.hrvScoreFor(rec);
+    if(hrvScore!=null){ parts.push({k:'HRV', w:0.25, v:hrvScore}); }
+
+    // 2) SUEÑO — 35% — Garmin (score/duración) 70% + sueño profundo Q-WACH 30%, + bonus de siesta
+    if(rec.sleepScore!=null || rec.sleep!=null || rec.deepQ!=null){
+      const subs=[];
+      const g=this.sleepNightScore(rec);
+      if(g!=null) subs.push({v:g, w:0.7});
+      if(rec.deepQ!=null) subs.push({v:Math.max(0,Math.min(100,(rec.deepQ-70)/30*100)), w:0.3});
+      if(subs.length){
+        const sw=subs.reduce((a,s)=>a+s.w,0);
+        let sub=subs.reduce((a,s)=>a+s.v*s.w,0)/sw;
+        // bonus de siesta (Garmin, minutos): sube hasta +12, tope a los ~30 min (más larga = sin extra)
+        const nap=(rec.napMin!=null?rec.napMin:(rec.nap!=null?rec.nap:null));
+        if(nap!=null && nap>0) sub += 12*Math.min(1, nap/30);
+        sleepScore=Math.max(0,Math.min(100, Math.round(sub)));
+        parts.push({k:'Sueño', w:0.35, v:sleepScore});
       }
     }
-    // 2) Sueño: score de Garmin (o curva por duración de respaldo) — 45%
-    if(rec.sleepScore!=null || rec.sleep!=null){
-      sleepScore=this.sleepNightScore(rec);
-      parts.push({k:'Sueño', w:0.45, v:sleepScore});
-    }
-    // 3) Continuidad de sueño profundo Q-WACH (70-100 → 0-100) — 5%
-    if(rec.deepQ!=null){
-      const dq=Math.max(0,Math.min(100, (rec.deepQ-70)/30*100));
-      parts.push({k:'Sueño prof. Q-WACH', w:0.05, v:dq});
-    }
-    // 4) FC reposo vs baseline (invertido: más baja, mejor) — 15%
+
+    // 3) FC reposo vs baseline (invertido: más baja, mejor) — 10%
     const rhrSeries=[...state.hrv].filter(h=>h.rhr!=null).sort((a,b)=>a.date<b.date?-1:1);
     if(rec.rhr!=null && rhrSeries.length>=3){
       const to=new Date(rec.date+'T00:00:00'); const from=new Date(to-29*this.dayMs);
       const win=rhrSeries.filter(s=>this.within(s.date,from,to)).map(s=>s.rhr);
       if(win.length>=3){ const m=win.reduce((a,b)=>a+b,0)/win.length;
         rhrScore=Math.max(0,Math.min(100, 70 - (rec.rhr-m)*4));
-        parts.push({k:'FC reposo', w:0.15, v:rhrScore}); }
+        parts.push({k:'FC reposo', w:0.10, v:rhrScore}); }
     }
-    // 5) Estrés Garmin (0-100, invertido) — 5%
-    if(rec.stress!=null){
-      stressScore=Math.max(0,Math.min(100, 100-rec.stress));
-      parts.push({k:'Estrés Garmin', w:0.05, v:stressScore});
-    }
-    // 6) Estrés Q-WACH (0-100, invertido) — 5%
-    if(rec.stressQ!=null){
-      const sq=Math.max(0,Math.min(100, 100-rec.stressQ));
-      parts.push({k:'Estrés Q-WACH', w:0.05, v:sq});
-    }
+
+    // 4) ESTRÉS — 15% — Garmin + Q-WACH 50/50 (invertido: menos estrés, mejor)
+    const sts=[];
+    if(rec.stress!=null)  sts.push(Math.max(0,Math.min(100,100-rec.stress)));
+    if(rec.stressQ!=null) sts.push(Math.max(0,Math.min(100,100-rec.stressQ)));
+    if(sts.length){ stressScore=Math.round(sts.reduce((a,b)=>a+b,0)/sts.length); parts.push({k:'Estrés', w:0.15, v:stressScore}); }
+
+    // 5) BODY BATTERY (Garmin, valor de la mañana) — 15%
+    if(rec.bb!=null){ parts.push({k:'Body Battery', w:0.15, v:Math.max(0,Math.min(100, rec.bb))}); }
+
     if(!parts.length) return null;
     const wsum=parts.reduce((a,p)=>a+p.w,0);
     const score=Math.round(parts.reduce((a,p)=>a+p.v*p.w,0)/wsum);
@@ -3257,6 +3288,7 @@ function renderHrv(){
   box.innerHTML=list.map(h=>{
     const pills=[];
     if(h.val!=null)pills.push(`<span class="mpill wake" title="${h.readings?h.readings.length+' tomas por hora':'valor único'}">HRV <b>${h.val}</b>${h.readings?` <span style="color:var(--muted-2);font-weight:500">media 24h·${h.readings.length}</span>`:''}</span>`);
+    if(h.valG!=null)pills.push(`<span class="mpill" style="color:var(--muted-2)" title="HRV del reloj Garmin · solo referencia, no afecta el recovery">HRV·Garmin <b>${h.valG}</b></span>`);
     if(h.sleep!=null)pills.push(`<span class="mpill">Sueño <b>${h.sleep}h</b></span>`);
     if(h.deepQ!=null)pills.push(`<span class="mpill">Prof. Q <b>${h.deepQ}</b></span>`);
     if(h.rhr!=null)pills.push(`<span class="mpill">FC rep <b>${h.rhr}</b></span>`);
@@ -3326,7 +3358,7 @@ if(state.settings.garminAuto && state.settings.garminUrl) syncGarmin(true);
    Rellena SUPABASE_URL y SUPABASE_ANON_KEY con los de tu proyecto.
    ===================================================================== */
 const SUPABASE_URL = "https://vywozymckvypnxelsxwl.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ5d296eW1ja3Z5cG54ZWxzeHdsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ0ODk0NzUsImV4cCI6MjEwMDA2NTQ3NX0.OP6PZkY0SJW5pfEW9wCueba9DEHH3mlvaeCYiglbmKc";   // clave publishable (segura en navegador con RLS)
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ5d296eW1ja3Z5cG54ZWxzeHdsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ0ODk0NzUsImV4cCI6MjEwMDA2NTQ3NX0.OP6PZkY0SJW5pfEW9wCueba9DEHH3mlvaeCYiglbmKc";   // clave anon legacy (JWT), compatible con supabase-js
 
 const Cloud = {
   sb:null, session:null, profile:null, viewingAthlete:null, _mine:null,
@@ -3462,8 +3494,14 @@ const Cloud = {
 };
 window.Cloud=Cloud;
 Cloud.init();
-document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible' && window.Cloud && Cloud.session && !Cloud.viewingAthlete){ Cloud.pull(); } });
-window.addEventListener('focus',()=>{ if(window.Cloud && Cloud.session && !Cloud.viewingAthlete){ Cloud.pull(); } });
+// Auto-sincroniza desde la nube al volver a la app (sin tocar botón): al abrir la pestaña,
+// desminimizar, o volver desde otra app. Así lo que pusiste en otro dispositivo aparece solo.
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState==='visible' && window.Cloud && Cloud.session && !Cloud.viewingAthlete){ Cloud.pull(); }
+});
+window.addEventListener('focus',()=>{
+  if(window.Cloud && Cloud.session && !Cloud.viewingAthlete){ Cloud.pull(); }
+});
 </script>
 <script>
 /* Service worker: instala la app y la hace funcionar sin conexión */
