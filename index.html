@@ -3188,7 +3188,7 @@ function renderDash(){
 
   const wk=daysAgo(6);
   const recentSes=state.sessions.filter(s=>new Date(s.date+"T00:00:00")>=wk);
-  const passes=recentSes.reduce((a,s)=>a+(s.passes||0),0);
+  const passes=recentSes.reduce((a,s)=>a+A.sessionPasses(s),0);
   $("#s-passes").textContent=passes; $("#s-sess").textContent=recentSes.length;
   $("#s-passes-foot").textContent=recentSes.length?`última: ${fmtDate(recentSes.sort((a,b)=>a.date<b.date?1:-1)[0].date)}`:"Registra tu primera sesión";
 
@@ -3218,15 +3218,15 @@ function renderDash(){
 
   const weeks=[]; for(let w=5;w>=0;w--){ const end=daysAgo(w*7); const start=daysAgo(w*7+6);
     const inw=state.sessions.filter(s=>{const d=new Date(s.date+"T00:00:00");return d>=start&&d<=end;});
-    const byType={}; inw.forEach(s=>byType[s.type]=(byType[s.type]||0)+(s.passes||0));
-    weeks.push({label:fmtDate(toISO(start)),total:inw.reduce((a,s)=>a+(s.passes||0),0),byType}); }
+    const byType={}; inw.forEach(s=>byType[s.type]=(byType[s.type]||0)+A.sessionPasses(s));
+    weeks.push({label:fmtDate(toISO(start)),total:inw.reduce((a,s)=>a+A.sessionPasses(s),0),byType}); }
   barChart($("#chart-passes"),weeks);
 }
 
 function renderSki(){
   if(document.getElementById('ski-lines') && document.querySelectorAll('#ski-lines .linebox').length) skiCalc();
   const box=$("#ski-rows"), list=[...state.sessions].sort((a,b)=>a.date<b.date?1:-1);
-  $("#ski-count").textContent=list.length?`${list.length} sesiones · ${list.reduce((a,s)=>a+(s.passes||0),0)} pasadas`:"";
+  $("#ski-count").textContent=list.length?`${list.length} sesiones · ${list.reduce((a,s)=>a+A.sessionPasses(s),0)} pasadas`:"";
   if(!list.length){ box.innerHTML=emptyMsg("Aún no hay sesiones de esquí. Registra la primera arriba."); return; }
   box.innerHTML=list.map(s=>{
     const st=A.sessionStrain(s), lbl=A.strainLabel(st);
