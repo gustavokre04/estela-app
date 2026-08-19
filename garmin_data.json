@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-18T10:53:57",
+  "generated": "2026-08-19T04:53:42",
   "hrv": [
     {
       "date": "2026-07-20",
@@ -80,11 +80,47 @@
       "sleepScore": 88,
       "recovery": null,
       "rhr": 40,
-      "stress": 10,
-      "bb": 80
+      "stress": 22,
+      "bb": 32
     }
   ],
   "activities": [
+    {
+      "date": "2026-08-18",
+      "type": "running",
+      "dur": 8,
+      "dist": 1.59,
+      "hr": 142,
+      "gload": 53,
+      "te_aer": 2.1,
+      "te_ana": 2.1,
+      "sets": null,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-08-18",
+      "type": "running",
+      "dur": 3,
+      "dist": 1.03,
+      "hr": 177,
+      "gload": 89,
+      "te_aer": 2.2,
+      "te_ana": 3.0,
+      "sets": null,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-08-18",
+      "type": "running",
+      "dur": 3,
+      "dist": 0.53,
+      "hr": 115,
+      "gload": 6,
+      "te_aer": 0.6,
+      "te_ana": null,
+      "sets": null,
+      "src": "garmin"
+    },
     {
       "date": "2026-08-17",
       "type": "strength training",
