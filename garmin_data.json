@@ -1,15 +1,6 @@
 {
-  "generated": "2026-08-19T04:53:42",
+  "generated": "2026-08-19T23:11:30",
   "hrv": [
-    {
-      "date": "2026-07-20",
-      "src": "garmin",
-      "sleep": 6.0,
-      "sleepScore": 75,
-      "rhr": 38,
-      "stress": 27,
-      "bb": 11
-    },
     {
       "date": "2026-07-21",
       "src": "garmin",
@@ -32,35 +23,7 @@
       "date": "2026-07-23",
       "src": "garmin",
       "sleep": 7.5,
-      "sleepScore": 82,
-      "rhr": 39,
-      "stress": 27,
-      "bb": 24
-    },
-    {
-      "date": "2026-07-24",
-      "src": "garmin",
-      "sleep": 7.9,
-      "sleepScore": 83,
-      "rhr": 39,
-      "stress": 24,
-      "bb": 26
-    },
-    {
-      "date": "2026-07-25",
-      "src": "garmin",
-      "sleep": null,
-      "rhr": 43,
-      "stress": 38,
-      "bb": 34
-    },
-    {
-      "date": "2026-07-26",
-      "src": "garmin",
-      "sleep": null,
-      "rhr": null,
-      "stress": null,
-      "bb": 84
+      "sleepScore": 82
     },
     {
       "date": "2026-08-17",
@@ -80,8 +43,20 @@
       "sleepScore": 88,
       "recovery": null,
       "rhr": 40,
-      "stress": 22,
-      "bb": 32
+      "stress": 26,
+      "bb": 22
+    },
+    {
+      "date": "2026-08-19",
+      "src": "garmin",
+      "val": 114,
+      "readings": null,
+      "sleep": 8.0,
+      "sleepScore": 85,
+      "recovery": null,
+      "rhr": 44,
+      "stress": 27,
+      "bb": 34
     }
   ],
   "activities": [
@@ -185,18 +160,6 @@
         "ROW": 60,
         "SQUAT": 107
       },
-      "src": "garmin"
-    },
-    {
-      "date": "2026-07-20",
-      "type": "running",
-      "dur": 38,
-      "dist": 7.53,
-      "hr": 144,
-      "gload": 93,
-      "te_aer": 3.2,
-      "te_ana": 1.5,
-      "sets": null,
       "src": "garmin"
     }
   ],
