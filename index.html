@@ -452,6 +452,12 @@
         <div class="unit">días seguidos</div>
         <div class="foot">Cualquier registro cuenta</div>
       </div>
+      <div class="card stat">
+        <div class="label">Recuperación</div>
+        <div class="num" id="s-recov" style="color:var(--wake)">—</div>
+        <div class="unit">h · Estela</div>
+        <div class="foot" id="s-recov-foot">integra Garmin + esquiadas</div>
+      </div>
     </div>
 
     <div class="panel">
@@ -1024,6 +1030,22 @@ function consolidateHrv(list){
   });
   return out;
 }
+// Las actividades de Garmin se recrean con id aleatorio en cada dispositivo, así que la nube
+// las duplicaba (mismo entreno, ids distintos). Deduplica por CONTENIDO (fecha+tipo+dur+dist).
+// Las manuales tienen id estable y no se tocan.
+function dedupeGarminActs(list){
+  if(!Array.isArray(list)) return list||[];
+  const seen=new Set(), out=[];
+  for(const a of list){
+    if(a && a.src==='garmin'){
+      const k=a.date+'|'+a.type+'|'+(a.dur??'')+'|'+(a.dist??'');
+      if(seen.has(k)) continue;
+      seen.add(k);
+    }
+    if(a) out.push(a);
+  }
+  return out;
+}
 const store = {
   read(){
     if(mem) return mem;
@@ -1031,6 +1053,7 @@ const store = {
     catch(e){ mem = {sessions:[],hrv:[],activities:[],settings:{sleepGoal:8,hrMax:null,hrRest:null}}; }
     if(!mem.sessions)mem.sessions=[]; if(!mem.hrv)mem.hrv=[]; if(!mem.activities)mem.activities=[];
     mem.hrv=consolidateHrv(mem.hrv);   // une días que hayan quedado partidos (manual + Garmin)
+    mem.activities=dedupeGarminActs(mem.activities);  // quita actividades de Garmin duplicadas por la nube
     if(!mem.tests)mem.tests=[];
     if(!mem.settings)mem.settings={sleepGoal:8}; if(mem.settings.sleepGoal==null)mem.settings.sleepGoal=8;
     if(mem.settings.bodyweight===undefined)mem.settings.bodyweight=null;
@@ -1844,6 +1867,25 @@ const A = {
     if(calc) return {score:calc.score, parts:calc.parts, computed:true};
     if(rec.recovery!=null) return {score:rec.recovery, parts:[], computed:false};
     return null;
+  },
+
+  // --- RECOVERY TIME (horas) ---
+  // Integra TODO: actividades de Garmin + esquiadas manuales (que Garmin no ve).
+  // Cada una suma horas segun su strain (curva (strain-6)*3) y se descuentan con
+  // los dias transcurridos. Es el numero "real" de GK. Tope 96 h.
+  recoveryHours(){
+    const now=new Date(); now.setHours(0,0,0,0);
+    const cost=st=>Math.max(0,(st-6)*3);
+    const daysSince=iso=>Math.max(0, Math.round((now-new Date(iso+'T00:00:00'))/86400000));
+    let total=0;
+    (state.activities||[]).forEach(a=>{ const r=cost(this.activityStrain(a))-daysSince(a.date)*24; if(r>0) total+=r; });
+    (state.sessions||[]).forEach(s=>{ const r=cost(this.sessionStrain(s))-daysSince(s.date)*24; if(r>0) total+=r; });
+    return Math.round(Math.min(96, total));
+  },
+  // Recovery time importado de Garmin (horas), el mas reciente. null si no viene aun.
+  recoveryHoursGarmin(){
+    const w=[...state.hrv].filter(h=>h.recoveryTimeG!=null).sort((a,b)=>a.date<b.date?1:-1);
+    return w.length? w[0].recoveryTimeG : null;
   },
 
   // --- PUNTUACIÓN DE SUEÑO (0-100) ---
@@ -3176,6 +3218,13 @@ function renderDash(){
   $("#s-recovery").textContent=effRecD!=null?effRecD:"—";
   $("#s-recovery-foot").textContent=effRecD!=null?`al ${fmtDate(effRecDDate)}`:"Sin registros aún";
 
+  // Recovery time: Estela (integra Garmin + esquiadas) grande, Garmin importado chico
+  const rhE=A.recoveryHours(), rhG=A.recoveryHoursGarmin();
+  $("#s-recov").textContent=rhE>0?rhE:"0";
+  $("#s-recov-foot").innerHTML = rhG!=null
+    ? `Garmin: <b style="color:var(--foam)">${rhG} h</b> <span style="color:var(--muted-2)">importado</span>`
+    : (rhE>0?"integra Garmin + esquiadas":"recuperado · sin carga pendiente");
+
   const sl=sleepStats();
   const dOk=sl.net<=0, dVal=Math.abs(sl.net).toFixed(1);
   const dCol=sl.days===0?'var(--muted)':(dOk?'var(--ok)':'var(--danger)');
@@ -3418,6 +3467,9 @@ const Cloud = {
       const seen=new Set((state[k]||[]).map(x=>x.id));
       (remote[k]||[]).forEach(r=>{ if(!seen.has(r.id)) state[k].push(r); });
     });
+    // limpia duplicados que la unión por id deja pasar (Garmin: mismo dato, id distinto por dispositivo)
+    state.hrv=consolidateHrv(state.hrv);
+    state.activities=dedupeGarminActs(state.activities);
     if(remote.settings) state.settings=Object.assign({}, remote.settings, state.settings);
     mem=state; store.write(); renderAll();
   },
