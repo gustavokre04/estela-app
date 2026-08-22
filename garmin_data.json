@@ -1,15 +1,6 @@
 {
-  "generated": "2026-08-21T12:04:33",
+  "generated": "2026-08-22T11:31:33",
   "hrv": [
-    {
-      "date": "2026-07-23",
-      "src": "garmin",
-      "sleep": 7.5,
-      "sleepScore": 82,
-      "rhr": 39,
-      "stress": 27,
-      "bb": 24
-    },
     {
       "date": "2026-07-24",
       "src": "garmin",
@@ -181,30 +172,6 @@
       "sets": {
         "PULL_UP": 36
       },
-      "src": "garmin"
-    },
-    {
-      "date": "2026-07-23",
-      "type": "mountain biking",
-      "dur": 13,
-      "dist": 2.66,
-      "hr": 115,
-      "gload": 6,
-      "te_aer": 0.6,
-      "te_ana": null,
-      "sets": null,
-      "src": "garmin"
-    },
-    {
-      "date": "2026-07-23",
-      "type": "running",
-      "dur": 25,
-      "dist": 4.76,
-      "hr": 147,
-      "gload": 93,
-      "te_aer": 3.0,
-      "te_ana": 2.1,
-      "sets": null,
       "src": "garmin"
     }
   ],
