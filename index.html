@@ -1100,9 +1100,9 @@ $("#ski-chips").querySelectorAll('.chip').forEach(c=>{
 });
 
 /* fechas por defecto = hoy */
-[["#ski-date"],["#act-date"]].forEach(([sel])=>{ if($(sel)) $(sel).value=toISO(new Date()); });
+[["#ski-date"],["#hrv-date"],["#act-date"]].forEach(([sel])=>{ if($(sel)) $(sel).value=toISO(new Date()); });
 // El log del Q-WACH va por defecto a AYER, para que calce con la fecha del sueño de Garmin (que lo fecha al día que te acostaste) sin cambiarla cada vez.
-if($("#hrv-date")){ const _y=new Date(); _y.setDate(_y.getDate()-1); $("#hrv-date").value=toISO(_y); }
+
 
 /* ---------- SUBMIT: esquí ---------- */
 /* ---------- selector de pasadas por línea ---------- */
