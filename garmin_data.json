@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-25T19:21:23",
+  "generated": "2026-08-26T08:08:17",
   "hrv": [
     {
       "date": "2026-08-17",
@@ -101,10 +101,10 @@
       "readings": null,
       "sleep": 7.8,
       "sleepScore": 96,
-      "recovery": 72,
+      "recovery": 75,
       "rhr": 41,
-      "stress": 23,
-      "bb": 38
+      "stress": 26,
+      "bb": 29
     }
   ],
   "activities": [
@@ -221,7 +221,7 @@
     }
   ],
   "extras": {
-    "vo2max": 57.0,
+    "vo2max": null,
     "lactate_threshold": null
   }
 }
