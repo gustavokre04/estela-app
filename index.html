@@ -1874,12 +1874,16 @@ const A = {
   // Cada una suma horas segun su strain (curva (strain-6)*3) y se descuentan con
   // los dias transcurridos. Es el numero "real" de GK. Tope 96 h.
   recoveryHours(){
-    const now=new Date(); now.setHours(0,0,0,0);
+    const nowMs=Date.now();
     const cost=st=>Math.max(0,(st-6)*3);
-    const daysSince=iso=>Math.max(0, Math.round((now-new Date(iso+'T00:00:00'))/86400000));
+    const REF=18;
+    const remain=(iso,st)=>{ const c=cost(st); if(c<=0) return 0;
+      const t=new Date(iso+'T00:00:00'); t.setHours(REF,0,0,0);
+      const el=Math.max(0,(nowMs-t.getTime())/3600000);
+      return Math.max(0, c-el); };
     let total=0;
-    (state.activities||[]).forEach(a=>{ const r=cost(this.activityStrain(a))-daysSince(a.date)*24; if(r>0) total+=r; });
-    (state.sessions||[]).forEach(s=>{ const r=cost(this.sessionStrain(s))-daysSince(s.date)*24; if(r>0) total+=r; });
+    (state.activities||[]).forEach(a=>{ total+=remain(a.date, this.activityStrain(a)); });
+    (state.sessions||[]).forEach(s=>{ total+=remain(s.date, this.sessionStrain(s)); });
     return Math.round(Math.min(96, total));
   },
   // Recovery time importado de Garmin (horas), el mas reciente. null si no viene aun.
