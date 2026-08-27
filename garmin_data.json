@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-26T11:24:02",
+  "generated": "2026-08-27T08:33:08",
   "hrv": [
     {
       "date": "2026-08-17",
@@ -77,10 +77,173 @@
       "readings": null,
       "sleep": 8.9,
       "sleepScore": 94,
-      "recovery": 60
+      "recovery": 60,
+      "rhr": 42,
+      "stress": 24,
+      "bb": 31
+    },
+    {
+      "date": "2026-08-24",
+      "src": "garmin",
+      "val": 135,
+      "readings": null,
+      "sleep": 8.6,
+      "sleepScore": 90,
+      "recovery": 82,
+      "rhr": 38,
+      "stress": 22,
+      "bb": 36
+    },
+    {
+      "date": "2026-08-25",
+      "src": "garmin",
+      "val": 136,
+      "readings": null,
+      "sleep": 7.8,
+      "sleepScore": 96,
+      "recovery": 75,
+      "rhr": 41,
+      "stress": 26,
+      "bb": 37
+    },
+    {
+      "date": "2026-08-26",
+      "src": "garmin",
+      "val": 128,
+      "readings": null,
+      "sleep": 8.3,
+      "sleepScore": 98,
+      "recovery": 95,
+      "rhr": 40,
+      "stress": 24,
+      "bb": 50
+    },
+    {
+      "date": "2026-08-27",
+      "src": "garmin",
+      "val": 130,
+      "readings": null,
+      "sleep": 8.0,
+      "sleepScore": 93,
+      "recovery": 98,
+      "rhr": 43,
+      "stress": 11,
+      "bb": 91
     }
   ],
-  "activities": [],
+  "activities": [
+    {
+      "date": "2026-08-25",
+      "type": "running",
+      "dur": 25,
+      "dist": 5.04,
+      "hr": 158,
+      "gload": 103,
+      "te_aer": 3.4,
+      "te_ana": 0.8,
+      "sets": null,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-08-23",
+      "type": "walking",
+      "dur": 4,
+      "dist": 0.26,
+      "hr": 115,
+      "gload": null,
+      "te_aer": 0.2,
+      "te_ana": null,
+      "sets": null,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-08-23",
+      "type": "running",
+      "dur": 24,
+      "dist": 5.02,
+      "hr": 148,
+      "gload": 87,
+      "te_aer": 3.3,
+      "te_ana": null,
+      "sets": null,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-08-20",
+      "type": "running",
+      "dur": 20,
+      "dist": 4.41,
+      "hr": 154,
+      "gload": 103,
+      "te_aer": 3.2,
+      "te_ana": 2.1,
+      "sets": null,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-08-20",
+      "type": "strength training",
+      "dur": 66,
+      "dist": null,
+      "hr": 97,
+      "gload": 17,
+      "te_aer": 1.4,
+      "te_ana": 0.2,
+      "sets": {
+        "FLYE": 66,
+        "ROW": 25
+      },
+      "src": "garmin"
+    },
+    {
+      "date": "2026-08-18",
+      "type": "running",
+      "dur": 8,
+      "dist": 1.59,
+      "hr": 142,
+      "gload": 53,
+      "te_aer": 2.1,
+      "te_ana": 2.1,
+      "sets": null,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-08-18",
+      "type": "running",
+      "dur": 3,
+      "dist": 1.03,
+      "hr": 177,
+      "gload": 89,
+      "te_aer": 2.2,
+      "te_ana": 3.0,
+      "sets": null,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-08-18",
+      "type": "running",
+      "dur": 3,
+      "dist": 0.53,
+      "hr": 115,
+      "gload": 6,
+      "te_aer": 0.6,
+      "te_ana": null,
+      "sets": null,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-08-17",
+      "type": "strength training",
+      "dur": 38,
+      "dist": null,
+      "hr": 81,
+      "gload": null,
+      "te_aer": 0.1,
+      "te_ana": null,
+      "sets": null,
+      "src": "garmin"
+    }
+  ],
   "extras": {
     "vo2max": null,
     "lactate_threshold": null
