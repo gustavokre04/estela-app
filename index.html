@@ -1220,6 +1220,7 @@ $("#ski-form").onsubmit=e=>{
   const n=Object.values(d.lines).reduce((a,b)=>a+b,0);
   if(!n){ toast("Indica las pasadas de al menos una línea",true); return; }
   state.sessions.push(Object.assign({id:uid(),date:$("#ski-date").value,type:skiType,
+    ts:Date.now(),
     notes:$("#ski-notes").value.trim()}, d));
   document.querySelectorAll('#ski-lines input').forEach(i=>i.value="");
   $("#ski-notes").value=""; $("#ski-comp").checked=false; skiType=null;
@@ -1877,13 +1878,16 @@ const A = {
     const nowMs=Date.now();
     const cost=st=>Math.max(0,(st-6)*3);
     const REF=18;
-    const remain=(iso,st)=>{ const c=cost(st); if(c<=0) return 0;
-      const t=new Date(iso+'T00:00:00'); t.setHours(REF,0,0,0);
-      const el=Math.max(0,(nowMs-t.getTime())/3600000);
+    const refMs=item=>{
+      if(item.ts) return item.ts - 3600000;
+      const t=new Date(item.date+'T00:00:00'); t.setHours(REF,0,0,0); return t.getTime();
+    };
+    const remain=(item,st)=>{ const c=cost(st); if(c<=0) return 0;
+      const el=Math.max(0,(nowMs-refMs(item))/3600000);
       return Math.max(0, c-el); };
     let total=0;
-    (state.activities||[]).forEach(a=>{ total+=remain(a.date, this.activityStrain(a)); });
-    (state.sessions||[]).forEach(s=>{ total+=remain(s.date, this.sessionStrain(s)); });
+    (state.activities||[]).forEach(a=>{ total+=remain(a, this.activityStrain(a)); });
+    (state.sessions||[]).forEach(s=>{ total+=remain(s, this.sessionStrain(s)); });
     return Math.round(Math.min(96, total));
   },
   // Recovery time importado de Garmin (horas), el mas reciente. null si no viene aun.
