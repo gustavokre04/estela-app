@@ -1789,7 +1789,7 @@ const A = {
       if(value==null) return null;
       const b=this.baseline(series, rec.date, 60) || this.baseline(series, rec.date, 30);
       let sc;
-      if(b){ const z=(Math.log(value+1)-b.mean)/(b.sd||0.05); sc=Math.max(0,Math.min(100, 70 + z*18)); }
+      if(b){ const z=(Math.log(value+1)-b.mean)/(b.sd||0.05); sc=Math.max(0,Math.min(100, 80 + z*18)); }
       else { sc=Math.max(0,Math.min(100,(value-30)*1.4)); }
       return {sc, w};
     };
@@ -1843,7 +1843,7 @@ const A = {
       const to=new Date(rec.date+'T00:00:00'); const from=new Date(to-29*this.dayMs);
       const win=rhrSeries.filter(s=>this.within(s.date,from,to)).map(s=>s.rhr);
       if(win.length>=3){ const m=win.reduce((a,b)=>a+b,0)/win.length;
-        rhrScore=Math.max(0,Math.min(100, 70 - (rec.rhr-m)*4));
+        rhrScore=Math.max(0,Math.min(100, 78 - (rec.rhr-m)*2.5));
         parts.push({k:'FC reposo', w:0.10, v:rhrScore}); }
     }
 
