@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-27T19:26:11",
+  "generated": "2026-08-28T08:00:05",
   "hrv": [
     {
       "date": "2026-08-17",
@@ -127,8 +127,20 @@
       "sleepScore": 93,
       "recovery": 80,
       "rhr": 43,
-      "stress": 24,
-      "bb": 91
+      "stress": 26,
+      "bb": 34
+    },
+    {
+      "date": "2026-08-28",
+      "src": "garmin",
+      "val": 123,
+      "readings": null,
+      "sleep": 7.6,
+      "sleepScore": 92,
+      "recovery": 88,
+      "rhr": 41,
+      "stress": 11,
+      "bb": 88
     }
   ],
   "activities": [
@@ -257,7 +269,7 @@
     }
   ],
   "extras": {
-    "vo2max": 56.0,
+    "vo2max": null,
     "lactate_threshold": null
   }
 }
