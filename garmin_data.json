@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-31T14:19:25",
+  "generated": "2026-08-31T19:02:03",
   "hrv": [
     {
       "date": "2026-08-17",
@@ -175,11 +175,23 @@
       "sleepScore": 79,
       "recovery": 1,
       "rhr": 46,
-      "stress": 20,
-      "bb": 64
+      "stress": 25,
+      "bb": 37
     }
   ],
   "activities": [
+    {
+      "date": "2026-08-31",
+      "type": "indoor cycling",
+      "dur": 11,
+      "dist": null,
+      "hr": 93,
+      "gload": null,
+      "te_aer": 0.2,
+      "te_ana": null,
+      "sets": null,
+      "src": "garmin"
+    },
     {
       "date": "2026-08-30",
       "type": "running",
