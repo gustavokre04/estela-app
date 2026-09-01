@@ -1865,7 +1865,11 @@ const A = {
   // Recovery efectivo del día (usa Garmin si viene, si no lo calcula)
   effectiveRecovery(rec){
     const calc=this.recoveryFor(rec);
-    if(calc) return {score:calc.score, parts:calc.parts, computed:true};
+    if(calc){
+      let score=calc.score;
+      if(rec.recovery!=null) score=Math.round(0.75*calc.score + 0.25*rec.recovery);
+      return {score, parts:calc.parts, computed:true, garminReadiness:(rec.recovery!=null?rec.recovery:null)};
+    }
     if(rec.recovery!=null) return {score:rec.recovery, parts:[], computed:false};
     return null;
   },
