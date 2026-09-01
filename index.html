@@ -1876,7 +1876,7 @@ const A = {
   // los dias transcurridos. Es el numero "real" de GK. Tope 96 h.
   recoveryHours(){
     const nowMs=Date.now();
-    const cost=st=>Math.max(0,(st-6)*3);
+    const cost=st=>Math.min(96, 1.9*Math.pow(Math.max(0,st-4),1.55));
     const REF=18;
     const refMs=item=>{
       if(item.ts) return item.ts - 3600000;
