@@ -360,6 +360,35 @@
     .zone{grid-template-columns:92px 1fr 52px;gap:8px}
     .cbar{grid-template-columns:100px 1fr 46px;gap:8px}
   }
+  /* Botón de info "¿cómo se calculó?" y su modal */
+  .info-btn{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;margin-left:6px;
+    border-radius:50%;border:1px solid var(--muted-2);background:transparent;color:var(--muted);
+    font:700 10px/1 'Space Grotesk',sans-serif;cursor:pointer;vertical-align:middle;padding:0;transition:.15s}
+  .info-btn:hover{border-color:var(--wake);color:var(--wake)}
+  .card .label{display:flex;align-items:center}
+  .panel-head h3 .info-btn{margin-left:8px}
+  #info-modal{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;
+    background:rgba(4,12,18,.72);backdrop-filter:blur(3px);padding:18px}
+  #info-modal.open{display:flex}
+  #info-modal .box{background:var(--card,#0e1f2a);border:1px solid var(--line,#1c3341);border-radius:16px;
+    max-width:440px;width:100%;max-height:82vh;overflow:auto;padding:20px 20px 22px;
+    box-shadow:0 24px 60px rgba(0,0,0,.5)}
+  #info-modal h4{margin:0 0 2px;font:700 17px/1.2 'Space Grotesk',sans-serif;color:var(--fg,#e8f2f7)}
+  #info-modal .imeta{font-size:11px;color:var(--muted-2);margin-bottom:14px}
+  #info-modal .isec{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);
+    font-weight:700;margin:14px 0 7px}
+  #info-modal .irow{display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:4px 0;
+    border-bottom:1px solid rgba(255,255,255,.05)}
+  #info-modal .irow .k{color:var(--muted)}
+  #info-modal .irow .v{color:var(--fg,#e8f2f7);font-weight:600;font-variant-numeric:tabular-nums;text-align:right}
+  #info-modal .itot{display:flex;justify-content:space-between;font-size:15px;font-weight:700;margin-top:12px;
+    padding-top:10px;border-top:1px solid var(--line,#1c3341);color:var(--ok)}
+  #info-modal .inote{font-size:11.5px;line-height:1.5;color:var(--muted);margin-top:12px}
+  #info-modal .ichips{display:flex;flex-wrap:wrap;gap:5px;margin-top:2px}
+  #info-modal .ichip{font-size:11px;padding:3px 8px;border-radius:8px;background:rgba(255,255,255,.05);
+    color:var(--muted);border:1px solid rgba(255,255,255,.06)}
+  #info-modal .iclose{float:right;margin:-4px -4px 0 0;background:transparent;border:0;color:var(--muted);
+    font-size:20px;cursor:pointer;line-height:1}
 </style>
 </head>
 <body>
@@ -411,19 +440,19 @@
         <div class="foot" id="s-hrv-foot">Sin registros aún</div>
       </div>
       <div class="card stat">
-        <div class="label">Recovery reciente</div>
+        <div class="label">Recovery reciente<button class="info-btn" onclick="openInfo('recovery')" title="¿Cómo se calculó?">i</button></div>
         <div class="num" id="s-recovery" style="color:var(--ok)">—</div>
         <div class="unit">/ 100</div>
         <div class="foot" id="s-recovery-foot">Sin registros aún</div>
       </div>
       <div class="card stat accent">
-        <div class="label">Deuda sueño · 7d</div>
+        <div class="label">Deuda sueño · 7d<button class="info-btn" onclick="openInfo('debt')" title="¿Cómo se calculó?">i</button></div>
         <div class="num" id="s-debt">0<span style="font-size:20px">h</span></div>
         <div class="unit" id="s-debt-unit">objetivo 8 h</div>
         <div class="foot" id="s-debt-foot">Sin datos de sueño</div>
       </div>
       <div class="card stat">
-        <div class="label">Puntuación sueño</div>
+        <div class="label">Puntuación sueño<button class="info-btn" onclick="openInfo('sleepscore')" title="¿Cómo se calculó?">i</button></div>
         <div class="num" id="s-sleepscore" style="color:var(--wake)">—</div>
         <div class="unit" id="s-sleepscore-lbl">/ 100</div>
         <div class="foot" id="s-sleepscore-foot">50% noche · 50% 7d</div>
@@ -441,7 +470,7 @@
         <div class="foot">Garmin + manuales</div>
       </div>
       <div class="card stat">
-        <div class="label">Strain de hoy</div>
+        <div class="label">Strain de hoy<button class="info-btn" onclick="openInfo('strain')" title="¿Cómo se calculó?">i</button></div>
         <div class="num" id="s-strain" style="color:var(--buoy)">—</div>
         <div class="unit" id="s-strain-lbl">/ 21</div>
         <div class="foot" id="s-strain-foot">objetivo según recovery</div>
@@ -453,7 +482,7 @@
         <div class="foot">Cualquier registro cuenta</div>
       </div>
       <div class="card stat">
-        <div class="label">Recuperación</div>
+        <div class="label">Recuperación<button class="info-btn" onclick="openInfo('recov')" title="¿Cómo se calculó?">i</button></div>
         <div class="num" id="s-recov" style="color:var(--wake)">—</div>
         <div class="unit">h · Estela</div>
         <div class="foot" id="s-recov-foot">integra Garmin + esquiadas</div>
@@ -553,7 +582,7 @@
 
     <div class="grid cards" style="margin-bottom:16px">
       <div class="card stat" style="--c:var(--ok)">
-        <div class="label">Recovery reciente</div>
+        <div class="label">Recovery reciente<button class="info-btn" onclick="openInfo('recovery')" title="¿Cómo se calculó?">i</button></div>
         <div class="num" id="r-recovery" style="color:var(--ok)">—</div>
         <div class="unit">/ 100</div>
         <div class="foot" id="r-recovery-foot">Sin registros aún</div>
@@ -798,7 +827,7 @@
 
   <!-- COACH -->
   <section class="view" id="coach">
-    <div class="section-title"><h2>Coach</h2><span class="count">readiness + plan de hoy</span></div>
+    <div class="section-title"><h2>Coach</h2><span class="count">readiness + plan de hoy<button class="info-btn" onclick="openInfo('readiness')" title="¿Cómo se calculó el readiness?">i</button></span></div>
 
     <div class="panel">
       <div class="ready-hero">
@@ -1100,9 +1129,9 @@ $("#ski-chips").querySelectorAll('.chip').forEach(c=>{
 });
 
 /* fechas por defecto = hoy */
+// Todas las fechas por defecto a HOY. Garmin fecha el sueño al día que despertaste (wake-day),
+// igual que la convención del Q-WACH de GK, así que ingresando "hoy" en la mañana quedan alineados.
 [["#ski-date"],["#hrv-date"],["#act-date"]].forEach(([sel])=>{ if($(sel)) $(sel).value=toISO(new Date()); });
-// El log del Q-WACH va por defecto a AYER, para que calce con la fecha del sueño de Garmin (que lo fecha al día que te acostaste) sin cambiarla cada vez.
-
 
 /* ---------- SUBMIT: esquí ---------- */
 /* ---------- selector de pasadas por línea ---------- */
@@ -1220,7 +1249,7 @@ $("#ski-form").onsubmit=e=>{
   const n=Object.values(d.lines).reduce((a,b)=>a+b,0);
   if(!n){ toast("Indica las pasadas de al menos una línea",true); return; }
   state.sessions.push(Object.assign({id:uid(),date:$("#ski-date").value,type:skiType,
-    ts:Date.now(),
+    ts:Date.now(),   // momento en que se registró; el recovery time decae desde esta hora −1h
     notes:$("#ski-notes").value.trim()}, d));
   document.querySelectorAll('#ski-lines input').forEach(i=>i.value="");
   $("#ski-notes").value=""; $("#ski-comp").checked=false; skiType=null;
@@ -1789,7 +1818,7 @@ const A = {
       if(value==null) return null;
       const b=this.baseline(series, rec.date, 60) || this.baseline(series, rec.date, 30);
       let sc;
-      if(b){ const z=(Math.log(value+1)-b.mean)/(b.sd||0.05); sc=Math.max(0,Math.min(100, 80 + z*18)); }
+      if(b){ const z=(Math.log(value+1)-b.mean)/(b.sd||0.05); sc=Math.max(0,Math.min(100, 80 + z*18)); }  // neutro 80: un HRV estable-normal ya lee bien; sube/baja con el z
       else { sc=Math.max(0,Math.min(100,(value-30)*1.4)); }
       return {sc, w};
     };
@@ -1843,7 +1872,7 @@ const A = {
       const to=new Date(rec.date+'T00:00:00'); const from=new Date(to-29*this.dayMs);
       const win=rhrSeries.filter(s=>this.within(s.date,from,to)).map(s=>s.rhr);
       if(win.length>=3){ const m=win.reduce((a,b)=>a+b,0)/win.length;
-        rhrScore=Math.max(0,Math.min(100, 78 - (rec.rhr-m)*2.5));
+        rhrScore=Math.max(0,Math.min(100, 78 - (rec.rhr-m)*2.5));   // neutro 78, castigo más suave (±2 bpm es ruido)
         parts.push({k:'FC reposo', w:0.10, v:rhrScore}); }
     }
 
@@ -1865,11 +1894,7 @@ const A = {
   // Recovery efectivo del día (usa Garmin si viene, si no lo calcula)
   effectiveRecovery(rec){
     const calc=this.recoveryFor(rec);
-    if(calc){
-      let score=calc.score;
-      if(rec.recovery!=null) score=Math.round(0.75*calc.score + 0.25*rec.recovery);
-      return {score, parts:calc.parts, computed:true, garminReadiness:(rec.recovery!=null?rec.recovery:null)};
-    }
+    if(calc) return {score:calc.score, parts:calc.parts, computed:true};   // recovery PURO fisiológico (el readiness de Garmin va al readiness, no aquí)
     if(rec.recovery!=null) return {score:rec.recovery, parts:[], computed:false};
     return null;
   },
@@ -1880,14 +1905,16 @@ const A = {
   // los dias transcurridos. Es el numero "real" de GK. Tope 96 h.
   recoveryHours(){
     const nowMs=Date.now();
+    // horas de recuperación que cuesta cada esfuerzo (curva empinada, calibrada con la media maratón de GK:
+    // strain ~15.6 → ~83h como Garmin; esfuerzos suaves cuestan poco; tope 96h)
     const cost=st=>Math.min(96, 1.9*Math.pow(Math.max(0,st-4),1.55));
-    const REF=18;
+    const REF=18;                                // fallback: sin hora, asumimos ~18:00 local
     const refMs=item=>{
-      if(item.ts) return item.ts - 3600000;
+      if(item.ts) return item.ts - 3600000;      // esquiadas: la hora en que la registraste −1h (esquiaste ~1h antes)
       const t=new Date(item.date+'T00:00:00'); t.setHours(REF,0,0,0); return t.getTime();
     };
     const remain=(item,st)=>{ const c=cost(st); if(c<=0) return 0;
-      const el=Math.max(0,(nowMs-refMs(item))/3600000);
+      const el=Math.max(0,(nowMs-refMs(item))/3600000);   // horas transcurridas, CONTINUO (no salta a medianoche)
       return Math.max(0, c-el); };
     let total=0;
     (state.activities||[]).forEach(a=>{ total+=remain(a, this.activityStrain(a)); });
@@ -1898,6 +1925,22 @@ const A = {
   recoveryHoursGarmin(){
     const w=[...state.hrv].filter(h=>h.recoveryTimeG!=null).sort((a,b)=>a.date<b.date?1:-1);
     return w.length? w[0].recoveryTimeG : null;
+  },
+  // Desglose del recovery time: qué esfuerzo aporta cuántas horas pendientes (para el botón de info).
+  recoveryHoursDetail(){
+    const nowMs=Date.now();
+    const cost=st=>Math.min(96, 1.9*Math.pow(Math.max(0,st-4),1.55));
+    const refMs=item=>{ if(item.ts) return item.ts-3600000;
+      const t=new Date(item.date+'T00:00:00'); t.setHours(18,0,0,0); return t.getTime(); };
+    const remain=(item,st)=>{ const c=cost(st); if(c<=0) return 0;
+      const el=Math.max(0,(nowMs-refMs(item))/3600000); return Math.max(0,c-el); };
+    const items=[];
+    (state.activities||[]).forEach(a=>{ const st=this.activityStrain(a); const r=remain(a,st);
+      if(r>0.5) items.push({label:(a.type||'Actividad')+' '+fmtDate(a.date), strain:st, cost:cost(st), hours:r}); });
+    (state.sessions||[]).forEach(s=>{ const st=this.sessionStrain(s); const r=remain(s,st);
+      if(r>0.5) items.push({label:'Esquí '+fmtDate(s.date), strain:st, cost:cost(st), hours:r}); });
+    items.sort((a,b)=>b.hours-a.hours);
+    return {total:Math.round(Math.min(96, items.reduce((a,x)=>a+x.hours,0))), items};
   },
 
   // --- PUNTUACIÓN DE SUEÑO (0-100) ---
@@ -2331,9 +2374,9 @@ const A = {
   // Readiness de un día concreto (para graficar la tendencia).
   // Misma lógica que recommendation(), pero anclada a una fecha.
   readinessOn(iso){
-    const rec=[...state.hrv].filter(h=>h.date===iso)
-      .map(h=>this.effectiveRecovery(h)).filter(Boolean)[0];
-    if(!rec) return null;
+    const raw=[...state.hrv].filter(h=>h.date===iso).find(h=>this.effectiveRecovery(h));
+    if(!raw) return null;
+    const rec=this.effectiveRecovery(raw);
     let adj=0;
     const model=this.loadModelAt(iso);
     const hrvSt=this.hrvStatusAt(iso);
@@ -2345,7 +2388,10 @@ const A = {
       if(model.tsb<-15)adj-=6; else if(model.tsb>10)adj+=5;
     }
     adj=Math.max(-18, Math.min(12, adj));     // el contexto matiza, no destruye
-    return Math.max(0,Math.min(100,Math.round(rec.score+adj)));
+    let est=Math.max(0,Math.min(100,Math.round(rec.score+adj)));
+    // El Training Readiness de Garmin (disposición a entrenar) entra en el READINESS, 25% (no en el recovery)
+    if(raw.recovery!=null) est=Math.round(0.75*est + 0.25*raw.recovery);
+    return est;
   },
   readinessLabel(v){
     if(v>=75) return {t:'Día de calidad', c:'var(--ok)'};
@@ -2453,6 +2499,113 @@ const A = {
   }
 };
 window.A=A;
+
+/* ====== BOTÓN DE INFO: "¿cómo se calculó?" con los datos de ese mismo día ====== */
+const _num=(x,d=0)=>x==null?'—':(Math.round(x*Math.pow(10,d))/Math.pow(10,d));
+function _row(k,v){ return `<div class="irow"><span class="k">${k}</span><span class="v">${v}</span></div>`; }
+// último registro con recovery calculable (el mismo que muestran las tarjetas)
+function _recDayForInfo(){
+  const recSorted=[...state.hrv].sort((a,b)=>a.date<b.date?1:-1);
+  for(const r of recSorted){ if(A.recoveryFor(r)) return r; }
+  return null;
+}
+const INFO_BUILDERS={
+  recovery(){
+    const rec=_recDayForInfo();
+    if(!rec) return {title:'Recovery', meta:'', body:'<div class="inote">Aún no hay datos suficientes para calcular el recovery de ningún día.</div>'};
+    const c=A.recoveryFor(rec);
+    const chips=[];
+    if(rec.val!=null) chips.push(`HRV Q-WACH ${rec.val}`);
+    if(rec.valG!=null) chips.push(`HRV Garmin ${rec.valG}`);
+    if(rec.sleepScore!=null) chips.push(`Sueño Garmin ${rec.sleepScore}`);
+    if(rec.sleep!=null) chips.push(`${rec.sleep} h`);
+    if(rec.deepQ!=null) chips.push(`Prof. Q ${rec.deepQ}`);
+    if(rec.rhr!=null) chips.push(`FC rep ${rec.rhr}`);
+    if(rec.stress!=null) chips.push(`Estrés G ${rec.stress}`);
+    if(rec.stressQ!=null) chips.push(`Estrés Q ${rec.stressQ}`);
+    if(rec.bb!=null) chips.push(`B.Battery ${rec.bb}`);
+    const nap=rec.napMin!=null?rec.napMin:(rec.nap!=null?rec.nap:null);
+    if(nap) chips.push(`Siesta ${nap} min`);
+    const wsum=c.parts.reduce((a,p)=>a+p.w,0);
+    let body=`<div class="isec">Datos de ese día</div><div class="ichips">${chips.map(x=>`<span class="ichip">${x}</span>`).join('')||'<span class="ichip">—</span>'}</div>`;
+    body+=`<div class="isec">Componentes (sub-score × peso)</div>`;
+    c.parts.forEach(p=>{ body+=_row(`${p.k} · ${Math.round(p.w*100)}%`, `${_num(p.v)} / 100`); });
+    if(wsum<0.999) body+=`<div class="inote">Faltan señales ese día, así que los pesos se renormalizan sobre lo presente (${Math.round(wsum*100)}% del total). Nunca te castiga por un dato ausente.</div>`;
+    body+=`<div class="itot"><span>Recovery</span><span>${c.score} / 100</span></div>`;
+    body+=`<div class="inote">Suma ponderada de los componentes ÷ pesos presentes. Es 100% fisiológico: la disposición a entrenar de Garmin va al Readiness, no aquí.</div>`;
+    return {title:'Recovery', meta:`Calculado con los datos del ${fmtDate(rec.date)}`, body};
+  },
+  sleepscore(){
+    const s=A.sleepScore();
+    if(!s) return {title:'Puntuación de sueño', meta:'', body:'<div class="inote">Sin datos de sueño todavía.</div>'};
+    let body=`<div class="isec">Cómo se arma</div>`;
+    body+=_row(`Noche (${s.fromGarmin?'score Garmin':'estimado por duración'})`, `${s.nightScore} / 100`);
+    body+=_row(`Media 7 días (${s.nights} noches)`, `${s.weekAvg} / 100`);
+    body+=`<div class="itot"><span>Puntuación</span><span>${s.score} / 100</span></div>`;
+    body+=`<div class="inote">50% la última noche + 50% tu media de 7 días. El score de la noche viene del propio Garmin (duración, fases y despertares); si un día falta, se estima por horas dormidas.</div>`;
+    return {title:'Puntuación de sueño', meta:`Última noche: ${fmtDate(s.date)}`, body};
+  },
+  debt(){
+    const sl=sleepStats();
+    if(!sl.days) return {title:'Deuda de sueño', meta:'', body:'<div class="inote">Sin datos de sueño en los últimos 7 días.</div>'};
+    const net=sl.net, ok=net<=0;
+    let body=`<div class="isec">Últimos 7 días</div>`;
+    body+=_row('Objetivo por noche', `${sl.goal} h`);
+    body+=_row('Noches con dato', `${sl.days} / 7`);
+    body+=`<div class="itot" style="color:${ok?'var(--ok)':'var(--danger)'}"><span>${ok?'A favor':'En deuda'}</span><span>${ok?'+':'−'}${Math.abs(net).toFixed(1)} h</span></div>`;
+    body+=`<div class="inote">Suma, noche a noche, cuánto dormiste frente a tu objetivo de ${sl.goal} h. Positivo = duermes de más; negativo = deuda acumulada.</div>`;
+    return {title:'Deuda de sueño', meta:'Ventana móvil de 7 días', body};
+  },
+  strain(){
+    const iso=toISO(new Date());
+    const st=A.dayStrain(iso), target=A.strainTarget();
+    const acts=state.activities.filter(a=>a.date===iso), ses=state.sessions.filter(s=>s.date===iso);
+    let body=`<div class="isec">Esfuerzos de hoy (${fmtDate(iso)})</div>`;
+    if(!acts.length && !ses.length) body+='<div class="ichips"><span class="ichip">Sin actividad registrada hoy</span></div>';
+    acts.forEach(a=>{ body+=_row(`${a.type||'Actividad'} · ${a.dur||0} min`, `strain ${_num(A.activityStrain(a),1)}`); });
+    ses.forEach(s=>{ body+=_row(`Esquí · ${A.sessionPasses(s)} pasadas`, `strain ${_num(A.sessionStrain(s),1)}`); });
+    body+=`<div class="itot"><span>Strain de hoy</span><span>${_num(st,1)} / 21</span></div>`;
+    body+=_row('Objetivo según tu readiness', `${_num(target,1)} / 21`);
+    body+=`<div class="inote">Los esfuerzos no se suman lineal: se combinan en escala 0-21 ponderando la intensidad de forma exponencial (20 min duros pesan más que 60 suaves). El objetivo sube con tu readiness: descansa si vas por debajo cuando toca cargar.</div>`;
+    return {title:'Strain de hoy', meta:'Escala 0-21 estilo WHOOP', body};
+  },
+  recov(){
+    const d=A.recoveryHoursDetail(), rhG=A.recoveryHoursGarmin();
+    let body=`<div class="isec">Esfuerzos con horas pendientes</div>`;
+    if(!d.items.length) body+='<div class="ichips"><span class="ichip">Recuperado · sin carga pendiente</span></div>';
+    d.items.forEach(it=>{ body+=_row(`${it.label} · strain ${_num(it.strain,1)}`, `${_num(it.hours)} h`); });
+    body+=`<div class="itot"><span>Recovery time (Estela)</span><span>${d.total} h</span></div>`;
+    if(rhG!=null) body+=_row('Garmin importado', `${rhG} h`);
+    body+=`<div class="inote">Cada esfuerzo cuesta horas según su strain (curva 1,9·(strain−4)^1,55, tope 96 h) y se van descontando hora a hora desde que ocurrió. Integra actividades de Garmin + tus esquiadas, que Garmin no ve.</div>`;
+    return {title:'Recovery time', meta:'Horas hasta estar recuperado', body};
+  },
+  readiness(){
+    const R=A.recommendation();
+    if(!R || R.recovery==null) return {title:'Readiness', meta:'', body:'<div class="inote">Sin recovery reciente para calcular el readiness.</div>'};
+    let body=`<div class="isec">Cómo se arma</div>`;
+    body+=_row('Base: recovery fisiológico', `${R.recovery} / 100`);
+    if(R.hrvSt) body+=_row('Estado HRV', R.hrvSt.state);
+    if(R.model && R.model.acwr!=null) body+=_row('Carga ACWR / forma (TSB)', `${R.model.acwr.toFixed(2)} · ${R.model.tsb>0?'+':''}${R.model.tsb}`);
+    const rawRec=[...state.hrv].filter(h=>A.effectiveRecovery(h)).sort((a,b)=>a.date<b.date?1:-1)[0];
+    if(rawRec && rawRec.recovery!=null) body+=_row('Training Readiness de Garmin (25%)', `${rawRec.recovery} / 100`);
+    body+=`<div class="itot"><span>Readiness</span><span>${R.readiness} / 100</span></div>`;
+    body+=`<div class="inote">Parte del recovery fisiológico, lo ajusta por tu estado de HRV y tu carga (ACWR/forma), y mezcla un 25% del Training Readiness de Garmin (disposición a entrenar). Como Garmin no ve las esquiadas, pesa poco.</div>`;
+    return {title:'Readiness', meta:'Nivel de prime para entrenar hoy', body};
+  }
+};
+function openInfo(key){
+  const b=INFO_BUILDERS[key]; if(!b) return;
+  let data; try{ data=b(); }catch(e){ data={title:'Info', meta:'', body:'<div class="inote">No se pudo calcular ahora.</div>'}; }
+  let m=document.getElementById('info-modal');
+  if(!m){ m=document.createElement('div'); m.id='info-modal'; document.body.appendChild(m);
+    m.addEventListener('click',e=>{ if(e.target===m) closeInfo(); }); }
+  m.innerHTML=`<div class="box"><button class="iclose" onclick="closeInfo()" title="Cerrar">✕</button>
+    <h4>${data.title}</h4><div class="imeta">${data.meta||''}</div>${data.body}</div>`;
+  m.classList.add('open');
+}
+function closeInfo(){ const m=document.getElementById('info-modal'); if(m) m.classList.remove('open'); }
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeInfo(); });
+window.openInfo=openInfo; window.closeInfo=closeInfo;
 
 function readyChart(svg){
   if(!svg) return;
@@ -3357,9 +3510,10 @@ function renderHrv(){
     if(h.stressQ!=null)pills.push(`<span class="mpill">Estrés Q <b>${h.stressQ}</b></span>`);
     if(h.bb!=null)pills.push(`<span class="mpill">B.Battery <b>${h.bb}</b></span>`);
     if(h.notes)pills.push(`<span class="mpill" style="color:var(--muted);font-weight:500">${esc(h.notes)}</span>`);
-    const bigVal=h.recovery!=null?h.recovery:(h.val!=null?h.val:'—');
-    const bigUnit=h.recovery!=null?' recov':(h.val!=null?' ms':'');
-    const bigCol=h.recovery!=null?'var(--ok)':'var(--wake)';
+    const eff=A.effectiveRecovery(h);                                   // recovery CALCULADO por el motor (igual que la tarjeta de arriba)
+    const bigVal=eff?eff.score:(h.val!=null?h.val:'—');
+    const bigUnit=eff?' recov':(h.val!=null?' ms':'');
+    const bigCol=eff?'var(--ok)':'var(--wake)';
     return `<div class="row hrv-row">
       <div class="date">${fmtDate(h.date)}<small>${fmtDow(h.date)}</small></div>
       <div class="mpills">${pills.join("")||'<span class="note">—</span>'}</div>
