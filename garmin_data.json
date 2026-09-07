@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-05T23:04:42",
+  "generated": "2026-09-07T08:34:40",
   "hrv": [
     {
       "date": "2026-08-17",
@@ -39,6 +39,8 @@
       "src": "garmin",
       "val": 108,
       "readings": null,
+      "sleep": 8.2,
+      "sleepScore": 82,
       "recovery": null,
       "rhr": 45,
       "stress": 28,
@@ -159,11 +161,54 @@
       "readings": null,
       "sleep": 6.5,
       "sleepScore": 77,
-      "recovery": 1
+      "recovery": 1,
+      "rhr": 45,
+      "stress": 36,
+      "bb": 22
+    },
+    {
+      "date": "2026-08-31",
+      "src": "garmin",
+      "val": 107,
+      "readings": null,
+      "sleep": 7.3,
+      "sleepScore": 79,
+      "recovery": 1,
+      "rhr": 43,
+      "stress": 24,
+      "bb": 39
+    },
+    {
+      "date": "2026-09-01",
+      "src": "garmin",
+      "val": 108,
+      "readings": null,
+      "sleep": 7.9,
+      "sleepScore": 87,
+      "recovery": 26,
+      "rhr": 43,
+      "stress": 28,
+      "bb": 37
+    },
+    {
+      "date": "2026-09-02",
+      "src": "garmin",
+      "val": 103,
+      "readings": null,
+      "sleep": 7.3,
+      "sleepScore": 84,
+      "recovery": 50,
+      "rhr": 42,
+      "stress": 26,
+      "bb": 34
     },
     {
       "date": "2026-09-03",
       "src": "garmin",
+      "val": 117,
+      "readings": null,
+      "sleep": 8.0,
+      "sleepScore": 90,
       "recovery": 78,
       "rhr": 40,
       "stress": 27,
@@ -190,8 +235,32 @@
       "sleepScore": 78,
       "recovery": 55,
       "rhr": 41,
-      "stress": 18,
-      "bb": 66
+      "stress": 26,
+      "bb": 20
+    },
+    {
+      "date": "2026-09-06",
+      "src": "garmin",
+      "val": 88,
+      "readings": null,
+      "sleep": 7.5,
+      "sleepScore": 86,
+      "recovery": 71,
+      "rhr": 44,
+      "stress": 25,
+      "bb": 35
+    },
+    {
+      "date": "2026-09-07",
+      "src": "garmin",
+      "val": 120,
+      "readings": null,
+      "sleep": 6.1,
+      "sleepScore": 76,
+      "recovery": 74,
+      "rhr": 40,
+      "stress": 10,
+      "bb": 85
     }
   ],
   "activities": [
