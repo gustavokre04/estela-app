@@ -495,7 +495,7 @@
         <span class="hint">escala 0-21 · últimos 14 días</span>
       </div>
       <div id="strain-gauge" style="margin-bottom:6px"></div>
-      <div class="chart-wrap"><svg class="chart" id="chart-strain" style="height:180px"></svg></div>
+      <div class="chart-wrap"><svg class="chart" id="chart-strain" style="height:195px"></svg></div>
       <div class="note-sm">El strain mide cuánto esfuerzo cardiovascular acumulaste, ponderando la intensidad de forma exponencial: 20 min duros pesan más que 60 min suaves. La línea marca el strain que tu recuperación sugiere para hoy.</div>
     </div>
 
@@ -2693,22 +2693,26 @@ function renderStrainGauge(v, target, lbl){
 }
 function strainChart(svg, target){
   if(!svg) return;
-  const W=svg.clientWidth||640,H=180,pad=28; svg.setAttribute("viewBox",`0 0 ${W} ${H}`); svg.innerHTML="";
+  const W=svg.clientWidth||640,H=195,padTop=30,padBot=26,pad=28;
+  svg.setAttribute("viewBox",`0 0 ${W} ${H}`); svg.innerHTML="";
   const days=[]; for(let i=13;i>=0;i--){ const iso=toISO(daysAgo(i)); days.push({iso, v:A.dayStrain(iso)}); }
   if(days.every(d=>d.v===0)){ svg.innerHTML=`<text x="${W/2}" y="${H/2}" fill="var(--muted)" font-size="13" text-anchor="middle" font-family="Inter">Sin actividades registradas</text>`; return; }
   const max=21;
   const gap=(W-2*pad)/days.length, bw=gap*0.55;
-  const y=v=>H-pad-(v/max)*(H-2*pad);
+  const y=v=>H-padBot-(v/max)*(H-padTop-padBot);
   let out='';
-  out+=`<line x1="${pad}" y1="${y(target).toFixed(1)}" x2="${W-pad}" y2="${y(target).toFixed(1)}" stroke="var(--foam)" stroke-width="1.2" stroke-dasharray="5 4" opacity=".55"/>`;
-  out+=`<text x="${W-pad}" y="${(y(target)-5).toFixed(1)}" fill="var(--muted)" font-size="10" text-anchor="end" font-family="Inter">objetivo ${target.toFixed(1)}</text>`;
+  out+=`<line x1="${pad}" y1="${y(target).toFixed(1)}" x2="${W-pad}" y2="${y(target).toFixed(1)}" stroke="var(--foam)" stroke-width="1.2" stroke-dasharray="5 4" opacity=".45"/>`;
+  out+=`<text x="${pad}" y="${(y(target)-6).toFixed(1)}" fill="var(--muted)" font-size="10" text-anchor="start" font-family="Inter">objetivo ${target.toFixed(1)}</text>`;
   days.forEach((d,i)=>{
     const cx=pad+i*gap+gap/2;
-    if(d.v>0){ const lbl=A.strainLabel(d.v); const h=(d.v/max)*(H-2*pad);
+    if(d.v>0){ const lbl=A.strainLabel(d.v); const h=(d.v/max)*(H-padTop-padBot);
       out+=`<rect x="${(cx-bw/2).toFixed(1)}" y="${y(d.v).toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" fill="${lbl.c}" rx="3" opacity=".9"/>`;
-      if(i>=days.length-7) out+=`<text x="${cx.toFixed(1)}" y="${(y(d.v)-5).toFixed(1)}" fill="var(--foam)" font-size="9.5" text-anchor="middle" font-family="Space Grotesk" font-weight="600">${d.v.toFixed(1)}</text>`;
+      if(i>=days.length-7){
+        const ty=Math.max(12, y(d.v)-8);
+        out+=`<text x="${cx.toFixed(1)}" y="${ty.toFixed(1)}" fill="var(--foam)" font-size="10" text-anchor="middle" font-family="Space Grotesk" font-weight="700">${d.v.toFixed(1)}</text>`;
+      }
     }
-    if(i%2===0||i===days.length-1) out+=`<text x="${cx.toFixed(1)}" y="${H-8}" fill="var(--muted-2)" font-size="10" text-anchor="middle" font-family="Inter">${fmtDow(d.iso).slice(0,2)}</text>`;
+    out+=`<text x="${cx.toFixed(1)}" y="${H-8}" fill="var(--muted-2)" font-size="10.5" text-anchor="middle" font-family="Space Grotesk" font-weight="600">${fmtDow(d.iso).slice(0,2)}</text>`;
   });
   svg.innerHTML=out;
 }
