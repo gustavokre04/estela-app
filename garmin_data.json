@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-14T20:56:35",
+  "generated": "2026-09-15T08:16:28",
   "hrv": [
     {
       "date": "2026-08-17",
@@ -331,11 +331,35 @@
       "sleepScore": 55,
       "recovery": 25,
       "rhr": 47,
-      "stress": 33,
+      "stress": 32,
       "bb": 34
+    },
+    {
+      "date": "2026-09-14",
+      "src": "garmin",
+      "val": 121,
+      "readings": null,
+      "sleep": 6.7,
+      "sleepScore": 80,
+      "recovery": 50,
+      "rhr": 42,
+      "stress": 25,
+      "bb": 22
     }
   ],
   "activities": [
+    {
+      "date": "2026-09-14",
+      "type": "e bike fitness",
+      "dur": 62,
+      "dist": 14.63,
+      "hr": 122,
+      "gload": 56,
+      "te_aer": 2.4,
+      "te_ana": 1.8,
+      "sets": null,
+      "src": "garmin"
+    },
     {
       "date": "2026-09-11",
       "type": "e bike fitness",
