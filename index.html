@@ -1026,6 +1026,18 @@
       <div id="roster"></div>
       <div class="note-sm">Como entrenador ves los datos de cada atleta en modo lectura. Ellos solo ven los suyos; nunca los de los demás.</div>
     </div>
+
+    <div class="panel">
+      <div class="panel-head"><h3>Respaldo de tus datos</h3><span class="hint">antes de borrar la caché</span></div>
+      <div class="banner">
+        <b>Ojo antes de borrar los datos del sitio.</b> El truco para forzar una versión nueva
+        (Safari → Configuración → Privacidad → Gestionar datos de sitios web → "github" → Eliminar)
+        también borra el almacenamiento local de la app: se van tus esquiadas, el HRV que metes a mano,
+        las pruebas físicas y los ajustes. <b>Toca ↓ Respaldo arriba primero</b>, y después
+        ↑ Restaurar para recuperarlo todo.
+      </div>
+      <div class="note-sm">Lo que viene de Garmin vuelve solo al sincronizar, así que eso no se pierde. Lo que cargas a mano sí: ese es el motivo del respaldo.</div>
+    </div>
   </section>
 
 </div>
@@ -1456,7 +1468,8 @@ $("#importJsonBtn").onclick=()=>$("#jsonFile").click();
 $("#jsonFile").onchange=()=>{ const f=$("#jsonFile").files[0]; if(!f)return;
   const r=new FileReader(); r.onload=()=>{ try{ const d=JSON.parse(r.result);
     state.sessions=d.sessions||[];state.hrv=d.hrv||[];state.activities=d.activities||[];
-    if(d.settings)state.settings=Object.assign({sleepGoal:8},d.settings); mem=state; save(); bindGarmin(); toast("Datos restaurados"); }
+    state.tests=d.tests||[];   // las pruebas físicas también vuelven (antes se perdían al restaurar)
+    if(d.settings)state.settings=Object.assign({sleepGoal:8},d.settings); mem=state; save(); bindGarmin(); bindTests(); toast("Datos restaurados"); }
     catch(e){toast("Archivo no válido",true);} }; r.readAsText(f); $("#jsonFile").value=""; };
 
 /* ---------- charts (SVG) ---------- */
@@ -1700,8 +1713,12 @@ function seedGK(){
 window.seedGK=seedGK;
 
 /* ---------- Sincronización con Garmin ---------- */
+// Si se borran los datos del sitio (el truco para saltar el service worker), el localStorage
+// se va con ellos y la URL queda vacía. Este valor por defecto hace que Sincronizar siga
+// funcionando sin tener que acordarse de la URL: el JSON vive en el mismo repo que la app.
+const GARMIN_URL_DEFAULT='./garmin_data.json';
 function bindGarmin(){
-  $("#g-url").value=state.settings.garminUrl||"";
+  $("#g-url").value=state.settings.garminUrl||GARMIN_URL_DEFAULT;
   $("#g-key").value=state.settings.garminKey||"";
   $("#g-auto").checked=!!state.settings.garminAuto;
 }
@@ -1730,8 +1747,7 @@ function mergeGarmin(data){
   return {addA,addH,updH};
 }
 async function syncGarmin(silent){
-  const url=(state.settings.garminUrl||'').trim();
-  if(!url){ if(!silent)toast('Pon la URL de tu backend de Garmin',true); return; }
+  const url=((state.settings.garminUrl||'').trim())||GARMIN_URL_DEFAULT;
   setSyncBadge('syncing');
   try{
     if(!silent)toast('Sincronizando con Garmin…');
