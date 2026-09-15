@@ -1901,20 +1901,42 @@ const A = {
 
   // --- RECOVERY TIME (horas) ---
   // Integra TODO: actividades de Garmin + esquiadas manuales (que Garmin no ve).
-  // Cada una suma horas segun su strain (curva (strain-6)*3) y se descuentan con
-  // los dias transcurridos. Es el numero "real" de GK. Tope 96 h.
+  // Cada esfuerzo cuesta horas segun su strain. El descuento se ajusta a tu recovery
+  // de cada mañana: los días que amaneces bien recuperas más rápido, los que amaneces
+  // mal más lento. Tope 96 h.
+  recoveryFactorOn(iso){
+    // factor de velocidad de recuperacion de un dia: recovery 90 -> 0.77x (rapido),
+    // recovery 50 -> 1.05x, recovery 15 -> 1.30x (lento). Sin dato -> 1.0 (neutro).
+    const raw=[...state.hrv].filter(h=>h.date===iso).find(h=>this.effectiveRecovery(h));
+    const rec=raw? this.effectiveRecovery(raw).score : null;
+    if(rec==null) return 1.0;
+    return Math.max(0.7, Math.min(1.35, 1.4-(rec/100)*0.7));
+  },
+  // horas de recuperacion ya "consumidas" por un esfuerzo, integrando el factor de cada dia
+  recoveryElapsed(refMs, nowMs){
+    let consumed=0; let cursor=refMs; let guard=0;
+    while(cursor < nowMs && guard < 250){
+      guard++;
+      const dayIso=toISO(new Date(cursor));
+      const factor=this.recoveryFactorOn(dayIso);
+      const nextMidnight=new Date(cursor); nextMidnight.setHours(24,0,0,0);
+      const segEnd=Math.min(nextMidnight.getTime(), nowMs);
+      const realHours=(segEnd-cursor)/3600000;
+      consumed += realHours/factor;   // factor<1 (recovery alto) -> consume MÁS recuperación por hora real
+      cursor=segEnd;
+    }
+    return consumed;
+  },
   recoveryHours(){
     const nowMs=Date.now();
-    // horas de recuperación que cuesta cada esfuerzo (curva empinada, calibrada con la media maratón de GK:
-    // strain ~15.6 → ~83h como Garmin; esfuerzos suaves cuestan poco; tope 96h)
     const cost=st=>Math.min(96, 1.9*Math.pow(Math.max(0,st-4),1.55));
-    const REF=18;                                // fallback: sin hora, asumimos ~18:00 local
+    const REF=18;
     const refMs=item=>{
-      if(item.ts) return item.ts - 3600000;      // esquiadas: la hora en que la registraste −1h (esquiaste ~1h antes)
+      if(item.ts) return item.ts - 3600000;
       const t=new Date(item.date+'T00:00:00'); t.setHours(REF,0,0,0); return t.getTime();
     };
     const remain=(item,st)=>{ const c=cost(st); if(c<=0) return 0;
-      const el=Math.max(0,(nowMs-refMs(item))/3600000);   // horas transcurridas, CONTINUO (no salta a medianoche)
+      const el=this.recoveryElapsed(refMs(item), nowMs);
       return Math.max(0, c-el); };
     let total=0;
     (state.activities||[]).forEach(a=>{ total+=remain(a, this.activityStrain(a)); });
@@ -1933,7 +1955,7 @@ const A = {
     const refMs=item=>{ if(item.ts) return item.ts-3600000;
       const t=new Date(item.date+'T00:00:00'); t.setHours(18,0,0,0); return t.getTime(); };
     const remain=(item,st)=>{ const c=cost(st); if(c<=0) return 0;
-      const el=Math.max(0,(nowMs-refMs(item))/3600000); return Math.max(0,c-el); };
+      const el=this.recoveryElapsed(refMs(item), nowMs); return Math.max(0,c-el); };
     const items=[];
     (state.activities||[]).forEach(a=>{ const st=this.activityStrain(a); const r=remain(a,st);
       if(r>0.5) items.push({label:(a.type||'Actividad')+' '+fmtDate(a.date), strain:st, cost:cost(st), hours:r}); });
@@ -2576,7 +2598,7 @@ const INFO_BUILDERS={
     d.items.forEach(it=>{ body+=_row(`${it.label} · strain ${_num(it.strain,1)}`, `${_num(it.hours)} h`); });
     body+=`<div class="itot"><span>Recovery time (Estela)</span><span>${d.total} h</span></div>`;
     if(rhG!=null) body+=_row('Garmin importado', `${rhG} h`);
-    body+=`<div class="inote">Cada esfuerzo cuesta horas según su strain (curva 1,9·(strain−4)^1,55, tope 96 h) y se van descontando hora a hora desde que ocurrió. Integra actividades de Garmin + tus esquiadas, que Garmin no ve.</div>`;
+    body+=`<div class="inote">Cada esfuerzo cuesta horas según su strain (curva 1,9·(strain−4)^1,55, tope 96 h). El descuento se ajusta a tu recovery de cada mañana: los días que amaneces bien recuperas más rápido, los que amaneces mal más lento. Integra actividades de Garmin + tus esquiadas, que Garmin no ve.</div>`;
     return {title:'Recovery time', meta:'Horas hasta estar recuperado', body};
   },
   readiness(){
