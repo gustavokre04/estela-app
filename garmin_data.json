@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-17T19:25:01",
+  "generated": "2026-09-17T19:26:43",
   "hrv": [
     {
       "date": "2026-08-19",
@@ -357,13 +357,29 @@
       "readings": null,
       "sleep": 9.5,
       "sleepScore": 94,
-      "recovery": 77,
+      "recovery": 76,
       "rhr": 41,
-      "stress": 20,
-      "bb": 45
+      "stress": 24,
+      "bb": 34
     }
   ],
   "activities": [
+    {
+      "date": "2026-09-17",
+      "type": "strength training",
+      "dur": 20,
+      "dist": null,
+      "hr": 98,
+      "gload": 10,
+      "te_aer": 0.4,
+      "te_ana": 0.5,
+      "sets": {
+        "CURL": 67,
+        "ROW": 37,
+        "PLYO": 41
+      },
+      "src": "garmin"
+    },
     {
       "date": "2026-09-16",
       "type": "strength training",
