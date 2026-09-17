@@ -1,18 +1,6 @@
 {
-  "generated": "2026-09-16T16:31:19",
+  "generated": "2026-09-17T16:13:37",
   "hrv": [
-    {
-      "date": "2026-08-18",
-      "src": "garmin",
-      "val": 120,
-      "readings": null,
-      "sleep": 8.3,
-      "sleepScore": 88,
-      "recovery": null,
-      "rhr": 40,
-      "stress": 26,
-      "bb": 22
-    },
     {
       "date": "2026-08-19",
       "src": "garmin",
@@ -357,13 +345,40 @@
       "readings": null,
       "sleep": 7.0,
       "sleepScore": 86,
-      "recovery": 67,
+      "recovery": 59,
+      "rhr": 41,
+      "stress": 23,
+      "bb": 46
+    },
+    {
+      "date": "2026-09-17",
+      "src": "garmin",
+      "val": 115,
+      "readings": null,
+      "sleep": 9.5,
+      "sleepScore": 94,
+      "recovery": 77,
       "rhr": 41,
       "stress": 20,
       "bb": 45
     }
   ],
   "activities": [
+    {
+      "date": "2026-09-16",
+      "type": "strength training",
+      "dur": 33,
+      "dist": null,
+      "hr": 100,
+      "gload": 24,
+      "te_aer": 0.7,
+      "te_ana": 1.7,
+      "sets": {
+        "CURL": 39,
+        "TRICEPS_EXTENSION": 146
+      },
+      "src": "garmin"
+    },
     {
       "date": "2026-09-14",
       "type": "e bike fitness",
@@ -586,42 +601,6 @@
         "FLYE": 66,
         "ROW": 25
       },
-      "src": "garmin"
-    },
-    {
-      "date": "2026-08-18",
-      "type": "running",
-      "dur": 8,
-      "dist": 1.59,
-      "hr": 142,
-      "gload": 53,
-      "te_aer": 2.1,
-      "te_ana": 2.1,
-      "sets": null,
-      "src": "garmin"
-    },
-    {
-      "date": "2026-08-18",
-      "type": "running",
-      "dur": 3,
-      "dist": 1.03,
-      "hr": 177,
-      "gload": 89,
-      "te_aer": 2.2,
-      "te_ana": 3.0,
-      "sets": null,
-      "src": "garmin"
-    },
-    {
-      "date": "2026-08-18",
-      "type": "running",
-      "dur": 3,
-      "dist": 0.53,
-      "hr": 115,
-      "gload": 6,
-      "te_aer": 0.6,
-      "te_ana": null,
-      "sets": null,
       "src": "garmin"
     }
   ],
