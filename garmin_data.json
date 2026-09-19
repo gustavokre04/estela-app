@@ -1,18 +1,6 @@
 {
-  "generated": "2026-09-18T16:31:23",
+  "generated": "2026-09-19T11:02:21",
   "hrv": [
-    {
-      "date": "2026-08-20",
-      "src": "garmin",
-      "val": 108,
-      "readings": null,
-      "sleep": 8.2,
-      "sleepScore": 82,
-      "recovery": null,
-      "rhr": 45,
-      "stress": 28,
-      "bb": 40
-    },
     {
       "date": "2026-08-21",
       "src": "garmin",
@@ -357,13 +345,51 @@
       "readings": null,
       "sleep": 7.9,
       "sleepScore": 88,
-      "recovery": 82,
+      "recovery": 81,
       "rhr": 42,
-      "stress": 24,
-      "bb": 42
+      "stress": 29,
+      "bb": 29
+    },
+    {
+      "date": "2026-09-19",
+      "src": "garmin",
+      "val": 112,
+      "readings": null,
+      "sleep": 9.1,
+      "sleepScore": 90,
+      "recovery": 80,
+      "rhr": 43,
+      "stress": 15,
+      "bb": 80
     }
   ],
   "activities": [
+    {
+      "date": "2026-09-18",
+      "type": "strength training",
+      "dur": 22,
+      "dist": null,
+      "hr": 99,
+      "gload": 15,
+      "te_aer": 0.5,
+      "te_ana": 0.9,
+      "sets": {
+        "CURL": 36
+      },
+      "src": "garmin"
+    },
+    {
+      "date": "2026-09-18",
+      "type": "indoor cycling",
+      "dur": 18,
+      "dist": null,
+      "hr": 100,
+      "gload": 6,
+      "te_aer": 0.6,
+      "te_ana": null,
+      "sets": null,
+      "src": "garmin"
+    },
     {
       "date": "2026-09-17",
       "type": "strength training",
@@ -590,33 +616,6 @@
       "te_aer": 3.3,
       "te_ana": null,
       "sets": null,
-      "src": "garmin"
-    },
-    {
-      "date": "2026-08-20",
-      "type": "running",
-      "dur": 20,
-      "dist": 4.41,
-      "hr": 154,
-      "gload": 103,
-      "te_aer": 3.2,
-      "te_ana": 2.1,
-      "sets": null,
-      "src": "garmin"
-    },
-    {
-      "date": "2026-08-20",
-      "type": "strength training",
-      "dur": 66,
-      "dist": null,
-      "hr": 97,
-      "gload": 17,
-      "te_aer": 1.4,
-      "te_ana": 0.2,
-      "sets": {
-        "FLYE": 66,
-        "ROW": 25
-      },
       "src": "garmin"
     }
   ],
