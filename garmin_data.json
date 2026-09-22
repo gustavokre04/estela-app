@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-22T10:16:36",
+  "generated": "2026-09-22T16:03:05",
   "hrv": [
     {
       "date": "2026-08-24",
@@ -346,11 +346,35 @@
       "sleep": 5.5,
       "recovery": 39,
       "rhr": 46,
-      "stress": 35,
+      "stress": 34,
       "bb": 81
+    },
+    {
+      "date": "2026-09-22",
+      "src": "garmin",
+      "val": 101,
+      "readings": null,
+      "sleep": 6.3,
+      "sleepScore": 74,
+      "recovery": 59,
+      "rhr": 42,
+      "stress": 21,
+      "bb": 94
     }
   ],
   "activities": [
+    {
+      "date": "2026-09-22",
+      "type": "running",
+      "dur": 0,
+      "dist": 0.0,
+      "hr": 48,
+      "gload": null,
+      "te_aer": null,
+      "te_ana": null,
+      "sets": null,
+      "src": "garmin"
+    },
     {
       "date": "2026-09-21",
       "type": "running",
