@@ -1,35 +1,13 @@
 {
-  "generated": "2026-09-27T00:11:11",
+  "generated": "2026-09-28T15:04:13",
   "hrv": [
-    {
-      "date": "2026-08-28",
-      "src": "garmin",
-      "val": 123,
-      "readings": null,
-      "sleep": 7.6,
-      "sleepScore": 92,
-      "recovery": 95,
-      "rhr": 41,
-      "stress": 38,
-      "bb": 100
-    },
-    {
-      "date": "2026-08-29",
-      "src": "garmin",
-      "val": 103,
-      "readings": null,
-      "sleep": 5.3,
-      "sleepScore": 71,
-      "recovery": 66,
-      "rhr": 40,
-      "stress": 24,
-      "bb": 79
-    },
     {
       "date": "2026-08-30",
       "src": "garmin",
       "val": 96,
       "readings": null,
+      "sleep": 6.5,
+      "sleepScore": 77,
       "recovery": 1,
       "rhr": 45,
       "stress": 36,
@@ -186,11 +164,16 @@
       "readings": null,
       "sleep": 7.3,
       "sleepScore": 84,
-      "recovery": 64
+      "recovery": 64,
+      "rhr": 43,
+      "stress": 32,
+      "bb": 93
     },
     {
       "date": "2026-09-13",
       "src": "garmin",
+      "val": 65,
+      "readings": null,
       "sleep": 6.5,
       "sleepScore": 55,
       "recovery": 25,
@@ -322,10 +305,115 @@
       "date": "2026-09-24",
       "src": "garmin",
       "val": 115,
-      "readings": null
+      "readings": null,
+      "sleep": 8.2,
+      "sleepScore": 91,
+      "recovery": 85,
+      "rhr": 38,
+      "stress": 27,
+      "bb": 100
+    },
+    {
+      "date": "2026-09-25",
+      "src": "garmin",
+      "val": 112,
+      "readings": null,
+      "sleep": 6.8,
+      "napMin": 37,
+      "sleepScore": 82,
+      "recovery": 85,
+      "rhr": 40,
+      "stress": 27,
+      "bb": 99
+    },
+    {
+      "date": "2026-09-26",
+      "src": "garmin",
+      "val": 112,
+      "readings": null,
+      "sleep": 5.9,
+      "sleepScore": 70,
+      "recovery": 72,
+      "rhr": 43,
+      "stress": 32,
+      "bb": 90
+    },
+    {
+      "date": "2026-09-27",
+      "src": "garmin",
+      "val": 99,
+      "readings": null,
+      "sleep": 5.0,
+      "sleepScore": 66,
+      "recovery": 63,
+      "rhr": 45,
+      "stress": 31,
+      "bb": 66
+    },
+    {
+      "date": "2026-09-28",
+      "src": "garmin",
+      "val": 104,
+      "readings": null,
+      "sleep": 8.0,
+      "sleepScore": 84,
+      "recovery": 83,
+      "rhr": 46,
+      "stress": 21,
+      "bb": 93
     }
   ],
   "activities": [
+    {
+      "date": "2026-09-27",
+      "type": "resort skiing",
+      "dur": 209,
+      "dist": 24.05,
+      "hr": 82,
+      "gload": 5,
+      "te_aer": 0.5,
+      "te_ana": null,
+      "sets": null,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-09-25",
+      "type": "indoor cycling",
+      "dur": 1,
+      "dist": null,
+      "hr": 83,
+      "gload": null,
+      "te_aer": null,
+      "te_ana": null,
+      "sets": null,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-09-25",
+      "type": "strength training",
+      "dur": 50,
+      "dist": null,
+      "hr": 87,
+      "gload": null,
+      "te_aer": 0.3,
+      "te_ana": null,
+      "sets": {
+        "TRICEPS_EXTENSION": 229
+      },
+      "src": "garmin"
+    },
+    {
+      "date": "2026-09-25",
+      "type": "cycling",
+      "dur": 61,
+      "dist": 22.65,
+      "hr": 91,
+      "gload": null,
+      "te_aer": 0.3,
+      "te_ana": null,
+      "sets": null,
+      "src": "garmin"
+    },
     {
       "date": "2026-09-22",
       "type": "running",
