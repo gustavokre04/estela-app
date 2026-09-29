@@ -1,18 +1,6 @@
 {
-  "generated": "2026-09-28T16:31:06",
+  "generated": "2026-09-29T08:33:49",
   "hrv": [
-    {
-      "date": "2026-08-30",
-      "src": "garmin",
-      "val": 96,
-      "readings": null,
-      "sleep": 6.5,
-      "sleepScore": 77,
-      "recovery": 1,
-      "rhr": 45,
-      "stress": 36,
-      "bb": 92
-    },
     {
       "date": "2026-08-31",
       "src": "garmin",
@@ -359,8 +347,16 @@
       "sleepScore": 84,
       "recovery": 83,
       "rhr": 46,
-      "stress": 21,
+      "stress": 30,
       "bb": 93
+    },
+    {
+      "date": "2026-09-29",
+      "src": "garmin",
+      "sleep": null,
+      "rhr": 46,
+      "stress": 26,
+      "bb": 21
     }
   ],
   "activities": [
@@ -643,30 +639,6 @@
       "hr": 93,
       "gload": null,
       "te_aer": 0.2,
-      "te_ana": null,
-      "sets": null,
-      "src": "garmin"
-    },
-    {
-      "date": "2026-08-30",
-      "type": "running",
-      "dur": 101,
-      "dist": 21.15,
-      "hr": 167,
-      "gload": 301,
-      "te_aer": 5.0,
-      "te_ana": 0.9,
-      "sets": null,
-      "src": "garmin"
-    },
-    {
-      "date": "2026-08-30",
-      "type": "running",
-      "dur": 2,
-      "dist": 0.15,
-      "hr": 116,
-      "gload": null,
-      "te_aer": 0.1,
       "te_ana": null,
       "sets": null,
       "src": "garmin"
