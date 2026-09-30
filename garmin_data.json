@@ -1,18 +1,6 @@
 {
-  "generated": "2026-09-29T21:20:53",
+  "generated": "2026-09-30T09:09:03",
   "hrv": [
-    {
-      "date": "2026-08-31",
-      "src": "garmin",
-      "val": 107,
-      "readings": null,
-      "sleep": 7.3,
-      "sleepScore": 79,
-      "recovery": 1,
-      "rhr": 43,
-      "stress": 24,
-      "bb": 88
-    },
     {
       "date": "2026-09-01",
       "src": "garmin",
@@ -353,13 +341,44 @@
     {
       "date": "2026-09-29",
       "src": "garmin",
-      "sleep": null,
-      "rhr": 46,
-      "stress": 26,
-      "bb": 21
+      "val": 116,
+      "readings": null,
+      "sleep": 6.7,
+      "sleepScore": 76,
+      "recovery": 85,
+      "rhr": 40,
+      "stress": 29,
+      "bb": 97
+    },
+    {
+      "date": "2026-09-30",
+      "src": "garmin",
+      "val": 116,
+      "readings": null,
+      "sleep": 6.2,
+      "sleepScore": 75,
+      "recovery": 85,
+      "rhr": 43,
+      "stress": 15,
+      "bb": 88
     }
   ],
   "activities": [
+    {
+      "date": "2026-09-29",
+      "type": "strength training",
+      "dur": 74,
+      "dist": null,
+      "hr": 85,
+      "gload": 7,
+      "te_aer": 0.6,
+      "te_ana": 0.1,
+      "sets": {
+        "PULL_UP": 88,
+        "FLYE": 71
+      },
+      "src": "garmin"
+    },
     {
       "date": "2026-09-27",
       "type": "resort skiing",
@@ -629,18 +648,6 @@
         "CURL": 51,
         "FLYE": 35
       },
-      "src": "garmin"
-    },
-    {
-      "date": "2026-08-31",
-      "type": "indoor cycling",
-      "dur": 11,
-      "dist": null,
-      "hr": 93,
-      "gload": null,
-      "te_aer": 0.2,
-      "te_ana": null,
-      "sets": null,
       "src": "garmin"
     }
   ],
