@@ -1932,8 +1932,29 @@ const A = {
     return {mean:m, sd, n:win.length};
   },
 
+  // Desvío del sueño profundo del Q-WACH sobre el sleepScore de Garmin, acotado a ±10.
+  // Se mide contra la media y la desviación de los últimos 60 días del propio GK (la misma
+  // idea que el baseline del HRV), no contra una escala absoluta. Satura a 2 desviaciones.
+  // Devuelve null si no hay dato o no hay historial suficiente: entonces manda Garmin solo.
+  DEEP_MAX: 10,      // cuánto puede mover, como máximo
+  DEEP_SD: 2,        // a cuántas desviaciones satura
+  deepBaseline(refDate){
+    const to=new Date(refDate+'T00:00:00'); const from=new Date(to-59*this.dayMs);
+    const win=[...state.hrv].filter(h=>h.deepQ!=null && this.within(h.date,from,to)).map(h=>h.deepQ);
+    if(win.length<5) return null;
+    const m=win.reduce((a,b)=>a+b,0)/win.length;
+    const sd=Math.sqrt(win.reduce((a,x)=>a+(x-m)**2,0)/win.length);
+    return sd>0.5 ? {mean:m, sd, n:win.length} : null;
+  },
+  deepSleepAdj(rec){
+    if(!rec || rec.deepQ==null) return null;
+    const b=this.deepBaseline(rec.date); if(!b) return null;
+    const z=(rec.deepQ-b.mean)/b.sd;
+    return Math.max(-this.DEEP_MAX, Math.min(this.DEEP_MAX, (this.DEEP_MAX/this.DEEP_SD)*z));
+  },
+
   // --- RECOVERY combinado (0-100) para un día ---
-  // Pesos: HRV 25% (Q-WACH+Garmin 50/50) · Sueño 35% (Garmin 70% + prof.Q-WACH 30% + bonus siesta)
+  // Pesos: HRV 25% (Q-WACH+Garmin 50/50) · Sueño 35% (Garmin ±10 por prof.Q-WACH + bonus siesta)
   //        FC reposo 10% · Estrés 15% (Garmin+Q-WACH 50/50) · Body Battery 15%
   // Renormaliza sobre las señales presentes (nunca castiga por dato ausente).
   recoveryFor(rec){
@@ -1943,15 +1964,20 @@ const A = {
     hrvScore=this.hrvScoreFor(rec);
     if(hrvScore!=null){ parts.push({k:'HRV', w:0.25, v:hrvScore}); }
 
-    // 2) SUEÑO — 35% — Garmin (score/duración) 70% + sueño profundo Q-WACH 30%, + bonus de siesta
+    // 2) SUEÑO — 35% — sleepScore de Garmin, desviado hasta ±10 por el sueño profundo del Q-WACH, + bonus de siesta
     if(rec.sleepScore!=null || rec.sleep!=null || rec.deepQ!=null){
-      const subs=[];
       const g=this.sleepNightScore(rec);
-      if(g!=null) subs.push({v:g, w:0.7});
-      if(rec.deepQ!=null) subs.push({v:Math.max(0,Math.min(100,(rec.deepQ-70)/30*100)), w:0.3});
-      if(subs.length){
-        const sw=subs.reduce((a,s)=>a+s.w,0);
-        let sub=subs.reduce((a,s)=>a+s.v*s.w,0)/sw;
+      if(g!=null){
+        // El sleepScore de Garmin manda (ya combina duración, fases y despertares sobre la
+        // noche entera) y el sueño profundo del Q-WACH solo lo DESVÍA, como máximo ±10.
+        // Antes el profundo entraba como un sub-score con peso 30% mapeado sobre una escala
+        // absoluta 70-100: ese 70 era la referencia de "bueno" de la app, NO el piso real de
+        // GK, así que castigaba de arranque (−4 pts de media sobre su historial) y se volvía
+        // brusco en la cola: una noche de Garmin 96 con profundo 79 caía a 76.
+        // Ahora se mide contra su propia línea de base, igual que el HRV y la FC de reposo.
+        let sub=g;
+        const adj=this.deepSleepAdj(rec);
+        if(adj!=null) sub+=adj;
         // bonus de siesta (Garmin, minutos): sube hasta +12, tope a los ~30 min (más larga = sin extra)
         const nap=(rec.napMin!=null?rec.napMin:(rec.nap!=null?rec.nap:null));
         if(nap!=null && nap>0) sub += 12*Math.min(1, nap/30);
@@ -2672,9 +2698,17 @@ const INFO_BUILDERS={
     let body=`<div class="isec">Datos de ese día</div><div class="ichips">${chips.map(x=>`<span class="ichip">${x}</span>`).join('')||'<span class="ichip">—</span>'}</div>`;
     body+=`<div class="isec">Componentes (sub-score × peso)</div>`;
     c.parts.forEach(p=>{ body+=_row(`${p.k} · ${Math.round(p.w*100)}%`, `${_num(p.v)} / 100`); });
+    // el sueño se arma con Garmin + un desvío por el profundo: conviene verlo desglosado
+    const _adj=A.deepSleepAdj(rec), _b=rec.deepQ!=null?A.deepBaseline(rec.date):null;
+    if(_adj!=null && _b){
+      body+=`<div class="isec">Cómo se armó el sueño</div>`;
+      body+=_row('sleepScore de Garmin', `${A.sleepNightScore(rec)}`);
+      body+=_row(`Prof. Q ${rec.deepQ} vs tu media ${_b.mean.toFixed(1)} (${_b.n} noches)`,
+                 `${_adj>=0?'+':''}${_adj.toFixed(1)}`);
+    }
     if(wsum<0.999) body+=`<div class="inote">Faltan señales ese día, así que los pesos se renormalizan sobre lo presente (${Math.round(wsum*100)}% del total). Nunca te castiga por un dato ausente.</div>`;
     body+=`<div class="itot"><span>Recovery</span><span>${c.score} / 100</span></div>`;
-    body+=`<div class="inote">Suma ponderada de los componentes ÷ pesos presentes. Es 100% fisiológico: la disposición a entrenar de Garmin va al Readiness, no aquí.</div>`;
+    body+=`<div class="inote">Suma ponderada de los componentes ÷ pesos presentes. Es 100% fisiológico: la disposición a entrenar de Garmin va al Readiness, no aquí. El sueño parte del sleepScore de Garmin y el sueño profundo del Q-WACH solo lo desvía hasta ±${A.DEEP_MAX}, midiéndolo contra tu media de 60 días (satura a ${A.DEEP_SD} desviaciones).</div>`;
     return {title:'Recovery', meta:`Calculado con los datos del ${fmtDate(rec.date)}`, body};
   },
   sleepscore(){
