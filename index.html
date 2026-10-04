@@ -1467,32 +1467,44 @@ async function exportarRespaldo(){
   const texto=JSON.stringify(state,null,2);
   const nombre="estela-respaldo-"+toISO(new Date())+".json";
 
-  // 1) iPhone / iPad: hoja de compartir del sistema
+  // ¿Va primero la hoja de compartir o la descarga? En el Mac la hoja de compartir NO
+  // ofrece "Guardar en Archivos" (solo AirDrop, Copiar, Mail), así que ahí la descarga
+  // clásica es mejor. En iOS es al revés: la descarga no funciona y la hoja sí.
+  // iPadOS miente y se declara "Macintosh", por eso se mira maxTouchPoints.
+  const esIOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
+             || (navigator.maxTouchPoints>1 && /Mac/.test(navigator.userAgent));
+  const esApp = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches)
+             || window.navigator.standalone===true;
+
+  // descarga clásica: el ancla tiene que estar DENTRO del DOM (Safari lo exige) y la URL
+  // se libera más tarde, no al instante (si no, "WebKitBlobResource error 1")
+  const descargar=()=>{
+    try{
+      const blob=new Blob([texto],{type:"application/json"});
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement("a");
+      a.href=url; a.download=nombre; a.rel="noopener"; a.style.display="none";
+      document.body.appendChild(a); a.click();
+      setTimeout(()=>{ try{ a.remove(); URL.revokeObjectURL(url); }catch(_){} }, 30000);
+      toast("Respaldo descargado ✓"); return true;
+    }catch(e){ return false; }
+  };
+  const compartir=async()=>{
+    if(!navigator.canShare || typeof File!=='function') return false;
+    const file=new File([texto],nombre,{type:"application/json"});
+    if(!navigator.canShare({files:[file]})) return false;
+    await navigator.share({files:[file], title:nombre});
+    toast("Respaldo compartido ✓"); return true;
+  };
+
   try{
-    if(navigator.canShare && typeof File==='function'){
-      const file=new File([texto],nombre,{type:"application/json"});
-      if(navigator.canShare({files:[file]})){
-        await navigator.share({files:[file], title:nombre});
-        toast("Respaldo compartido ✓"); return;
-      }
-    }
+    if(esIOS || esApp){ if(await compartir()) return; if(descargar()) return; }
+    else            { if(descargar()) return; if(await compartir()) return; }
   }catch(e){
     if(e && e.name==='AbortError') return;   // el usuario cerró la hoja: no es un error
   }
 
-  // 2) Escritorio: descarga clásica, pero con el ancla DENTRO del DOM (Safari lo exige)
-  //    y liberando la URL más tarde, no al instante.
-  try{
-    const blob=new Blob([texto],{type:"application/json"});
-    const url=URL.createObjectURL(blob);
-    const a=document.createElement("a");
-    a.href=url; a.download=nombre; a.rel="noopener"; a.style.display="none";
-    document.body.appendChild(a); a.click();
-    setTimeout(()=>{ try{ a.remove(); URL.revokeObjectURL(url); }catch(_){} }, 30000);
-    toast("Respaldo descargado ✓"); return;
-  }catch(e){}
-
-  // 3) Último recurso: mostrarlo en pantalla para copiarlo a mano
+  // último recurso: mostrarlo en pantalla para copiarlo a mano
   mostrarRespaldoParaCopiar(texto, nombre);
 }
 
@@ -2009,21 +2021,42 @@ const A = {
     }
     return consumed;
   },
+  // Cada esfuerzo deja una fatiga proporcional a (strain−4)^RECOV_P que decae de forma
+  // EXPONENCIAL con constante RECOV_TAU. Las horas de recuperación son el tiempo que falta
+  // para que la fatiga total baje del umbral RECOV_TH.
+  //
+  // Por qué no se suman deudas independientes (lo que hacía el modelo viejo): dos esfuerzos
+  // seguidos no se recuperan en serie, se solapan. Con suma lineal y descuento lineal el
+  // número solo sabía estar saturado o en cero — en el log real de GK la mediana era 54 h
+  // con 6 días de 30 clavados en el tope de 96.
+  //
+  // Calibrado con GK (sep 2026, sus dos anclas): un set de esquí aislado se limpia de una
+  // noche (esquía días seguidos), y 7 sets en 5 días piden ~60 h desde el último set.
+  RECOV_TAU: 48,     // constante de tiempo de la fatiga, en horas ya ajustadas por recovery
+  RECOV_P: 1.3,      // cuánto pesa el strain de un esfuerzo
+  RECOV_TH: 5.95,    // por debajo de esto, recuperado
+  recovRefMs(item){
+    if(item.ts) return item.ts - 3600000;
+    const t=new Date(item.date+'T00:00:00'); t.setHours(18,0,0,0); return t.getTime();
+  },
+  recovWeight(st){ return Math.pow(Math.max(0, st-4), this.RECOV_P); },
+  // aporte de un esfuerzo a la fatiga de ahora
+  recovContrib(item, st, nowMs){
+    const w=this.recovWeight(st); if(w<=0) return 0;
+    const r0=this.recovRefMs(item); if(r0>=nowMs) return 0;
+    if((nowMs-r0)/3600000 > 480) return 0;      // más de 20 días: aporte despreciable
+    return w*Math.exp(-this.recoveryElapsed(r0, nowMs)/this.RECOV_TAU);
+  },
+  recovFatigue(nowMs){
+    let f=0;
+    (state.activities||[]).forEach(a=>{ f+=this.recovContrib(a, this.activityStrain(a), nowMs); });
+    (state.sessions||[]).forEach(s=>{ f+=this.recovContrib(s, this.sessionStrain(s), nowMs); });
+    return f;
+  },
   recoveryHours(){
-    const nowMs=Date.now();
-    const cost=st=>Math.min(96, 1.9*Math.pow(Math.max(0,st-4),1.55));
-    const REF=18;
-    const refMs=item=>{
-      if(item.ts) return item.ts - 3600000;
-      const t=new Date(item.date+'T00:00:00'); t.setHours(REF,0,0,0); return t.getTime();
-    };
-    const remain=(item,st)=>{ const c=cost(st); if(c<=0) return 0;
-      const el=this.recoveryElapsed(refMs(item), nowMs);
-      return Math.max(0, c-el); };
-    let total=0;
-    (state.activities||[]).forEach(a=>{ total+=remain(a, this.activityStrain(a)); });
-    (state.sessions||[]).forEach(s=>{ total+=remain(s, this.sessionStrain(s)); });
-    return Math.round(Math.min(96, total));
+    const f=this.recovFatigue(Date.now());
+    if(f<=this.RECOV_TH) return 0;
+    return Math.round(Math.min(96, this.RECOV_TAU*Math.log(f/this.RECOV_TH)));
   },
   // Recovery time importado de Garmin (horas), el mas reciente. null si no viene aun.
   recoveryHoursGarmin(){
@@ -2031,20 +2064,21 @@ const A = {
     return w.length? w[0].recoveryTimeG : null;
   },
   // Desglose del recovery time: qué esfuerzo aporta cuántas horas pendientes (para el botón de info).
+  // Desglose: qué parte de la fatiga de ahora aporta cada esfuerzo (para el botón de info).
+  // Con el modelo exponencial no tiene sentido repartir las horas entre esfuerzos (no se
+  // suman en serie), así que se muestra el porcentaje de la fatiga actual que aporta cada uno.
   recoveryHoursDetail(){
     const nowMs=Date.now();
-    const cost=st=>Math.min(96, 1.9*Math.pow(Math.max(0,st-4),1.55));
-    const refMs=item=>{ if(item.ts) return item.ts-3600000;
-      const t=new Date(item.date+'T00:00:00'); t.setHours(18,0,0,0); return t.getTime(); };
-    const remain=(item,st)=>{ const c=cost(st); if(c<=0) return 0;
-      const el=this.recoveryElapsed(refMs(item), nowMs); return Math.max(0,c-el); };
     const items=[];
-    (state.activities||[]).forEach(a=>{ const st=this.activityStrain(a); const r=remain(a,st);
-      if(r>0.5) items.push({label:(a.type||'Actividad')+' '+fmtDate(a.date), strain:st, cost:cost(st), hours:r}); });
-    (state.sessions||[]).forEach(s=>{ const st=this.sessionStrain(s); const r=remain(s,st);
-      if(r>0.5) items.push({label:'Esquí '+fmtDate(s.date), strain:st, cost:cost(st), hours:r}); });
-    items.sort((a,b)=>b.hours-a.hours);
-    return {total:Math.round(Math.min(96, items.reduce((a,x)=>a+x.hours,0))), items};
+    (state.activities||[]).forEach(a=>{ const st=this.activityStrain(a); const c=this.recovContrib(a,st,nowMs);
+      if(c>0.01) items.push({label:(a.type||'Actividad')+' '+fmtDate(a.date), strain:st, contrib:c}); });
+    (state.sessions||[]).forEach(s=>{ const st=this.sessionStrain(s); const c=this.recovContrib(s,st,nowMs);
+      if(c>0.01) items.push({label:'Esquí '+fmtDate(s.date), strain:st, contrib:c}); });
+    const f=items.reduce((a,x)=>a+x.contrib,0);
+    items.sort((a,b)=>b.contrib-a.contrib);
+    items.forEach(x=>{ x.share = f>0 ? Math.round(100*x.contrib/f) : 0; });
+    const total = f<=this.RECOV_TH ? 0 : Math.round(Math.min(96, this.RECOV_TAU*Math.log(f/this.RECOV_TH)));
+    return {total, items:items.slice(0,8), fatigue:f, threshold:this.RECOV_TH};
   },
 
   // --- PUNTUACIÓN DE SUEÑO (0-100) ---
@@ -2197,7 +2231,11 @@ const A = {
     const r=sec||40;
     return Math.max(0.75, Math.min(1.25, Math.pow(40/r, 0.25)));
   },
-  SKI_C: 113.7,        // constante de escala original (no se re-tunea). El strain refleja la tensión: con SKI_K=19.26 (jul 2026) baja un poco -> torneo 12.8, b2b 10.6, reps 8.6
+  SKI_C: 63.6,         // RECALIBRADA oct 2026 contra el ancla de GK: una esquiada tipo torneo
+                       // debe pesar como un gimnasio de 60 min a RPE 7, que en este motor es
+                       // strain 9,5. Antes era 113.7 y daba 13,9 de mediana en torneo: más que
+                       // su sesión de fuerza de 78 min (12,6), o sea que toda esquiada salía
+                       // como su día más duro. Medianas nuevas: torneo 9,5 · b2b 8,8 · larga 8,8
   COMP_MULT: 1.65,     // presión de competencia (una sola bala por línea)
 
   sessionEffort(s){
@@ -2675,12 +2713,12 @@ const INFO_BUILDERS={
   },
   recov(){
     const d=A.recoveryHoursDetail(), rhG=A.recoveryHoursGarmin();
-    let body=`<div class="isec">Esfuerzos con horas pendientes</div>`;
+    let body=`<div class="isec">De dónde viene tu fatiga ahora</div>`;
     if(!d.items.length) body+='<div class="ichips"><span class="ichip">Recuperado · sin carga pendiente</span></div>';
-    d.items.forEach(it=>{ body+=_row(`${it.label} · strain ${_num(it.strain,1)}`, `${_num(it.hours)} h`); });
+    d.items.forEach(it=>{ body+=_row(`${it.label} · strain ${_num(it.strain,1)}`, `${it.share}%`); });
     body+=`<div class="itot"><span>Recovery time (Estela)</span><span>${d.total} h</span></div>`;
     if(rhG!=null) body+=_row('Garmin importado', `${rhG} h`);
-    body+=`<div class="inote">Cada esfuerzo cuesta horas según su strain (curva 1,9·(strain−4)^1,55, tope 96 h). El descuento se ajusta a tu recovery de cada mañana: los días que amaneces bien recuperas más rápido, los que amaneces mal más lento. Integra actividades de Garmin + tus esquiadas, que Garmin no ve.</div>`;
+    body+=`<div class="inote">Cada esfuerzo deja una fatiga según su strain, y esa fatiga decae de forma exponencial (constante ${A.RECOV_TAU} h). Las horas que ves son el tiempo que falta para que la fatiga total baje del umbral de recuperado. Los esfuerzos no se suman en serie: se solapan, por eso aquí se muestra qué porcentaje de la fatiga actual aporta cada uno. El decaimiento se ajusta a tu recovery de cada mañana: los días que amaneces bien recuperas más rápido. Integra actividades de Garmin + tus esquiadas, que Garmin no ve.</div>`;
     return {title:'Recovery time', meta:'Horas hasta estar recuperado', body};
   },
   readiness(){
