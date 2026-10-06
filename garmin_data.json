@@ -1,18 +1,6 @@
 {
-  "generated": "2026-10-05T23:09:17",
+  "generated": "2026-10-06T16:18:39",
   "hrv": [
-    {
-      "date": "2026-09-06",
-      "src": "garmin",
-      "val": 88,
-      "readings": null,
-      "sleep": 7.5,
-      "sleepScore": 86,
-      "recovery": 71,
-      "rhr": 44,
-      "stress": 25,
-      "bb": 81
-    },
     {
       "date": "2026-09-07",
       "src": "garmin",
@@ -31,65 +19,11 @@
       "val": 104,
       "readings": null,
       "sleep": 6.7,
-      "sleepScore": 82,
-      "recovery": 43,
-      "rhr": 43,
-      "stress": 28,
-      "bb": 95
-    },
-    {
-      "date": "2026-09-09",
-      "src": "garmin",
-      "val": 106,
-      "readings": null,
-      "sleep": 7.4,
-      "sleepScore": 87,
-      "recovery": 75,
-      "rhr": 42,
-      "stress": 27,
-      "bb": 95
-    },
-    {
-      "date": "2026-09-10",
-      "src": "garmin",
-      "val": 121,
-      "readings": null,
-      "sleep": 7.6,
-      "sleepScore": 88,
-      "recovery": 84,
-      "rhr": 41,
-      "stress": 30,
-      "bb": 100
-    },
-    {
-      "date": "2026-09-11",
-      "src": "garmin",
-      "val": 116,
-      "readings": null,
-      "sleep": 6.6,
-      "sleepScore": 78,
-      "recovery": 54,
-      "rhr": 41,
-      "stress": 27,
-      "bb": 97
-    },
-    {
-      "date": "2026-09-12",
-      "src": "garmin",
-      "val": 105,
-      "readings": null,
-      "sleep": 7.3,
-      "sleepScore": 84,
-      "recovery": 64,
-      "rhr": 43,
-      "stress": 32,
-      "bb": 93
+      "sleepScore": 82
     },
     {
       "date": "2026-09-13",
       "src": "garmin",
-      "val": 65,
-      "readings": null,
       "sleep": 6.5,
       "sleepScore": 55,
       "recovery": 25,
@@ -361,11 +295,35 @@
       "sleepScore": 90,
       "recovery": 97,
       "rhr": 44,
-      "stress": 27,
+      "stress": 28,
       "bb": 99
+    },
+    {
+      "date": "2026-10-06",
+      "src": "garmin",
+      "val": 101,
+      "readings": null,
+      "sleep": 8.1,
+      "sleepScore": 85,
+      "recovery": 60,
+      "rhr": 45,
+      "stress": 30,
+      "bb": 94
     }
   ],
   "activities": [
+    {
+      "date": "2026-10-06",
+      "type": "running",
+      "dur": 25,
+      "dist": 5.15,
+      "hr": 171,
+      "gload": 124,
+      "te_aer": 3.7,
+      "te_ana": 0.6,
+      "sets": null,
+      "src": "garmin"
+    },
     {
       "date": "2026-10-04",
       "type": "strength training",
@@ -681,7 +639,7 @@
     }
   ],
   "extras": {
-    "vo2max": null,
+    "vo2max": 56.0,
     "lactate_threshold": null
   }
 }
