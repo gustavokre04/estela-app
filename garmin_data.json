@@ -1,18 +1,6 @@
 {
-  "generated": "2026-10-07T08:50:20",
+  "generated": "2026-10-07T10:27:36",
   "hrv": [
-    {
-      "date": "2026-09-07",
-      "src": "garmin",
-      "val": 120,
-      "readings": null,
-      "sleep": 6.1,
-      "sleepScore": 76,
-      "recovery": 74,
-      "rhr": 40,
-      "stress": 28,
-      "bb": 100
-    },
     {
       "date": "2026-09-08",
       "src": "garmin",
@@ -361,8 +349,20 @@
       "sleepScore": 85,
       "recovery": 60,
       "rhr": 45,
-      "stress": 30,
+      "stress": 34,
       "bb": 94
+    },
+    {
+      "date": "2026-10-07",
+      "src": "garmin",
+      "val": 100,
+      "readings": null,
+      "sleep": 8.1,
+      "sleepScore": 88,
+      "recovery": 62,
+      "rhr": 45,
+      "stress": 18,
+      "bb": null
     }
   ],
   "activities": [
@@ -545,7 +545,9 @@
       "gload": 15,
       "te_aer": 0.5,
       "te_ana": 0.9,
-      "sets": null,
+      "sets": {
+        "CURL": 36
+      },
       "src": "garmin"
     },
     {
@@ -676,22 +678,10 @@
       "te_ana": 2.2,
       "sets": null,
       "src": "garmin"
-    },
-    {
-      "date": "2026-09-07",
-      "type": "indoor cycling",
-      "dur": 20,
-      "dist": null,
-      "hr": 95,
-      "gload": null,
-      "te_aer": 0.3,
-      "te_ana": null,
-      "sets": null,
-      "src": "garmin"
     }
   ],
   "extras": {
-    "vo2max": 56.0,
+    "vo2max": null,
     "lactate_threshold": null
   }
 }
