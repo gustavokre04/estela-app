@@ -1,18 +1,6 @@
 {
-  "generated": "2026-10-10T21:13:39",
+  "generated": "2026-10-11T08:59:23",
   "hrv": [
-    {
-      "date": "2026-09-11",
-      "src": "garmin",
-      "val": 116,
-      "readings": null,
-      "sleep": 6.6,
-      "sleepScore": 78,
-      "recovery": 54,
-      "rhr": 41,
-      "stress": 27,
-      "bb": 97
-    },
     {
       "date": "2026-09-12",
       "src": "garmin",
@@ -362,8 +350,21 @@
       "sleepScore": 88,
       "recovery": 25,
       "rhr": 45,
-      "stress": 21,
+      "stress": 28,
       "bb": 98
+    },
+    {
+      "date": "2026-10-11",
+      "src": "garmin",
+      "val": 90,
+      "readings": null,
+      "sleep": 3.9,
+      "napMin": 29,
+      "sleepScore": 51,
+      "recovery": 1,
+      "rhr": 45,
+      "stress": 20,
+      "bb": 63
     }
   ],
   "activities": [
@@ -643,56 +644,6 @@
       "gload": 56,
       "te_aer": 2.4,
       "te_ana": 1.8,
-      "sets": null,
-      "src": "garmin"
-    },
-    {
-      "date": "2026-09-11",
-      "type": "e bike fitness",
-      "dur": 5,
-      "dist": 1.92,
-      "hr": 139,
-      "gload": 27,
-      "te_aer": 1.8,
-      "te_ana": 0.8,
-      "sets": null,
-      "src": "garmin"
-    },
-    {
-      "date": "2026-09-11",
-      "type": "e bike fitness",
-      "dur": 91,
-      "dist": 13.8,
-      "hr": 115,
-      "gload": 68,
-      "te_aer": 2.7,
-      "te_ana": 1.8,
-      "sets": null,
-      "src": "garmin"
-    },
-    {
-      "date": "2026-09-11",
-      "type": "strength training",
-      "dur": 9,
-      "dist": null,
-      "hr": 111,
-      "gload": null,
-      "te_aer": 0.4,
-      "te_ana": null,
-      "sets": {
-        "ROW": 252
-      },
-      "src": "garmin"
-    },
-    {
-      "date": "2026-09-11",
-      "type": "indoor cycling",
-      "dur": 5,
-      "dist": null,
-      "hr": 122,
-      "gload": 12,
-      "te_aer": 0.9,
-      "te_ana": 0.2,
       "sets": null,
       "src": "garmin"
     }
