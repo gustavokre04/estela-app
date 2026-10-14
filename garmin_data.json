@@ -1,18 +1,6 @@
 {
-  "generated": "2026-10-13T21:05:21",
+  "generated": "2026-10-14T08:40:46",
   "hrv": [
-    {
-      "date": "2026-09-14",
-      "src": "garmin",
-      "val": 121,
-      "readings": null,
-      "sleep": 6.7,
-      "sleepScore": 80,
-      "recovery": 50,
-      "rhr": 42,
-      "stress": 26,
-      "bb": 98
-    },
     {
       "date": "2026-09-15",
       "src": "garmin",
@@ -671,18 +659,6 @@
         "CURL": 39,
         "TRICEPS_EXTENSION": 146
       },
-      "src": "garmin"
-    },
-    {
-      "date": "2026-09-14",
-      "type": "e bike fitness",
-      "dur": 62,
-      "dist": 14.63,
-      "hr": 122,
-      "gload": 56,
-      "te_aer": 2.4,
-      "te_ana": 1.8,
-      "sets": null,
       "src": "garmin"
     }
   ],
