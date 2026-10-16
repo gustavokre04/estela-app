@@ -1,18 +1,6 @@
 {
-  "generated": "2026-10-15T12:30:52",
+  "generated": "2026-10-16T09:54:34",
   "hrv": [
-    {
-      "date": "2026-09-16",
-      "src": "garmin",
-      "val": 117,
-      "readings": null,
-      "sleep": 7.0,
-      "sleepScore": 86,
-      "recovery": 59,
-      "rhr": 41,
-      "stress": 23,
-      "bb": 98
-    },
     {
       "date": "2026-09-17",
       "src": "garmin",
@@ -368,6 +356,18 @@
   ],
   "activities": [
     {
+      "date": "2026-10-15",
+      "type": "resort skiing",
+      "dur": 39,
+      "dist": 4.55,
+      "hr": 77,
+      "gload": null,
+      "te_aer": 0.1,
+      "te_ana": null,
+      "sets": null,
+      "src": "garmin"
+    },
+    {
       "date": "2026-10-14",
       "type": "cycling",
       "dur": 97,
@@ -666,21 +666,6 @@
         "CURL": 67,
         "ROW": 37,
         "PLYO": 41
-      },
-      "src": "garmin"
-    },
-    {
-      "date": "2026-09-16",
-      "type": "strength training",
-      "dur": 33,
-      "dist": null,
-      "hr": 100,
-      "gload": 24,
-      "te_aer": 0.7,
-      "te_ana": 1.7,
-      "sets": {
-        "CURL": 39,
-        "TRICEPS_EXTENSION": 146
       },
       "src": "garmin"
     }
