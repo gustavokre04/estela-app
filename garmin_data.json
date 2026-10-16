@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-16T09:54:34",
+  "generated": "2026-10-16T15:32:29",
   "hrv": [
     {
       "date": "2026-09-17",
@@ -350,11 +350,35 @@
       "sleepScore": 55,
       "recovery": 1,
       "rhr": 49,
-      "stress": 30,
+      "stress": 35,
       "bb": 55
+    },
+    {
+      "date": "2026-10-16",
+      "src": "garmin",
+      "val": 99,
+      "readings": null,
+      "sleep": 7.3,
+      "sleepScore": 86,
+      "recovery": 34,
+      "rhr": 43,
+      "stress": 17,
+      "bb": 97
     }
   ],
   "activities": [
+    {
+      "date": "2026-10-15",
+      "type": "resort skiing",
+      "dur": 133,
+      "dist": 15.15,
+      "hr": 83,
+      "gload": 11,
+      "te_aer": 0.3,
+      "te_ana": 0.7,
+      "sets": null,
+      "src": "garmin"
+    },
     {
       "date": "2026-10-15",
       "type": "resort skiing",
