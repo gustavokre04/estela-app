@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-16T15:32:29",
+  "generated": "2026-10-16T15:34:24",
   "hrv": [
     {
       "date": "2026-09-17",
@@ -360,13 +360,27 @@
       "readings": null,
       "sleep": 7.3,
       "sleepScore": 86,
-      "recovery": 34,
+      "recovery": 38,
       "rhr": 43,
-      "stress": 17,
+      "stress": 19,
       "bb": 97
     }
   ],
   "activities": [
+    {
+      "date": "2026-10-16",
+      "type": "strength training",
+      "dur": 48,
+      "dist": null,
+      "hr": 88,
+      "gload": 6,
+      "te_aer": 0.5,
+      "te_ana": 0.1,
+      "sets": {
+        "SHRUG": 39
+      },
+      "src": "garmin"
+    },
     {
       "date": "2026-10-15",
       "type": "resort skiing",
