@@ -1,18 +1,6 @@
 {
-  "generated": "2026-10-17T01:57:36",
+  "generated": "2026-10-17T09:57:05",
   "hrv": [
-    {
-      "date": "2026-09-17",
-      "src": "garmin",
-      "val": 115,
-      "readings": null,
-      "sleep": 9.5,
-      "sleepScore": 94,
-      "recovery": 77,
-      "rhr": 41,
-      "stress": 24,
-      "bb": 100
-    },
     {
       "date": "2026-09-18",
       "src": "garmin",
@@ -272,6 +260,8 @@
       "src": "garmin",
       "val": 86,
       "readings": null,
+      "sleep": 5.8,
+      "sleepScore": 70,
       "recovery": 1,
       "rhr": 46,
       "stress": 37,
@@ -362,9 +352,343 @@
       "rhr": 43,
       "stress": 31,
       "bb": 97
+    },
+    {
+      "date": "2026-10-17",
+      "src": "garmin",
+      "sleep": null,
+      "recovery": 55,
+      "rhr": null,
+      "stress": null,
+      "bb": null
     }
   ],
-  "activities": [],
+  "activities": [
+    {
+      "date": "2026-10-16",
+      "type": "strength training",
+      "dur": 48,
+      "dist": null,
+      "hr": 88,
+      "gload": 6,
+      "te_aer": 0.5,
+      "te_ana": 0.1,
+      "sets": {
+        "SHRUG": 39
+      },
+      "src": "garmin"
+    },
+    {
+      "date": "2026-10-15",
+      "type": "resort skiing",
+      "dur": 133,
+      "dist": 15.15,
+      "hr": 83,
+      "gload": 11,
+      "te_aer": 0.3,
+      "te_ana": 0.7,
+      "sets": null,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-10-15",
+      "type": "resort skiing",
+      "dur": 39,
+      "dist": 4.55,
+      "hr": 77,
+      "gload": null,
+      "te_aer": 0.1,
+      "te_ana": null,
+      "sets": null,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-10-14",
+      "type": "cycling",
+      "dur": 97,
+      "dist": 47.9,
+      "hr": 143,
+      "gload": 155,
+      "te_aer": 3.8,
+      "te_ana": 2.3,
+      "sets": null,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-10-12",
+      "type": "strength training",
+      "dur": 58,
+      "dist": null,
+      "hr": 91,
+      "gload": null,
+      "te_aer": 0.3,
+      "te_ana": null,
+      "sets": {
+        "FLYE": 29
+      },
+      "src": "garmin"
+    },
+    {
+      "date": "2026-10-12",
+      "type": "indoor cycling",
+      "dur": 10,
+      "dist": null,
+      "hr": 135,
+      "gload": 24,
+      "te_aer": 2.0,
+      "te_ana": null,
+      "sets": null,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-10-11",
+      "type": "cycling",
+      "dur": 65,
+      "dist": 32.1,
+      "hr": 135,
+      "gload": 71,
+      "te_aer": 3.0,
+      "te_ana": 0.4,
+      "sets": null,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-10-09",
+      "type": "strength training",
+      "dur": 53,
+      "dist": null,
+      "hr": 96,
+      "gload": 9,
+      "te_aer": 0.6,
+      "te_ana": 0.2,
+      "sets": {
+        "CURL": 46,
+        "SQUAT": 184,
+        "SHRUG": 39
+      },
+      "src": "garmin"
+    },
+    {
+      "date": "2026-10-08",
+      "type": "running",
+      "dur": 50,
+      "dist": 10.03,
+      "hr": 172,
+      "gload": 256,
+      "te_aer": 4.3,
+      "te_ana": 3.4,
+      "sets": null,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-10-07",
+      "type": "strength training",
+      "dur": 49,
+      "dist": null,
+      "hr": 108,
+      "gload": 34,
+      "te_aer": 1.4,
+      "te_ana": 1.9,
+      "sets": null,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-10-06",
+      "type": "running",
+      "dur": 25,
+      "dist": 5.15,
+      "hr": 171,
+      "gload": 124,
+      "te_aer": 3.7,
+      "te_ana": 0.6,
+      "sets": null,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-10-04",
+      "type": "strength training",
+      "dur": 1,
+      "dist": null,
+      "hr": 98,
+      "gload": null,
+      "te_aer": null,
+      "te_ana": null,
+      "sets": null,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-10-04",
+      "type": "strength training",
+      "dur": 58,
+      "dist": null,
+      "hr": 93,
+      "gload": 30,
+      "te_aer": 1.1,
+      "te_ana": 1.8,
+      "sets": {
+        "CURL": 34,
+        "CARDIO": 107
+      },
+      "src": "garmin"
+    },
+    {
+      "date": "2026-10-03",
+      "type": "strength training",
+      "dur": 49,
+      "dist": null,
+      "hr": 99,
+      "gload": 34,
+      "te_aer": 1.4,
+      "te_ana": 1.9,
+      "sets": {
+        "CURL": 95,
+        "ROW": 100
+      },
+      "src": "garmin"
+    },
+    {
+      "date": "2026-09-29",
+      "type": "strength training",
+      "dur": 74,
+      "dist": null,
+      "hr": 85,
+      "gload": 7,
+      "te_aer": 0.6,
+      "te_ana": 0.1,
+      "sets": {
+        "PULL_UP": 88,
+        "FLYE": 71
+      },
+      "src": "garmin"
+    },
+    {
+      "date": "2026-09-27",
+      "type": "resort skiing",
+      "dur": 209,
+      "dist": 24.05,
+      "hr": 82,
+      "gload": 5,
+      "te_aer": 0.5,
+      "te_ana": null,
+      "sets": null,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-09-25",
+      "type": "indoor cycling",
+      "dur": 1,
+      "dist": null,
+      "hr": 83,
+      "gload": null,
+      "te_aer": null,
+      "te_ana": null,
+      "sets": null,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-09-25",
+      "type": "strength training",
+      "dur": 50,
+      "dist": null,
+      "hr": 87,
+      "gload": null,
+      "te_aer": 0.3,
+      "te_ana": null,
+      "sets": {
+        "TRICEPS_EXTENSION": 229
+      },
+      "src": "garmin"
+    },
+    {
+      "date": "2026-09-25",
+      "type": "cycling",
+      "dur": 61,
+      "dist": 22.65,
+      "hr": 91,
+      "gload": null,
+      "te_aer": 0.3,
+      "te_ana": null,
+      "sets": null,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-09-22",
+      "type": "running",
+      "dur": 0,
+      "dist": 0.0,
+      "hr": 48,
+      "gload": null,
+      "te_aer": null,
+      "te_ana": null,
+      "sets": null,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-09-21",
+      "type": "running",
+      "dur": 45,
+      "dist": 7.96,
+      "hr": 134,
+      "gload": 67,
+      "te_aer": 3.0,
+      "te_ana": 0.3,
+      "sets": null,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-09-20",
+      "type": "running",
+      "dur": 19,
+      "dist": 3.8,
+      "hr": 159,
+      "gload": 81,
+      "te_aer": 3.1,
+      "te_ana": 0.7,
+      "sets": null,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-09-19",
+      "type": "strength training",
+      "dur": 33,
+      "dist": null,
+      "hr": 103,
+      "gload": 40,
+      "te_aer": 1.4,
+      "te_ana": 2.1,
+      "sets": {
+        "CURL": 34,
+        "PULL_UP": 31
+      },
+      "src": "garmin"
+    },
+    {
+      "date": "2026-09-18",
+      "type": "strength training",
+      "dur": 22,
+      "dist": null,
+      "hr": 99,
+      "gload": 15,
+      "te_aer": 0.5,
+      "te_ana": 0.9,
+      "sets": {
+        "CURL": 36
+      },
+      "src": "garmin"
+    },
+    {
+      "date": "2026-09-18",
+      "type": "indoor cycling",
+      "dur": 18,
+      "dist": null,
+      "hr": 100,
+      "gload": 6,
+      "te_aer": 0.6,
+      "te_ana": null,
+      "sets": null,
+      "src": "garmin"
+    }
+  ],
   "extras": {
     "vo2max": null,
     "lactate_threshold": null
