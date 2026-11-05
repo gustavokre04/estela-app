@@ -1,18 +1,6 @@
 {
-  "generated": "2026-11-04T20:40:44",
+  "generated": "2026-11-05T09:34:25",
   "hrv": [
-    {
-      "date": "2026-10-06",
-      "src": "garmin",
-      "val": 101,
-      "readings": null,
-      "sleep": 8.1,
-      "sleepScore": 85,
-      "recovery": 60,
-      "rhr": 45,
-      "stress": 34,
-      "bb": 94
-    },
     {
       "date": "2026-10-07",
       "src": "garmin",
@@ -358,11 +346,47 @@
       "sleepScore": 76,
       "recovery": 75,
       "rhr": 47,
-      "stress": 34,
+      "stress": 36,
       "bb": 89
+    },
+    {
+      "date": "2026-11-05",
+      "src": "garmin",
+      "val": 87,
+      "readings": null,
+      "sleep": 8.0,
+      "sleepScore": 81,
+      "recovery": 84,
+      "rhr": 49,
+      "stress": 22,
+      "bb": 77
     }
   ],
   "activities": [
+    {
+      "date": "2026-11-04",
+      "type": "indoor cycling",
+      "dur": 10,
+      "dist": null,
+      "hr": 135,
+      "gload": 22,
+      "te_aer": 2.0,
+      "te_ana": null,
+      "sets": null,
+      "src": "garmin"
+    },
+    {
+      "date": "2026-11-04",
+      "type": "walking",
+      "dur": 13,
+      "dist": 0.31,
+      "hr": 75,
+      "gload": null,
+      "te_aer": null,
+      "te_ana": null,
+      "sets": null,
+      "src": "garmin"
+    },
     {
       "date": "2026-11-04",
       "type": "indoor cycling",
@@ -586,18 +610,6 @@
       "gload": 34,
       "te_aer": 1.4,
       "te_ana": 1.9,
-      "sets": null,
-      "src": "garmin"
-    },
-    {
-      "date": "2026-10-06",
-      "type": "running",
-      "dur": 25,
-      "dist": 5.15,
-      "hr": 171,
-      "gload": 124,
-      "te_aer": 3.7,
-      "te_ana": 0.6,
       "sets": null,
       "src": "garmin"
     }
