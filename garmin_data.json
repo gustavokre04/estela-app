@@ -1,19 +1,6 @@
 {
-  "generated": "2026-11-09T21:20:52",
+  "generated": "2026-11-10T08:33:31",
   "hrv": [
-    {
-      "date": "2026-10-11",
-      "src": "garmin",
-      "val": 90,
-      "readings": null,
-      "sleep": 3.9,
-      "napMin": 87,
-      "sleepScore": 51,
-      "recovery": 6,
-      "rhr": 45,
-      "stress": 32,
-      "bb": 63
-    },
     {
       "date": "2026-10-12",
       "src": "garmin",
@@ -358,8 +345,20 @@
       "sleepScore": 72,
       "recovery": 31,
       "rhr": 51,
-      "stress": 41,
+      "stress": 42,
       "bb": 67
+    },
+    {
+      "date": "2026-11-10",
+      "src": "garmin",
+      "val": 57,
+      "readings": null,
+      "sleep": 7.0,
+      "sleepScore": 56,
+      "recovery": 29,
+      "rhr": 52,
+      "stress": 28,
+      "bb": 37
     }
   ],
   "activities": [
@@ -714,18 +713,6 @@
       "gload": 24,
       "te_aer": 2.0,
       "te_ana": null,
-      "sets": null,
-      "src": "garmin"
-    },
-    {
-      "date": "2026-10-11",
-      "type": "cycling",
-      "dur": 65,
-      "dist": 32.1,
-      "hr": 135,
-      "gload": 71,
-      "te_aer": 3.0,
-      "te_ana": 0.4,
       "sets": null,
       "src": "garmin"
     }
