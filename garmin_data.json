@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-12T08:44:09",
+  "generated": "2026-11-12T11:27:27",
   "hrv": [
     {
       "date": "2026-10-14",
@@ -347,6 +347,18 @@
       "rhr": 46,
       "stress": 47,
       "bb": 80
+    },
+    {
+      "date": "2026-11-12",
+      "src": "garmin",
+      "val": 90,
+      "readings": null,
+      "sleep": 8.1,
+      "sleepScore": 75,
+      "recovery": 36,
+      "rhr": 50,
+      "stress": 27,
+      "bb": 72
     }
   ],
   "activities": [
