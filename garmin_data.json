@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-16T16:34:37",
+  "generated": "2026-11-16T16:36:46",
   "hrv": [
     {
       "date": "2026-10-18",
@@ -357,7 +357,7 @@
       "sleepScore": 84,
       "recovery": 27,
       "rhr": 50,
-      "stress": 28,
+      "stress": 29,
       "bb": 84
     }
   ],
