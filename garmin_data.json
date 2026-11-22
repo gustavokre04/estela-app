@@ -1,18 +1,6 @@
 {
-  "generated": "2026-11-21T18:42:12",
+  "generated": "2026-11-22T16:51:03",
   "hrv": [
-    {
-      "date": "2026-10-23",
-      "src": "garmin",
-      "val": 94,
-      "readings": null,
-      "sleep": 7.5,
-      "sleepScore": 84,
-      "recovery": 72,
-      "rhr": 43,
-      "stress": 32,
-      "bb": 98
-    },
     {
       "date": "2026-10-24",
       "src": "garmin",
@@ -208,6 +196,8 @@
       "src": "garmin",
       "val": 84,
       "readings": null,
+      "sleep": 8.4,
+      "sleepScore": 72,
       "recovery": 31,
       "rhr": 51,
       "stress": 42,
@@ -354,14 +344,39 @@
       "val": 99,
       "readings": null,
       "sleep": 7.8,
+      "napMin": 49,
       "sleepScore": 89,
-      "recovery": 64,
+      "recovery": 67,
       "rhr": 46,
-      "stress": 14,
+      "stress": 34,
       "bb": 95
+    },
+    {
+      "date": "2026-11-22",
+      "src": "garmin",
+      "val": 77,
+      "readings": null,
+      "sleep": 5.4,
+      "sleepScore": 61,
+      "recovery": 43,
+      "rhr": 52,
+      "stress": 26,
+      "bb": 59
     }
   ],
   "activities": [
+    {
+      "date": "2026-11-21",
+      "type": "strength training",
+      "dur": 23,
+      "dist": null,
+      "hr": 103,
+      "gload": 10,
+      "te_aer": 0.8,
+      "te_ana": 0.1,
+      "sets": null,
+      "src": "garmin"
+    },
     {
       "date": "2026-11-20",
       "type": "indoor cycling",
@@ -778,32 +793,6 @@
       "gload": 140,
       "te_aer": 3.8,
       "te_ana": 1.8,
-      "sets": null,
-      "src": "garmin"
-    },
-    {
-      "date": "2026-10-23",
-      "type": "strength training",
-      "dur": 48,
-      "dist": null,
-      "hr": 114,
-      "gload": 18,
-      "te_aer": 1.2,
-      "te_ana": 0.5,
-      "sets": {
-        "FLYE": 60
-      },
-      "src": "garmin"
-    },
-    {
-      "date": "2026-10-23",
-      "type": "indoor cycling",
-      "dur": 10,
-      "dist": null,
-      "hr": 111,
-      "gload": 15,
-      "te_aer": 1.1,
-      "te_ana": 0.2,
       "sets": null,
       "src": "garmin"
     }
