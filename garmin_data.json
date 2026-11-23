@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-23T09:04:09",
+  "generated": "2026-11-23T17:16:00",
   "hrv": [
     {
       "date": "2026-10-25",
@@ -159,8 +159,6 @@
       "src": "garmin",
       "val": 84,
       "readings": null,
-      "sleep": 6.7,
-      "sleepScore": 58,
       "recovery": 32,
       "rhr": 49,
       "stress": 43,
@@ -208,8 +206,6 @@
       "src": "garmin",
       "val": 93,
       "readings": null,
-      "sleep": 7.7,
-      "sleepScore": 80,
       "recovery": 16,
       "rhr": 46,
       "stress": 47,
@@ -222,71 +218,7 @@
       "readings": null,
       "sleep": 8.1,
       "sleepScore": 75,
-      "recovery": 43,
-      "rhr": 50,
-      "stress": 42,
-      "bb": 72
-    },
-    {
-      "date": "2026-11-13",
-      "src": "garmin",
-      "val": 98,
-      "readings": null,
-      "sleep": 6.9,
-      "sleepScore": 81,
-      "recovery": 32,
-      "rhr": 49,
-      "stress": 46,
-      "bb": 83
-    },
-    {
-      "date": "2026-11-14",
-      "src": "garmin",
-      "val": 62,
-      "readings": null,
-      "sleep": 3.3,
-      "napMin": 45,
-      "sleepScore": 35,
-      "recovery": 1,
-      "rhr": 54,
-      "stress": 55,
-      "bb": 20
-    },
-    {
-      "date": "2026-11-15",
-      "src": "garmin",
-      "val": 87,
-      "readings": null,
-      "sleep": 8.4,
-      "sleepScore": 85,
-      "recovery": 33,
-      "rhr": 52,
-      "stress": 35,
-      "bb": 76
-    },
-    {
-      "date": "2026-11-16",
-      "src": "garmin",
-      "val": 91,
-      "readings": null,
-      "sleep": 7.7,
-      "sleepScore": 84,
-      "recovery": 27,
-      "rhr": 50,
-      "stress": 38,
-      "bb": 84
-    },
-    {
-      "date": "2026-11-17",
-      "src": "garmin",
-      "val": 93,
-      "readings": null,
-      "sleep": 8.2,
-      "sleepScore": 90,
-      "recovery": 60,
-      "rhr": 49,
-      "stress": 39,
-      "bb": 83
+      "recovery": 43
     },
     {
       "date": "2026-11-18",
