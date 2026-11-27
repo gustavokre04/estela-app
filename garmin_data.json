@@ -1,17 +1,6 @@
 {
-  "generated": "2026-11-26T20:51:49",
+  "generated": "2026-11-27T10:22:34",
   "hrv": [
-    {
-      "date": "2026-10-28",
-      "src": "garmin",
-      "val": null,
-      "readings": null,
-      "sleep": null,
-      "recovery": 73,
-      "rhr": null,
-      "stress": 61,
-      "bb": null
-    },
     {
       "date": "2026-10-29",
       "src": "garmin",
@@ -360,13 +349,37 @@
       "readings": null,
       "sleep": 8.3,
       "sleepScore": 96,
-      "recovery": 59,
+      "recovery": 65,
       "rhr": 45,
-      "stress": 26,
+      "stress": 29,
       "bb": 100
+    },
+    {
+      "date": "2026-11-27",
+      "src": "garmin",
+      "val": 86,
+      "readings": null,
+      "sleep": 7.0,
+      "sleepScore": 85,
+      "recovery": 71,
+      "rhr": 49,
+      "stress": 14,
+      "bb": 97
     }
   ],
   "activities": [
+    {
+      "date": "2026-11-26",
+      "type": "strength training",
+      "dur": 8,
+      "dist": null,
+      "hr": 91,
+      "gload": null,
+      "te_aer": 0.1,
+      "te_ana": null,
+      "sets": null,
+      "src": "garmin"
+    },
     {
       "date": "2026-11-26",
       "type": "indoor cycling",
